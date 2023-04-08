@@ -1,6 +1,6 @@
 package utc2.itk62.sneaker.models;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class Invoice {
     private int id;

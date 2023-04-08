@@ -1,6 +1,6 @@
 package utc2.itk62.sneaker.models;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Discount {
