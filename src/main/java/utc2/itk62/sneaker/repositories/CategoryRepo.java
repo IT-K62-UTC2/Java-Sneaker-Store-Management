@@ -123,6 +123,11 @@ public class CategoryRepo {
             result = ptmt.executeUpdate();
             conn.commit();
         }catch (SQLException e){
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             e.printStackTrace();
         } finally {
             ConnectionUtil.closeConnection();
@@ -142,6 +147,11 @@ public class CategoryRepo {
             result = ptmt.executeUpdate();
             conn.commit();
         }catch (SQLException e){
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             e.printStackTrace();
         } finally {
             ConnectionUtil.closeConnection();

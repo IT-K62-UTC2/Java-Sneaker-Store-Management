@@ -2,7 +2,6 @@ package utc2.itk62.sneaker.repositories;
 
 import utc2.itk62.sneaker.common.Paging;
 import utc2.itk62.sneaker.connection.ConnectionUtil;
-import utc2.itk62.sneaker.models.Category;
 import utc2.itk62.sneaker.models.Staff;
 
 import java.sql.Connection;
