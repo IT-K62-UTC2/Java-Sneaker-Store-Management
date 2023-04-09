@@ -58,9 +58,15 @@ public class HelloApplication extends Application {
 //        invoiceRepo.getCategoryByIdCustomer(1);
 //        invoiceRepo.getAllInvoices(new Paging(0, 0));
 //        invoiceRepo.createInvoice(new Invoice(1, 2, 1));
-        InvoiceDetailRepo invoiceDetailRepo = new InvoiceDetailRepo();
-        invoiceDetailRepo.getAllInvoicesDetailByInvoiceId(new Paging(0, 0), 1);
-        invoiceDetailRepo.createInvoiceDetail(new InvoiceDetail());
+//        InvoiceDetailRepo invoiceDetailRepo = new InvoiceDetailRepo();
+//        invoiceDetailRepo.getAllInvoicesDetailByInvoiceId(new Paging(0, 0), 1);
+//        invoiceDetailRepo.createInvoiceDetail(new InvoiceDetail());
+
+        ProductRepo productRepo = new ProductRepo();
+        productRepo.createProduct(new Product());
+        productRepo.getAllProducts(new Paging(0, 0));
+        productRepo.deleteProduct(1);
+        productRepo.updateProduct(new Product());
     }
 
 }

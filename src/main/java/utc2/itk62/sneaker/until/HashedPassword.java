@@ -1,4 +1,4 @@
-package utc2.itk62.sneaker.connection;
+package utc2.itk62.sneaker.until;
 
 
 import java.nio.charset.StandardCharsets;
