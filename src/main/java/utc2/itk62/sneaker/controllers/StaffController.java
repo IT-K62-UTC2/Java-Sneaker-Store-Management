@@ -43,25 +43,25 @@ public class StaffController {
         gender.setValue("Male");
 
         // idPosition
-        List<Position> positions = positionServie.getAllPosition();
-        ObservableList<Pair<String, Integer>> items = FXCollections.observableArrayList();
-        for (Position position : positions) {
-            items.add(new Pair<String, Integer>(position.getName(), position.getId()));
-        }
-
-        idPosition.setItems(items);
-        idPosition.setConverter(new StringConverter<Pair<String, Integer>>() {
-
-            @Override
-            public String toString(Pair<String, Integer> stringIntegerPair) {
-                return stringIntegerPair.getKey();
-            }
-
-            @Override
-            public Pair<String, Integer> fromString(String s) {
-                return null;
-            }
-        });
+//        List<Position> positions = positionServie.getAllPosition();
+//        ObservableList<Pair<String, Integer>> items = FXCollections.observableArrayList();
+//        for (Position position : positions) {
+//            items.add(new Pair<String, Integer>(position.getName(), position.getId()));
+//        }
+//
+//        idPosition.setItems(items);
+//        idPosition.setConverter(new StringConverter<Pair<String, Integer>>() {
+//
+//            @Override
+//            public String toString(Pair<String, Integer> stringIntegerPair) {
+//                return stringIntegerPair.getKey();
+//            }
+//
+//            @Override
+//            public Pair<String, Integer> fromString(String s) {
+//                return null;
+//            }
+//        });
 
 
 

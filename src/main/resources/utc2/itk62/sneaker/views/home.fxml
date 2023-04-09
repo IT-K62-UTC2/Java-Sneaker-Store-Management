@@ -31,6 +31,7 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#handleBtnHome" prefHeight="26.0" prefWidth="222.0" text="Home" />
                         <Button mnemonicParsing="false" onAction="#handleBtnStaff" prefHeight="26.0" prefWidth="224.0" text="Staff" />
+                        <Button mnemonicParsing="false"  onAction="#handleBtnCategory" prefHeight="26.0" prefWidth="210.0" text="Category" />
                      </children>
                   </VBox>
                </children>

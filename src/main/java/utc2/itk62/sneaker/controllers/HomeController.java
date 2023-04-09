@@ -32,4 +32,10 @@ public class HomeController {
         Node node = loader.load();
         include.getChildren().set(0,node);
     }
+
+    public void handleBtnCategory(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/category.fxml"));
+        Node node = loader.load();
+        include.getChildren().set(0,node);
+    }
 }
