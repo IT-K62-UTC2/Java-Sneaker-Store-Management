@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.sneaker.controllers.HomeController">
    <children>
-      <GridPane layoutX="13.0" prefHeight="700.0" prefWidth="1400.0">
+      <GridPane layoutX="7.0" prefHeight="700.0" prefWidth="1400.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="200.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="1200.0" minWidth="10.0" prefWidth="1200.0" />
@@ -29,11 +29,13 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="Quản lí nhân viên" />
+                        <Button mnemonicParsing="false" onAction="#handleBtnHome" prefHeight="26.0" prefWidth="222.0" text="Home" />
+                        <Button mnemonicParsing="false" onAction="#handleBtnStaff" prefHeight="26.0" prefWidth="224.0" text="Staff" />
                      </children>
                   </VBox>
                </children>
             </GridPane>
+             <AnchorPane fx:id="include" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>
