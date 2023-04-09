@@ -5,20 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utc2.itk62.sneaker.common.Paging;
-import utc2.itk62.sneaker.connection.ConnectionUtil;
-import utc2.itk62.sneaker.models.Category;
-import utc2.itk62.sneaker.models.Customer;
-import utc2.itk62.sneaker.models.Staff;
-import utc2.itk62.sneaker.repositories.CategoryRepo;
-import utc2.itk62.sneaker.repositories.CustomerRepo;
-import utc2.itk62.sneaker.repositories.PositionRepo;
-import utc2.itk62.sneaker.repositories.StaffRepo;
+import utc2.itk62.sneaker.models.*;
+import utc2.itk62.sneaker.repositories.*;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class HelloApplication extends Application {
     @Override
@@ -62,7 +52,15 @@ public class HelloApplication extends Application {
 //        customerRepo.getCustomerByPhoneNumber("123");
 //        customerRepo.getCustomerById(1);
 
-
+//        InvoiceRepo invoiceRepo = new InvoiceRepo();
+//        invoiceRepo.deleteInvoice(1);
+//        invoiceRepo.getCategoryByIdStaff(1);
+//        invoiceRepo.getCategoryByIdCustomer(1);
+//        invoiceRepo.getAllInvoices(new Paging(0, 0));
+//        invoiceRepo.createInvoice(new Invoice(1, 2, 1));
+        InvoiceDetailRepo invoiceDetailRepo = new InvoiceDetailRepo();
+        invoiceDetailRepo.getAllInvoicesDetailByInvoiceId(new Paging(0, 0), 1);
+        invoiceDetailRepo.createInvoiceDetail(new InvoiceDetail());
     }
 
 }

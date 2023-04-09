@@ -6,7 +6,7 @@ public class Supplier {
     private int id;
     private String address;
     private String phoneNumber;
-    private int quantityProduct;
+    private int productQuantity;
     private int status;
     private Timestamp createdAt;
     private Timestamp updatedAt;
@@ -14,10 +14,10 @@ public class Supplier {
     public Supplier() {
     }
 
-    public Supplier(String address, String phoneNumber, int quantityProduct) {
+    public Supplier(String address, String phoneNumber, int productQuantity) {
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.quantityProduct = quantityProduct;
+        this.productQuantity = productQuantity;
     }
 
     public void setId(int id) {
@@ -33,7 +33,7 @@ public class Supplier {
     }
 
     public void setQuantityProduct(int quantityProduct) {
-        this.quantityProduct = quantityProduct;
+        this.productQuantity = quantityProduct;
     }
 
     public void setStatus(int status) {
@@ -61,7 +61,7 @@ public class Supplier {
     }
 
     public int getQuantityProduct() {
-        return quantityProduct;
+        return productQuantity;
     }
 
     public int getStatus() {
