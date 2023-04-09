@@ -8,5 +8,6 @@ module utc2.itk62.sneaker {
     requires mysql.connector.java;
 
     opens utc2.itk62.sneaker to javafx.fxml;
+    exports utc2.itk62.sneaker.controllers;
     exports utc2.itk62.sneaker;
 }

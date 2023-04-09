@@ -15,7 +15,7 @@ public class StaffRepo {
     public StaffRepo() {
     }
 
-    public List<Staff> getAllCategories(Paging paging) {
+    public List<Staff> getAllStaff(Paging paging) {
         paging.checkPageLimit();
         List<Staff> staffList = new ArrayList<Staff>();
         String query = "SELECT * FROM staff WHERE status = 1 LIMIT ? OFFSET ? ";
@@ -58,6 +58,7 @@ public class StaffRepo {
             while (rs.next()) {
                 staff = new Staff();
                 staff.setId(rs.getInt("id"));
+                staff.setIdPosition(rs.getInt("id_position"));
                 staff.setUsername(rs.getString("username"));
                 staff.setPassword(rs.getString("password"));
                 staff.setFullName(rs.getString("fullname"));
@@ -88,6 +89,7 @@ public class StaffRepo {
             while (rs.next()) {
                 staff = new Staff();
                 staff.setId(rs.getInt("id"));
+                staff.setIdPosition(rs.getInt("id_position"));
                 staff.setUsername(rs.getString("username"));
                 staff.setPassword(rs.getString("password"));
                 staff.setFullName(rs.getString("fullname"));
@@ -110,6 +112,7 @@ public class StaffRepo {
 
     public int updateStaff(Staff staff){
         String query = "UPDATE staff SET" +
+                "id_position = ?" +
                 " username = ?," +
                 " password = ?," +
                 " fullname = ?," +
@@ -124,15 +127,17 @@ public class StaffRepo {
         try{
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
-            ptmt.setString(1, staff.getUsername());
-            ptmt.setString(2, staff.getPassword());
-            ptmt.setString(3, staff.getFullName());
-            ptmt.setString(4, staff.getAddress());
-            ptmt.setString(5, staff.getEmail());
-            ptmt.setString(6, staff.getPhoneNumber());
-            ptmt.setString(7, staff.getCccd());
-            ptmt.setString(8, staff.getGender());
-            ptmt.setInt(9, staff.getId());
+
+            ptmt.setInt(1, staff.getIdPosition());
+            ptmt.setString(2, staff.getUsername());
+            ptmt.setString(3, staff.getPassword());
+            ptmt.setString(4, staff.getFullName());
+            ptmt.setString(5, staff.getAddress());
+            ptmt.setString(6, staff.getEmail());
+            ptmt.setString(7, staff.getPhoneNumber());
+            ptmt.setString(8, staff.getCccd());
+            ptmt.setString(9, staff.getGender());
+            ptmt.setInt(10, staff.getId());
             result = ptmt.executeUpdate();
             conn.commit();
         }catch (SQLException e){
@@ -150,6 +155,7 @@ public class StaffRepo {
 
     public int createStaff(Staff staff) {
         String query = "INSERT INTO staff(" +
+                "id_position" +
                 "username, " +
                 "password, " +
                 "fullname, " +
@@ -158,21 +164,22 @@ public class StaffRepo {
                 "phone_number, " +
                 "cccd, " +
                 "gender)" +
-                " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+                " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
         try{
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
-            ptmt.setString(1, staff.getUsername());
-            ptmt.setString(2, staff.getPassword());
-            ptmt.setString(3, staff.getFullName());
-            ptmt.setString(4, staff.getAddress());
-            ptmt.setString(5, staff.getEmail());
-            ptmt.setString(6, staff.getPhoneNumber());
-            ptmt.setString(7, staff.getCccd());
-            ptmt.setString(8, staff.getGender());
+            ptmt.setInt(1, staff.getIdPosition());
+            ptmt.setString(2, staff.getUsername());
+            ptmt.setString(3, staff.getPassword());
+            ptmt.setString(4, staff.getFullName());
+            ptmt.setString(5, staff.getAddress());
+            ptmt.setString(6, staff.getEmail());
+            ptmt.setString(7, staff.getPhoneNumber());
+            ptmt.setString(8, staff.getCccd());
+            ptmt.setString(9, staff.getGender());
             result = ptmt.executeUpdate();
             conn.commit();
         }catch (SQLException e){
