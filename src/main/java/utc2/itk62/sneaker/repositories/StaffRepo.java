@@ -2,6 +2,7 @@ package utc2.itk62.sneaker.repositories;
 
 import utc2.itk62.sneaker.common.Paging;
 import utc2.itk62.sneaker.connection.ConnectionUtil;
+import utc2.itk62.sneaker.models.Position;
 import utc2.itk62.sneaker.models.Staff;
 
 import java.sql.Connection;
@@ -18,7 +19,8 @@ public class StaffRepo {
     public List<Staff> getAllStaff(Paging paging) {
         paging.checkPageLimit();
         List<Staff> staffList = new ArrayList<Staff>();
-        String query = "SELECT * FROM staff WHERE status = 1 LIMIT ? OFFSET ? ";
+        String query = "SELECT * FROM staff LEFT JOIN position ON staff.id_position = position.id " +
+                "WHERE staff.status = 1 LIMIT ? OFFSET ?";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1,paging.getLimit());
@@ -26,11 +28,15 @@ public class StaffRepo {
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 Staff staff = new Staff();
-                staff.setId(rs.getInt("id"));
+                Position position = new Position();
+                position.setName(rs.getString("name"));
+                position.setId(rs.getInt("position.id"));
+                staff.setId(rs.getInt("staff.id"));
                 staff.setUsername(rs.getString("username"));
                 staff.setPassword(rs.getString("password"));
                 staff.setFullName(rs.getString("fullname"));
-                staff.setIdPosition(rs.getInt("id_position"));
+//                staff.setIdPosition(rs.getInt("id_position"));
+                staff.setPosition(position);
                 staff.setAddress(rs.getString("address"));
                 staff.setEmail(rs.getString("email"));
                 staff.setPhoneNumber(rs.getString("phone_number"));
@@ -59,7 +65,7 @@ public class StaffRepo {
             while (rs.next()) {
                 staff = new Staff();
                 staff.setId(rs.getInt("id"));
-                staff.setIdPosition(rs.getInt("id_position"));
+//                staff.setIdPosition(rs.getInt("id_position"));
                 staff.setUsername(rs.getString("username"));
                 staff.setPassword(rs.getString("password"));
                 staff.setFullName(rs.getString("fullname"));
@@ -81,16 +87,22 @@ public class StaffRepo {
     }
 
     public Staff getStaffByUsername(String username) {
-        String query = "SELECT * FROM staff WHERE status = 1 AND username=?";
+        String query = "SELECT * FROM staff " +
+                " INNER JOIN position ON position.id = staff.id_position " +
+                "WHERE staff.status = 1 AND username=?";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setString(1,  username);
             ResultSet rs = ptmt.executeQuery();
             Staff staff = null;
+            Position position = null;
             while (rs.next()) {
                 staff = new Staff();
+                position = new Position();
+                position.setName(rs.getString("name"));
+                position.setId(rs.getInt("position.id"));
                 staff.setId(rs.getInt("id"));
-                staff.setIdPosition(rs.getInt("id_position"));
+                staff.setPosition(position);
                 staff.setUsername(rs.getString("username"));
                 staff.setPassword(rs.getString("password"));
                 staff.setFullName(rs.getString("fullname"));
@@ -113,7 +125,7 @@ public class StaffRepo {
 
     public int updateStaff(Staff staff){
         String query = "UPDATE staff SET" +
-                "id_position = ?" +
+                " id_position = ?,  " +
                 " username = ?," +
                 " password = ?," +
                 " fullname = ?," +
@@ -129,7 +141,7 @@ public class StaffRepo {
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
 
-            ptmt.setInt(1, staff.getIdPosition());
+            ptmt.setInt(1, staff.getPosition().getId());
             ptmt.setString(2, staff.getUsername());
             ptmt.setString(3, staff.getPassword());
             ptmt.setString(4, staff.getFullName());
@@ -139,6 +151,7 @@ public class StaffRepo {
             ptmt.setString(8, staff.getCccd());
             ptmt.setString(9, staff.getGender());
             ptmt.setInt(10, staff.getId());
+            System.out.println(ptmt);
             result = ptmt.executeUpdate();
             conn.commit();
         }catch (SQLException e){
@@ -172,7 +185,7 @@ public class StaffRepo {
         try{
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
-            ptmt.setInt(1, staff.getIdPosition());
+            ptmt.setInt(1, staff.getPosition().getId());
             ptmt.setString(2, staff.getUsername());
             ptmt.setString(3, staff.getPassword());
             ptmt.setString(4, staff.getFullName());

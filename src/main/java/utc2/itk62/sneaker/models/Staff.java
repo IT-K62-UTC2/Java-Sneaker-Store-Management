@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class Staff {
     private int id;
-    private int idPosition;
+    private Position position;
     private String username;
     private String password;
     private String fullName;
@@ -20,8 +20,8 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(int idPosition, int i, String username, String password, String fullName, String address, String email, String phoneNumber, String cccd, String gender) {
-        this.idPosition = idPosition;
+    public Staff(Position position, String username, String password, String fullName, String address, String email, String phoneNumber, String cccd, String gender) {
+        this.position = position;
         this.username = username;
         this.password = password;
         this.fullName = fullName;
@@ -32,12 +32,12 @@ public class Staff {
         this.gender = gender;
     }
 
-    public int getIdPosition() {
-        return idPosition;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setIdPosition(int idPosition) {
-        this.idPosition = idPosition;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public void setId(int id) {
