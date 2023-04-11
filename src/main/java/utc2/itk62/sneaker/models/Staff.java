@@ -20,7 +20,7 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(int idPosition, String username, String password, String fullName, String address, String email, String phoneNumber, String cccd, String gender) {
+    public Staff(int idPosition, int i, String username, String password, String fullName, String address, String email, String phoneNumber, String cccd, String gender) {
         this.idPosition = idPosition;
         this.username = username;
         this.password = password;

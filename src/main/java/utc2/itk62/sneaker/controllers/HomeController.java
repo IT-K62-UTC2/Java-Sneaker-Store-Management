@@ -4,14 +4,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import utc2.itk62.sneaker.Main;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class HomeController {
     @FXML
     public AnchorPane include;
+    @FXML
+    public ImageView image;
 
     public void initialize() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/dashboard.fxml"));

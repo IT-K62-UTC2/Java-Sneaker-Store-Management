@@ -25,10 +25,19 @@
           <RowConstraints maxHeight="217.60001220703123" minHeight="10.0" prefHeight="217.60001220703123" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+            <TableView fx:id="tableListStaff" onMouseClicked="#handleClickedTableView" onKeyPressed="#handleOnKeyPresedTableView" maxWidth="1200.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="colStt" prefWidth="75.0" text="STT" />
+                <TableColumn fx:id="colPosition" prefWidth="75.0" text="Vị trí" />
+                  <TableColumn fx:id="colUsername" prefWidth="75.0" text="Tên đăng nhập" />
+                  <TableColumn fx:id="colFullname" prefWidth="75.0" text="Họ và tên" />
+                  <TableColumn fx:id="colAddress" prefWidth="75.0" text="Địa chỉ" />
+                  <TableColumn fx:id="colEmail" prefWidth="75.0" text="Email" />
+                  <TableColumn fx:id="colPhoneNumber" prefWidth="75.0" text="Số điện thoại" />
+                  <TableColumn fx:id="colCccd" prefWidth="75.0" text="CCCD" />
+                  <TableColumn fx:id="colGender" prefWidth="75.0" text="Giới tính" />
+                  <TableColumn fx:id="colCreatedAt" prefWidth="75.0" text="Ngày tạo" />
+                  <TableColumn fx:id="colStatus" prefWidth="75.0" text="Trạng thái" />
               </columns>
             </TableView>
             <GridPane GridPane.rowIndex="1">
@@ -53,12 +62,12 @@
                           </rowConstraints>
                            <children>
                               <Label text="Search" />
-                              <TextField GridPane.columnIndex="1" />
+                              <TextField fx:id="search" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                      </children>
                   </HBox>
-                  <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="keySearch" prefWidth="150.0" GridPane.columnIndex="1" />
                   <Button mnemonicParsing="false" text="Export excel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <GridPane GridPane.rowIndex="1">
                     <columnConstraints>
@@ -120,6 +129,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
@@ -131,16 +141,18 @@
                         <Label text="Address" GridPane.rowIndex="5" />
                         <Label text="Phone number" GridPane.rowIndex="6" />
                         <Label text="CCCD" GridPane.rowIndex="7" />
-                        <Label text="Gender" GridPane.rowIndex="8" />
+                        <Label text="Gender" GridPane.rowIndex="9" />
                         <TextField fx:id="idStaff" GridPane.columnIndex="1" />
                         <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="fullname" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="address" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="phoneNumber" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" fx:id="cccd" />
-                        <ComboBox prefHeight="26.0" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="8" fx:id="gender"  />
-                        <ComboBox prefHeight="26.0" prefWidth="314.0" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="idPosition" />
-                        <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="password" />
+                        <TextField fx:id="fullname" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="address" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="phoneNumber" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="cccd" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <ComboBox fx:id="gender" prefHeight="26.0" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <ComboBox fx:id="idPosition" prefHeight="26.0" prefWidth="314.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Email" GridPane.rowIndex="8" />
+                        <TextField GridPane.columnIndex="1" fx:id="email" GridPane.rowIndex="8" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="1">
@@ -156,9 +168,9 @@
                         <Label text="Avartar" />
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                            <children>
-                              <Button mnemonicParsing="false" text="Add" />
-                              <Button mnemonicParsing="false" text="Update" />
-                              <Button mnemonicParsing="false" text="Delete" />
+                              <Button mnemonicParsing="false" onAction="#handleBtnAdd" text="Add" />
+                              <Button mnemonicParsing="false" onAction="#handleBtnUpdate" text="Update" />
+                              <Button mnemonicParsing="false" onAction="#handleBtnDelete" text="Delete" />
                            </children>
                         </HBox>
                      </children>

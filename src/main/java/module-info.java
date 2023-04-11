@@ -10,4 +10,5 @@ module utc2.itk62.sneaker {
     opens utc2.itk62.sneaker to javafx.fxml;
     exports utc2.itk62.sneaker.controllers;
     exports utc2.itk62.sneaker;
+    exports utc2.itk62.sneaker.models;
 }
