@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class ImportGoods {
     private int id;
-    private int idStaff;
+    private Staff staff;
     private int quantity;
     private int moneyTotal;
     private int status;
@@ -14,8 +14,8 @@ public class ImportGoods {
     public ImportGoods() {
     }
 
-    public ImportGoods(int idStaff, int quantity, int moneyTotal) {
-        this.idStaff = idStaff;
+    public ImportGoods(Staff staff, int quantity, int moneyTotal) {
+        this.staff = staff;
         this.quantity = quantity;
         this.moneyTotal = moneyTotal;
     }
@@ -24,9 +24,6 @@ public class ImportGoods {
         this.id = id;
     }
 
-    public void setIdStaff(int idStaff) {
-        this.idStaff = idStaff;
-    }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
@@ -52,8 +49,12 @@ public class ImportGoods {
         return id;
     }
 
-    public int getIdStaff() {
-        return idStaff;
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
+    public Staff getStaff() {
+        return staff;
     }
 
     public int getQuantity() {

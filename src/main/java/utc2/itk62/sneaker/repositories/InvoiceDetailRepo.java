@@ -36,8 +36,8 @@ public class InvoiceDetailRepo {
             while (rs.next()) {
                 InvoiceDetail invoiceDetail = new InvoiceDetail();
                 invoiceDetail.setId(rs.getInt("id"));
-                invoiceDetail.setIdProduct(rs.getInt("id_product"));
-                invoiceDetail.setIdInvoice(rs.getInt("id_invoice"));
+//                invoiceDetail.setIdProduct(rs.getInt("id_product"));
+//                invoiceDetail.setIdInvoice(rs.getInt("id_invoice"));
                 invoiceDetail.setProductQuantity(rs.getInt("product_quantity"));
                 invoiceDetail.setMoneyTotal(rs.getDouble("money_total"));
                 invoiceDetail.setStatus(rs.getInt("status"));
@@ -66,8 +66,8 @@ public class InvoiceDetailRepo {
         try{
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
-            ptmt.setInt(1, invoiceDetail.getIdInvoice());
-            ptmt.setInt(2, invoiceDetail.getIdProduct());
+//            ptmt.setInt(1, invoiceDetail.getIdInvoice());
+//            ptmt.setInt(2, invoiceDetail.getIdProduct());
             ptmt.setInt(3, invoiceDetail.getProductQuantity());
             ptmt.setDouble(4, invoiceDetail.getMoneyTotal());
             result = ptmt.executeUpdate();

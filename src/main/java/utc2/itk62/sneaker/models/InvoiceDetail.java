@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 public class InvoiceDetail {
     private int id;
-    private int idInvoice;
-    private int idProduct;
+    private Invoice invoice;
+    private Product product;
     private int productQuantity;
     private double moneyTotal;
     private int status;
@@ -15,9 +15,10 @@ public class InvoiceDetail {
     public InvoiceDetail() {
     }
 
-    public InvoiceDetail(int idInvoice, int idProduct, int productQuantity, double moneyTotal) {
-        this.idInvoice = idInvoice;
-        this.idProduct = idProduct;
+
+    public InvoiceDetail(Invoice invoice, Product product, int productQuantity, double moneyTotal) {
+        this.invoice = invoice;
+        this.product = product;
         this.productQuantity = productQuantity;
         this.moneyTotal = moneyTotal;
     }
@@ -26,12 +27,20 @@ public class InvoiceDetail {
         this.id = id;
     }
 
-    public int getIdInvoice() {
-        return idInvoice;
+    public Invoice getInvoice() {
+        return invoice;
     }
 
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public void setProductQuantity(int productQuantity) {
@@ -56,14 +65,6 @@ public class InvoiceDetail {
 
     public int getId() {
         return id;
-    }
-
-    public void setIdInvoice(int idInvoice) {
-        this.idInvoice = idInvoice;
-    }
-
-    public int getIdProduct() {
-        return idProduct;
     }
 
     public int getProductQuantity() {

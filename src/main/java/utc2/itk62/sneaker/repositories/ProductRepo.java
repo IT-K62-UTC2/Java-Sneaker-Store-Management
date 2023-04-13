@@ -29,8 +29,41 @@ public class ProductRepo {
             while (rs.next()) {
                 Product product = new Product();
                 product.setId(rs.getInt("id"));
-                product.setIdSupplier(rs.getInt("id_supplier"));
-                product.setIdCategory(rs.getInt("id_category"));
+//                product.setIdSupplier(rs.getInt("id_supplier"));
+//                product.setIdCategory(rs.getInt("id_category"));
+                product.setName(rs.getString("name"));
+                product.setSize(rs.getDouble("size"));
+                product.setDescription(rs.getString("desc"));
+                product.setPrice(rs.getDouble("price"));
+                product.setAvatar(rs.getString("avatar"));
+                product.setStatus(rs.getInt("status"));
+                product.setCreatedAt(rs.getTimestamp("created_at"));
+                product.setUpdatedAt(rs.getTimestamp("updated_at"));
+                productList.add(product);
+            }
+            return productList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionUtil.closeConnection();
+        }
+    }
+
+    public List<Product> getProductListByIdCategory(int idCategory) {
+        List<Product> productList = new ArrayList<Product>();
+        String query = "SELECT * FROM product" +
+                "LEFT JOIN supplier ON supplier.id = product.id" +
+                " WHERE product.status = 1";
+        try {
+            PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
+            ptmt.setInt(1, idCategory);
+            ResultSet rs = ptmt.executeQuery();
+            while (rs.next()) {
+                // Product
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+//                product.setIdSupplier(rs.getInt("id_supplier"));
+//                product.setIdCategory(rs.getInt("id_category"));
                 product.setName(rs.getString("name"));
                 product.setSize(rs.getDouble("size"));
                 product.setDescription(rs.getString("desc"));
@@ -58,8 +91,8 @@ public class ProductRepo {
         try{
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
-            ptmt.setInt(1, product.getIdSupplier());
-            ptmt.setInt(2, product.getIdCategory());
+//            ptmt.setInt(1, product.getIdSupplier());
+//            ptmt.setInt(2, product.getIdCategory());
             ptmt.setString(3, product.getName());
             ptmt.setDouble(4, product.getSize());
             ptmt.setString(5, product.getDescription());
@@ -90,8 +123,8 @@ public class ProductRepo {
         try{
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
-            ptmt.setInt(1, product.getIdSupplier());
-            ptmt.setInt(2, product.getIdCategory());
+            ptmt.setInt(1, product.getSupplier().getId());
+            ptmt.setInt(2, product.getCategory().getId());
             ptmt.setString(3, product.getName());
             ptmt.setDouble(4, product.getSize());
             ptmt.setString(5, product.getDescription());

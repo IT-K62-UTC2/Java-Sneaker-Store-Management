@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.sneaker.controllers.CategoryController">
    <children>
       <GridPane layoutX="11.0" layoutY="7.0" prefHeight="700.0" prefWidth="1200.0">
@@ -25,16 +24,27 @@
           <RowConstraints maxHeight="313.5999755859375" minHeight="10.0" prefHeight="147.1999633789062" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" fx:id="tableListProduct">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="colSTTProduct" prefWidth="75.0" text="STT" />
+                <TableColumn fx:id="colSupplierProduct" prefWidth="75.0" text="Supplier" />
+                  <TableColumn fx:id="colNameProduct" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="colSizeProduct" prefWidth="75.0" text="Size" />
+                  <TableColumn fx:id="colDescProduct" prefWidth="75.0" text="Desc" />
+                  <TableColumn fx:id="colPriceProduct" prefWidth="75.0" text="Price" />
+                  <TableColumn fx:id="colStatusProduct" prefWidth="75.0" text="Status" />
+                  <TableColumn fx:id="colCreatedAtProduct" prefWidth="75.0" text="Created At" />
+                  <TableColumn fx:id="colUpdatedAtProduct" prefWidth="75.0" text="Updated At" />
               </columns>
             </TableView>
-            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+            <TableView fx:id="tableListCategory" prefHeight="200.0" prefWidth="200.0" onMouseClicked="#handleClickedTableView" onKeyPressed="#handleOnKeyPresedTableView" GridPane.rowIndex="2">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="colSttCategory" prefWidth="75.0" text="STT" />
+                <TableColumn fx:id="colIdCategory" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="colNameCategory" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="colStatusCategory" prefWidth="75.0" text="Status" />
+                  <TableColumn fx:id="colCreatedAtCategory" prefWidth="75.0" text="Created At" />
+                  <TableColumn fx:id="colUpdatedAtCategory" prefWidth="75.0" text="Updated At" />
               </columns>
             </TableView>
             <GridPane GridPane.rowIndex="1">
@@ -49,8 +59,8 @@
               </rowConstraints>
                <children>
                   <Label text="Tim kiem" />
-                  <TextField GridPane.columnIndex="1" fx:id="searchValue" />
-                  <ComboBox prefWidth="150.0" GridPane.columnIndex="2"  fx:id="findBy"/>
+                  <TextField fx:id="searchValue" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="findBy" prefWidth="150.0" GridPane.columnIndex="2" />
                   <Button mnemonicParsing="false" onAction="#handleBtnExportEx" text="Button" GridPane.columnIndex="3" />
                </children>
             </GridPane>

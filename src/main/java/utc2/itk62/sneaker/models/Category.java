@@ -1,10 +1,12 @@
 package utc2.itk62.sneaker.models;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Category {
     private int id;
     private String name;
+    private List<Product> productList;
     private int status;
     private Timestamp createdAt;
     private Timestamp updatedAt;
@@ -12,8 +14,17 @@ public class Category {
     public Category() {
     }
 
-    public Category(String name) {
+    public Category(String name, List<Product> productList) {
         this.name = name;
+        this.productList = productList;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
     public void setId(int id) {

@@ -1,19 +1,30 @@
 package utc2.itk62.sneaker.models;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Position {
     private int id;
     private String name;
     private int status;
+    private List<Staff> staffList;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
     public Position() {
     }
 
-    public Position(String name) {
+    public Position(String name, List<Staff> staffList) {
         this.name = name;
+        this.staffList = staffList;
+    }
+
+    public List<Staff> getStaffList() {
+        return staffList;
+    }
+
+    public void setStaffList(List<Staff> staffList) {
+        this.staffList = staffList;
     }
 
     public void setStatus(int status) {

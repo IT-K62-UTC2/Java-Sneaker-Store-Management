@@ -30,7 +30,7 @@ public class CustomMessageBox {
     }
 
     public static void boxOk(String content) {
-        Alert alert = new Alert(Alert.AlertType.valueOf("Success"));
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setContentText(content);
         alert.showAndWait();

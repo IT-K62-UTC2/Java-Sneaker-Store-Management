@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 public class Invoice {
     private int id;
-    private int idStaff;
-    private int idCustomer;
+    private Staff staff;
+    private Customer customer;
     private double moneyTotal;
     private String deliveryAddress;
     private String deliveryPhoneNumber;
@@ -16,9 +16,9 @@ public class Invoice {
     public Invoice() {
     }
 
-    public Invoice(int idStaff, int idCustomer, double moneyTotal, String deliveryAddress, String deliveryPhoneNumber) {
-        this.idStaff = idStaff;
-        this.idCustomer = idCustomer;
+    public Invoice(Staff staff, Customer customer, double moneyTotal, String deliveryAddress, String deliveryPhoneNumber) {
+        this.staff = staff;
+        this.customer = customer;
         this.moneyTotal = moneyTotal;
         this.deliveryAddress = deliveryAddress;
         this.deliveryPhoneNumber = deliveryPhoneNumber;
@@ -28,9 +28,6 @@ public class Invoice {
         this.id = id;
     }
 
-    public void setIdCustomer(int idCustomer) {
-        this.idCustomer = idCustomer;
-    }
 
     public void setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
@@ -40,9 +37,6 @@ public class Invoice {
         this.deliveryPhoneNumber = deliveryPhoneNumber;
     }
 
-    public void setIdStaff(int idStaff) {
-        this.idStaff = idStaff;
-    }
 
     public void setMoneyTotal(double moneyTotal) {
         this.moneyTotal = moneyTotal;
@@ -72,12 +66,20 @@ public class Invoice {
         return id;
     }
 
-    public int getIdStaff() {
-        return idStaff;
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 
-    public int getIdCustomer() {
-        return idCustomer;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 
     public double getMoneyTotal() {

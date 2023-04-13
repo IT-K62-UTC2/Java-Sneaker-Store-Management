@@ -18,7 +18,7 @@ public class CategoryRepo {
     public List<Category> getAllCategories(Paging paging) {
         paging.checkPageLimit();
         List<Category> categories = new ArrayList<Category>();
-        String query = "SELECT * FROM category WHERE status = 1 LIMIT ? OFFSET ? ";
+        String query = "SELECT * FROM category WHERE status = 1 LIMIT ? OFFSET ?";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1,paging.getLimit());

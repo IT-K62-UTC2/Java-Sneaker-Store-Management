@@ -28,8 +28,8 @@ public class InvoiceRepo {
             while (rs.next()) {
                 Invoice invoice = new Invoice();
                 invoice.setId(rs.getInt("id"));
-                invoice.setIdStaff(rs.getInt("id_staff"));
-                invoice.setIdCustomer(rs.getInt("id_customer"));
+//                invoice.setIdStaff(rs.getInt("id_staff"));
+//                invoice.setIdCustomer(rs.getInt("id_customer"));
                 invoice.setMoneyTotal(rs.getDouble("money_total"));
                 invoice.setDeliveryAddress(rs.getString("delivery_address"));
                 invoice.setDeliveryPhoneNumber(rs.getString("delivery_phone_number"));
@@ -56,8 +56,8 @@ public class InvoiceRepo {
             while (rs.next()) {
                 invoice = new Invoice();
                 invoice.setId(rs.getInt("id"));
-                invoice.setIdStaff(rs.getInt("id_staff"));
-                invoice.setIdCustomer(rs.getInt("id_customer"));
+//                invoice.setIdStaff(rs.getInt("id_staff"));
+//                invoice.setIdCustomer(rs.getInt("id_customer"));
                 invoice.setMoneyTotal(rs.getDouble("money_total"));
                 invoice.setDeliveryAddress(rs.getString("delivery_address"));
                 invoice.setDeliveryPhoneNumber(rs.getString("delivery_phone_number"));
@@ -83,8 +83,8 @@ public class InvoiceRepo {
             while (rs.next()) {
                 invoice = new Invoice();
                 invoice.setId(rs.getInt("id"));
-                invoice.setIdStaff(rs.getInt("id_staff"));
-                invoice.setIdCustomer(rs.getInt("id_customer"));
+//                invoice.setIdStaff(rs.getInt("id_staff"));
+//                invoice.setIdCustomer(rs.getInt("id_customer"));
                 invoice.setMoneyTotal(rs.getDouble("money_total"));
                 invoice.setDeliveryAddress(rs.getString("delivery_address"));
                 invoice.setDeliveryPhoneNumber(rs.getString("delivery_phone_number"));
@@ -110,8 +110,8 @@ public class InvoiceRepo {
             while (rs.next()) {
                 invoice = new Invoice();
                 invoice.setId(rs.getInt("id"));
-                invoice.setIdStaff(rs.getInt("id_staff"));
-                invoice.setIdCustomer(rs.getInt("id_customer"));
+//                invoice.setIdStaff(rs.getInt("id_staff"));
+//                invoice.setIdCustomer(rs.getInt("id_customer"));
                 invoice.setMoneyTotal(rs.getDouble("money_total"));
                 invoice.setDeliveryAddress(rs.getString("delivery_address"));
                 invoice.setDeliveryPhoneNumber(rs.getString("delivery_phone_number"));
@@ -162,8 +162,8 @@ public class InvoiceRepo {
         try{
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
-            ptmt.setInt(1, invoice.getIdStaff());
-            ptmt.setInt(2, invoice.getIdCustomer());
+//            ptmt.setInt(1, invoice.getIdStaff());
+//            ptmt.setInt(2, invoice.getIdCustomer());
             ptmt.setDouble(3, invoice.getMoneyTotal());
             ptmt.setString(4, invoice.getDeliveryAddress());
             ptmt.setString(5,invoice.getDeliveryPhoneNumber());

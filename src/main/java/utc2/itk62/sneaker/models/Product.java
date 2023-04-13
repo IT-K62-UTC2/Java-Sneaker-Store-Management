@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 public class Product {
     private int id;
-    private int idSupplier;
-    private int idCategory;
+    private Supplier supplier;
+    private Category category;
     private String name;
     private double size;
     private String description;
@@ -18,9 +18,9 @@ public class Product {
     public Product() {
     }
 
-    public Product(int idSupplier, int idCategory, String name, double size, String description, double price, String avatar) {
-        this.idSupplier = idSupplier;
-        this.idCategory = idCategory;
+    public Product(Supplier supplier, Category category, String name, double size, String description, double price, String avatar) {
+        this.supplier = supplier;
+        this.category = category;
         this.name = name;
         this.size = size;
         this.description = description;
@@ -32,12 +32,18 @@ public class Product {
         this.id = id;
     }
 
-    public void setIdSupplier(int idSupplier) {
-        this.idSupplier = idSupplier;
+
+    public Supplier getSupplier() {
+        return supplier;
     }
 
-    public void setIdCategory(int idCategory) {
-        this.idCategory = idCategory;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public void setName(String name) {
@@ -76,12 +82,8 @@ public class Product {
         return id;
     }
 
-    public int getIdSupplier() {
-        return idSupplier;
-    }
-
-    public int getIdCategory() {
-        return idCategory;
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 
     public String getName() {
