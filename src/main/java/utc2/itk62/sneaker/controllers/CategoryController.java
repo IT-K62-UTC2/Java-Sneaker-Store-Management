@@ -64,6 +64,11 @@ public class CategoryController {
     public TableColumn<Product, Timestamp> colUpdatedAtProduct;
     @FXML
     public TableView<Product> tableListProduct;
+    @FXML
+    public TextField idCategory;
+    @FXML
+    public TextField nameCategory;
+
 
     private ObservableList<Category> categoryList;
 

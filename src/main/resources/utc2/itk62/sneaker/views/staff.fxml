@@ -128,7 +128,7 @@
                               <Button mnemonicParsing="false" onAction="#handleAddStaff" prefHeight="50.0" prefWidth="90.0" text="Add" />
                               <Button mnemonicParsing="false" onAction="#handleUpdateStaff" prefHeight="50.0" prefWidth="90.0" text="Update" GridPane.columnIndex="1" />
                               <Button mnemonicParsing="false" onAction="#handleDeleteStaff" prefHeight="50.0" prefWidth="90.0" text="Delete" GridPane.columnIndex="2" />
-                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="90.0" text="Export excel" GridPane.columnIndex="3" />
+                              <Button mnemonicParsing="false" onAction="#handleBtnExportExcel" prefHeight="50.0" prefWidth="90.0" text="Export excel" GridPane.columnIndex="3" />
                            </children>
                         </GridPane>
                         <ImageView fx:id="imageAvatar" fitHeight="200.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />

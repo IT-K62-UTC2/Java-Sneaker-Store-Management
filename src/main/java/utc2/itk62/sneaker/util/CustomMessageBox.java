@@ -1,4 +1,4 @@
-package utc2.itk62.sneaker.common;
+package utc2.itk62.sneaker.util;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

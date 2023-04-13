@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import utc2.itk62.sneaker.Validator.StaffValidator;
-import utc2.itk62.sneaker.common.CustomMessageBox;
+import utc2.itk62.sneaker.util.CustomMessageBox;
 import utc2.itk62.sneaker.models.Position;
 import utc2.itk62.sneaker.models.Staff;
 import utc2.itk62.sneaker.services.PositionServie;
@@ -332,5 +332,10 @@ public class StaffController {
             // Lấy đường dẫn của file được chọn
             imageAvatar.setImage(new Image(String.valueOf(selectedFile)));
         }
+    }
+
+    @FXML
+    public void handleBtnExportExcel(ActionEvent actionEvent) {
+        staffService.exportExcel(staffList);
     }
 }

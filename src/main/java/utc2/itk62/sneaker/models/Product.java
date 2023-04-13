@@ -9,6 +9,7 @@ public class Product {
     private String name;
     private double size;
     private String description;
+    private int quantity;
     private double price;
     private String avatar;
     private int status;
@@ -18,14 +19,23 @@ public class Product {
     public Product() {
     }
 
-    public Product(Supplier supplier, Category category, String name, double size, String description, double price, String avatar) {
+    public Product(Supplier supplier, Category category, String name, double size, String description, int quantity, double price, String avatar) {
         this.supplier = supplier;
         this.category = category;
         this.name = name;
         this.size = size;
         this.description = description;
+        this.quantity = quantity;
         this.price = price;
         this.avatar = avatar;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public void setId(int id) {
