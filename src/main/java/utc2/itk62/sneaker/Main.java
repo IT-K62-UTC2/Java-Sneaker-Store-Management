@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import utc2.itk62.sneaker.until.HashedPassword;
+import utc2.itk62.sneaker.util.HashedPassword;
 
 import java.io.IOException;
 
@@ -19,7 +19,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        System.out.println(Main.class.getResource("views/login.fxml"));
         launch();
         System.out.println(HashedPassword.hashPassword("admin"));
     }

@@ -2,7 +2,7 @@ package utc2.itk62.sneaker.services;
 
 import utc2.itk62.sneaker.models.Staff;
 import utc2.itk62.sneaker.repositories.StaffRepo;
-import utc2.itk62.sneaker.until.HashedPassword;
+import utc2.itk62.sneaker.util.HashedPassword;
 
 public class LoginService {
     private static final StaffRepo staffRepo = new StaffRepo();

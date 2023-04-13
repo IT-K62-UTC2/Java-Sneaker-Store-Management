@@ -11,7 +11,7 @@ public class Paging {
 
     public void checkPageLimit() {
         if (limit <= 0) {
-            this.limit = 10;
+            this.limit = 100;
         }
         if (offset < 0) {
             offset = 0;

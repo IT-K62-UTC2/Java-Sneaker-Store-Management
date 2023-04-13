@@ -6,9 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import utc2.itk62.sneaker.Validator.StaffValidator;
 import utc2.itk62.sneaker.common.CustomMessageBox;
 import utc2.itk62.sneaker.models.Position;
@@ -16,6 +19,7 @@ import utc2.itk62.sneaker.models.Staff;
 import utc2.itk62.sneaker.services.PositionServie;
 import utc2.itk62.sneaker.services.StaffService;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
@@ -34,8 +38,6 @@ public class StaffController {
     public TextField fullname;
     @FXML
     public TextField cccd;
-    @FXML
-    public ComboBox<String> gender;
     @FXML
     public TextField email;
     @FXML
@@ -71,19 +73,42 @@ public class StaffController {
     @FXML
     public TableColumn<Staff, Integer> colStatus;
     @FXML
-    public ImageView image;
-    @FXML
     public TextField valueSearch;
+    @FXML
+    public RadioButton femaleBtn;
+    @FXML
+    public RadioButton maleBtn;
+    @FXML
+    public ImageView imageAvatar;
+
+    @FXML
+    public DatePicker toDate;
+    @FXML
+    public DatePicker fromDate;
+    @FXML
+    public Button btnAddImage;
+    @FXML
+    public Button btnClean;
+
+    private ToggleGroup toggleGenderGroup = new ToggleGroup();
     private ObservableList<Staff> staffList;
     private ObservableList<Position> positionList = FXCollections.observableArrayList(positionService.getAllPosition());
 
     public void initialize() throws SQLException {
         // Gender
-        gender.getItems().clear();
-        gender.getItems().addAll("Male", "Female", "Other");
+        maleBtn.setToggleGroup(toggleGenderGroup);
+        femaleBtn.setToggleGroup(toggleGenderGroup);
+        toggleGenderGroup.selectToggle(maleBtn);
+
+        // Position
         position.getItems().clear();
         position.setItems(positionList);
         reloadTableView();
+    }
+
+    private String getGender() {
+        RadioButton radioButton = (RadioButton)toggleGenderGroup.getSelectedToggle();
+        return radioButton.getText();
     }
 
     private void reloadTableView() {
@@ -116,7 +141,9 @@ public class StaffController {
         address.setText(selectedStaff.getAddress());
         phoneNumber.setText(selectedStaff.getPhoneNumber());
         cccd.setText(selectedStaff.getCccd());
-        gender.setValue(selectedStaff.getGender());
+        imageAvatar.setImage(new Image(selectedStaff.getPathAvatar()));
+//        gender.setValue(selectedStaff.getGender());
+        toggleGenderGroup.selectToggle(selectedStaff.getGender().equals(maleBtn.getText()) ? maleBtn : femaleBtn);
         return selectedStaff;
     }
 
@@ -126,7 +153,6 @@ public class StaffController {
 
     private Staff getStaffCurrentForm() {
         Staff staff = getStaffCurrentRow();
-        System.out.println("last: " + username.getText());
         staff.setPosition(position.getValue());
         staff.setUsername(username.getText());
         staff.setId(Integer.parseInt(idStaff.getText()));
@@ -134,14 +160,13 @@ public class StaffController {
         staff.setFullName(fullname.getText());
         staff.setPhoneNumber(phoneNumber.getText());
         staff.setAddress(address.getText());
-        staff.setGender(gender.getValue());
+        staff.setPathAvatar(imageAvatar.getImage().getUrl());
+//        staff.setGender(gender.getValue());
+        staff.setGender(getGender());
         staff.setEmail(email.getText());
         return staff;
     }
 
-    private void clearForm() {
-
-    }
 
     @FXML
     public void handleClickedTableView(MouseEvent mouseEvent) {
@@ -181,29 +206,131 @@ public class StaffController {
     @FXML
     public void handleAddStaff(ActionEvent actionEvent) {
         tableListStaff.getSelectionModel().clearSelection();
-        idStaff.setText("Điền đầy đủ thông tin để thêm mới nhân viên");
-        username.setText("");
-        fullname.setText("");
-        address.setText("");
-        phoneNumber.setText("");
-        cccd.setText("");
-        email.setText("");
+        System.out.println(idStaff.getText());
+        if(idStaff.getText() != null && idStaff.getText().length() > 0) {
+            btnClean.fire();
+        }
+        // Validate image
+        if(!StaffValidator.validateImageAvatar(imageAvatar)) {
+            CustomMessageBox.boxInfo("Please select an image");
+            btnAddImage.fire();
+            username.requestFocus();
+            return;
+        }
+
+        // Validate user name
         if(!StaffValidator.validateUsername(username.getText())) {
             CustomMessageBox.boxError("Invalid username");
+            username.requestFocus();
             return;
         }
 
-        if(!StaffValidator.validateEmail(email.getText())){
-            CustomMessageBox.boxError("Invalid email");
+        if(StaffValidator.isExistUsername(username.getText())) {
+            CustomMessageBox.boxError("Username is exists");
+            username.requestFocus();
             return;
         }
 
+        // Validate full name
+        if(!StaffValidator.validateFullname(fullname.getText())) {
+            CustomMessageBox.boxError("Invalid full name");
+            fullname.requestFocus();
+            return;
+        }
+
+        // Validate address
+        if(!StaffValidator.validateAddress(address.getText())) {
+            CustomMessageBox.boxError("Invalid address");
+            address.requestFocus();
+            return;
+        }
+
+        // Validate phone number
         if (!StaffValidator.validatePhoneNumber(phoneNumber.getText())){
             CustomMessageBox.boxError("Invalid phone number");
+            phoneNumber.requestFocus();
+            return;
         }
+        if(StaffValidator.isExistPhoneNumber(phoneNumber.getText())) {
+            CustomMessageBox.boxError("Phone number is exists");
+            phoneNumber.requestFocus();
+            return;
+        }
+
+        // Validate CCCD
+        if(!StaffValidator.validateCCCD(cccd.getText())){
+            CustomMessageBox.boxError("Invalid cccd");
+            cccd.requestFocus();
+            return;
+        }
+        if(StaffValidator.isExistCCCD(cccd.getText()))
+
+        // Validate email
+        if(!StaffValidator.validateEmail(email.getText())){
+            CustomMessageBox.boxError("Invalid email");
+            email.requestFocus();
+            return;
+        }
+
+        if(StaffValidator.isExistEmail(email.getText())) {
+            CustomMessageBox.boxError("Email is exists");
+            email.requestFocus();
+            return;
+        }
+
+        Staff staff = new Staff();
+        staff.setPassword("1");
+        staff.setGender(getGender());
+        staff.setPathAvatar(imageAvatar.getImage().getUrl());
+        staff.setEmail(email.getText());
+        staff.setFullName(fullname.getText());
+        staff.setAddress(address.getText());
+        staff.setPosition(position.getValue());
+        staff.setPhoneNumber(phoneNumber.getText());
+        staff.setUsername(username.getText());
+        staff.setCccd(cccd.getText());
+        if(!staffService.createStaff(staff)) {
+            CustomMessageBox.boxError("Sometimes the staff service is not available");
+            return;
+        }
+        CustomMessageBox.boxOk("Create staff successfully");
+        reloadTableView();
+
+
     }
 
     @FXML
     public void handleBtnSearch(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void handleBtnClean(ActionEvent actionEvent) {
+        username.setText("");
+        imageAvatar.setImage(null);
+//        password.setText("");
+        email.setText("");
+        address.setText("");
+        fullname.setText("");
+        idStaff.setText("");
+        phoneNumber.setText("");
+        cccd.setText("");
+
+    }
+
+    @FXML
+    public void btnAddImage(ActionEvent actionEvent) {
+        // Tạo một đối tượng FileChooser
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Vui lòng chọn hình ảnh");
+
+        // Chỉ cho phép chọn file hình ảnh
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Hình ảnh", "*.jpg", "*.jpeg", "*.png"));
+        // Hiển thị hộp thoại chọn file
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        // Kiểm tra xem người dùng đã chọn file chưa
+        if (selectedFile != null) {
+            // Lấy đường dẫn của file được chọn
+            imageAvatar.setImage(new Image(String.valueOf(selectedFile)));
+        }
     }
 }

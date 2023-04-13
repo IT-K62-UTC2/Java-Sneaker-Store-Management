@@ -19,12 +19,14 @@
         </columnConstraints>
         <rowConstraints>
             <RowConstraints maxHeight="293.00001373291013" minHeight="10.0" prefHeight="293.00001373291013" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="331.0000061035156" minHeight="10.0" prefHeight="71.39998626708984" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="388.0000366210938" minHeight="10.0" prefHeight="154.40000610351564" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="331.0000061035156" minHeight="10.0" prefHeight="136.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="388.0000366210938" minHeight="10.0" prefHeight="43.19999999999999" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="388.0000366210938" minHeight="10.0" prefHeight="171.60002441406255" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="313.5999755859375" minHeight="0.0" prefHeight="54.79997558593743" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="313.5999755859375" minHeight="10.0" prefHeight="147.1999633789062" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" fx:id="tableListProduct">
+            <TableView fx:id="tableListProduct" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
               <columns>
                 <TableColumn fx:id="colSTTProduct" prefWidth="75.0" text="STT" />
                 <TableColumn fx:id="colSupplierProduct" prefWidth="75.0" text="Supplier" />
@@ -37,7 +39,7 @@
                   <TableColumn fx:id="colUpdatedAtProduct" prefWidth="75.0" text="Updated At" />
               </columns>
             </TableView>
-            <TableView fx:id="tableListCategory" prefHeight="200.0" prefWidth="200.0" onMouseClicked="#handleClickedTableView" onKeyPressed="#handleOnKeyPresedTableView" GridPane.rowIndex="2">
+            <TableView fx:id="tableListCategory" onKeyPressed="#handleOnKeyPresedTableView" onMouseClicked="#handleClickedTableView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
               <columns>
                 <TableColumn fx:id="colSttCategory" prefWidth="75.0" text="STT" />
                 <TableColumn fx:id="colIdCategory" prefWidth="75.0" text="ID" />
@@ -63,6 +65,13 @@
                   <ComboBox fx:id="findBy" prefWidth="150.0" GridPane.columnIndex="2" />
                   <Button mnemonicParsing="false" onAction="#handleBtnExportEx" text="Button" GridPane.columnIndex="3" />
                </children>
+            </GridPane>
+            <Label text="Danh sách category" GridPane.rowIndex="2" />
+            <Label text="Danh sách product trong category" GridPane.rowIndex="4" />
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
             </GridPane>
          </children>
       </GridPane>

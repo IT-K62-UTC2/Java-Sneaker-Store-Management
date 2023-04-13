@@ -4,9 +4,10 @@ import java.sql.Timestamp;
 
 public class Supplier {
     private int id;
+    private String name;
+    private String email;
     private String address;
     private String phoneNumber;
-    private int productQuantity;
     private int status;
     private Timestamp createdAt;
     private Timestamp updatedAt;
@@ -14,10 +15,27 @@ public class Supplier {
     public Supplier() {
     }
 
-    public Supplier(String address, String phoneNumber, int productQuantity) {
+    public Supplier(String name, String email, String address, String phoneNumber) {
+        this.name = name;
+        this.email = email;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.productQuantity = productQuantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setId(int id) {
@@ -32,9 +50,6 @@ public class Supplier {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setQuantityProduct(int quantityProduct) {
-        this.productQuantity = quantityProduct;
-    }
 
     public void setStatus(int status) {
         this.status = status;
@@ -60,9 +75,6 @@ public class Supplier {
         return phoneNumber;
     }
 
-    public int getQuantityProduct() {
-        return productQuantity;
-    }
 
     public int getStatus() {
         return status;
@@ -74,5 +86,10 @@ public class Supplier {
 
     public Timestamp getUpdatedAt() {
         return updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

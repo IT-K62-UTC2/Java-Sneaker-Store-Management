@@ -5,6 +5,7 @@ import utc2.itk62.sneaker.connection.ConnectionUtil;
 import utc2.itk62.sneaker.models.Category;
 import utc2.itk62.sneaker.models.Product;
 import utc2.itk62.sneaker.models.Staff;
+import utc2.itk62.sneaker.models.Supplier;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,11 +53,12 @@ public class ProductRepo {
     public List<Product> getProductListByIdCategory(int idCategory) {
         List<Product> productList = new ArrayList<Product>();
         String query = "SELECT * FROM product" +
-                "LEFT JOIN supplier ON supplier.id = product.id" +
-                " WHERE product.status = 1";
+                " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
+                " WHERE product.status = 1 AND product.id_category = ?";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1, idCategory);
+            System.out.println(query);
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 // Product
@@ -72,6 +74,16 @@ public class ProductRepo {
                 product.setStatus(rs.getInt("status"));
                 product.setCreatedAt(rs.getTimestamp("created_at"));
                 product.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+                // JOIN table supplier
+                Supplier supplier = new Supplier();
+                supplier.setName(rs.getString("supplier.name"));
+//                supplier.setEmail(rs.getString("supplier.email"));
+//                supplier.setId(rs.getInt("supplier.id"));
+//                supplier.setPhoneNumber(rs.getString("supplier.phone_number"));
+//                supplier.setAddress(rs.getString("supplier.address"));
+//                supplier.set
+                product.setSupplier(supplier);
                 productList.add(product);
             }
             return productList;

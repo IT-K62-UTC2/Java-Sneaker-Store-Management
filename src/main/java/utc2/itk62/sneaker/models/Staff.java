@@ -13,6 +13,7 @@ public class Staff {
     private String phoneNumber;
     private String cccd;
     private String gender;
+    private String pathAvatar;
     private int status;
     private Timestamp createdAt;
     private Timestamp updatedAt;
@@ -20,7 +21,7 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(Position position, String username, String password, String fullName, String address, String email, String phoneNumber, String cccd, String gender) {
+    public Staff(Position position, String username, String password, String fullName, String address, String email, String phoneNumber, String cccd, String gender, String pathAvatar) {
         this.position = position;
         this.username = username;
         this.password = password;
@@ -30,6 +31,7 @@ public class Staff {
         this.phoneNumber = phoneNumber;
         this.cccd = cccd;
         this.gender = gender;
+        this.pathAvatar = pathAvatar;
     }
 
     public Position getPosition() {
@@ -134,5 +136,13 @@ public class Staff {
 
     public Timestamp getUpdatedAt() {
         return updatedAt;
+    }
+
+    public String getPathAvatar() {
+        return pathAvatar;
+    }
+
+    public void setPathAvatar(String pathAvatar) {
+        this.pathAvatar = pathAvatar;
     }
 }

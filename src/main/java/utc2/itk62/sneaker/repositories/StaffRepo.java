@@ -35,6 +35,7 @@ public class StaffRepo {
                 staff.setUsername(rs.getString("username"));
                 staff.setPassword(rs.getString("password"));
                 staff.setFullName(rs.getString("fullname"));
+                staff.setPathAvatar(rs.getString("avatar"));
 //                staff.setIdPosition(rs.getInt("id_position"));
                 staff.setPosition(position);
                 staff.setAddress(rs.getString("address"));
@@ -89,7 +90,7 @@ public class StaffRepo {
     public Staff getStaffByUsername(String username) {
         String query = "SELECT * FROM staff " +
                 " INNER JOIN position ON position.id = staff.id_position " +
-                "WHERE staff.status = 1 AND username=?";
+                "WHERE username=?";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setString(1,  username);
@@ -127,13 +128,13 @@ public class StaffRepo {
         String query = "UPDATE staff SET" +
                 " id_position = ?,  " +
                 " username = ?," +
-                " password = ?," +
                 " fullname = ?," +
                 " address = ?," +
                 " email = ?," +
                 " phone_number = ?,"+
                 " cccd = ?,"+
-                " gender = ?" +
+                " gender = ?," +
+                " avatar = ?" +
                 " WHERE id = ? AND status = 1";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
@@ -143,13 +144,13 @@ public class StaffRepo {
 
             ptmt.setInt(1, staff.getPosition().getId());
             ptmt.setString(2, staff.getUsername());
-            ptmt.setString(3, staff.getPassword());
-            ptmt.setString(4, staff.getFullName());
-            ptmt.setString(5, staff.getAddress());
-            ptmt.setString(6, staff.getEmail());
-            ptmt.setString(7, staff.getPhoneNumber());
-            ptmt.setString(8, staff.getCccd());
-            ptmt.setString(9, staff.getGender());
+            ptmt.setString(3, staff.getFullName());
+            ptmt.setString(4, staff.getAddress());
+            ptmt.setString(5, staff.getEmail());
+            ptmt.setString(6, staff.getPhoneNumber());
+            ptmt.setString(7, staff.getCccd());
+            ptmt.setString(8, staff.getGender());
+            ptmt.setString(9, staff.getPathAvatar());
             ptmt.setInt(10, staff.getId());
             System.out.println(ptmt);
             result = ptmt.executeUpdate();
@@ -169,7 +170,7 @@ public class StaffRepo {
 
     public int createStaff(Staff staff) {
         String query = "INSERT INTO staff(" +
-                "id_position" +
+                "id_position," +
                 "username, " +
                 "password, " +
                 "fullname, " +
@@ -177,8 +178,9 @@ public class StaffRepo {
                 "email, " +
                 "phone_number, " +
                 "cccd, " +
-                "gender)" +
-                " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "gender," +
+                "avatar)" +
+                " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
@@ -194,6 +196,7 @@ public class StaffRepo {
             ptmt.setString(7, staff.getPhoneNumber());
             ptmt.setString(8, staff.getCccd());
             ptmt.setString(9, staff.getGender());
+            ptmt.setString(10, staff.getPathAvatar());
             result = ptmt.executeUpdate();
             conn.commit();
         }catch (SQLException e){
@@ -221,5 +224,116 @@ public class StaffRepo {
             ConnectionUtil.closeConnection();
         }
         return result;
+    }
+
+    public Staff getStaffByEmail(String email) {
+        String query = "SELECT * FROM staff " +
+                " INNER JOIN position ON position.id = staff.id_position " +
+                "WHERE email=?";
+        try {
+            PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
+            ptmt.setString(1,  email);
+            ResultSet rs = ptmt.executeQuery();
+            Staff staff = null;
+            Position position = null;
+            while (rs.next()) {
+                staff = new Staff();
+                position = new Position();
+                position.setName(rs.getString("name"));
+                position.setId(rs.getInt("position.id"));
+                staff.setId(rs.getInt("id"));
+                staff.setPosition(position);
+                staff.setUsername(rs.getString("username"));
+                staff.setPassword(rs.getString("password"));
+                staff.setFullName(rs.getString("fullname"));
+                staff.setAddress(rs.getString("address"));
+                staff.setEmail(rs.getString("email"));
+                staff.setPhoneNumber(rs.getString("phone_number"));
+                staff.setCccd(rs.getString("cccd"));
+                staff.setGender(rs.getString("gender"));
+                staff.setStatus(rs.getInt("status"));
+                staff.setCreatedAt(rs.getTimestamp("created_at"));
+                staff.setUpdatedAt(rs.getTimestamp("updated_at"));
+            }
+            return staff;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionUtil.closeConnection();
+        }
+    }
+
+    public Staff getStaffByCCCD(String cccd) {
+        String query = "SELECT * FROM staff " +
+                " INNER JOIN position ON position.id = staff.id_position " +
+                "WHERE cccd=?";
+        try {
+            PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
+            ptmt.setString(1,  cccd);
+            ResultSet rs = ptmt.executeQuery();
+            Staff staff = null;
+            Position position = null;
+            while (rs.next()) {
+                staff = new Staff();
+                position = new Position();
+                position.setName(rs.getString("name"));
+                position.setId(rs.getInt("position.id"));
+                staff.setId(rs.getInt("id"));
+                staff.setPosition(position);
+                staff.setUsername(rs.getString("username"));
+                staff.setPassword(rs.getString("password"));
+                staff.setFullName(rs.getString("fullname"));
+                staff.setAddress(rs.getString("address"));
+                staff.setEmail(rs.getString("email"));
+                staff.setPhoneNumber(rs.getString("phone_number"));
+                staff.setCccd(rs.getString("cccd"));
+                staff.setGender(rs.getString("gender"));
+                staff.setStatus(rs.getInt("status"));
+                staff.setCreatedAt(rs.getTimestamp("created_at"));
+                staff.setUpdatedAt(rs.getTimestamp("updated_at"));
+            }
+            return staff;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionUtil.closeConnection();
+        }
+    }
+
+    public Staff getStaffByPhoneNumber(String phoneNumber) {
+        String query = "SELECT * FROM staff " +
+                " INNER JOIN position ON position.id = staff.id_position " +
+                "WHERE phone_number=?";
+        try {
+            PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
+            ptmt.setString(1,  phoneNumber);
+            ResultSet rs = ptmt.executeQuery();
+            Staff staff = null;
+            Position position = null;
+            while (rs.next()) {
+                staff = new Staff();
+                position = new Position();
+                position.setName(rs.getString("name"));
+                position.setId(rs.getInt("position.id"));
+                staff.setId(rs.getInt("id"));
+                staff.setPosition(position);
+                staff.setUsername(rs.getString("username"));
+                staff.setPassword(rs.getString("password"));
+                staff.setFullName(rs.getString("fullname"));
+                staff.setAddress(rs.getString("address"));
+                staff.setEmail(rs.getString("email"));
+                staff.setPhoneNumber(rs.getString("phone_number"));
+                staff.setCccd(rs.getString("cccd"));
+                staff.setGender(rs.getString("gender"));
+                staff.setStatus(rs.getInt("status"));
+                staff.setCreatedAt(rs.getTimestamp("created_at"));
+                staff.setUpdatedAt(rs.getTimestamp("updated_at"));
+            }
+            return staff;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionUtil.closeConnection();
+        }
     }
 }

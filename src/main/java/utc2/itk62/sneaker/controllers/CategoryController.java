@@ -110,6 +110,7 @@ public class CategoryController {
         colPriceProduct.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
         colDescProduct.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));
         colStatusProduct.setCellValueFactory(new PropertyValueFactory<Product,Integer>("status"));
+        colSupplierProduct.setCellValueFactory(new PropertyValueFactory<Product, Supplier>("supplier"));
         colCreatedAtProduct.setCellValueFactory(new PropertyValueFactory<Product,Timestamp>("createdAt"));
         colUpdatedAtProduct.setCellValueFactory(new PropertyValueFactory<Product,Timestamp>("updatedAt"));
         tableListProduct.setItems(FXCollections.observableArrayList(tableListCategory.getSelectionModel().getSelectedItem().getProductList()));

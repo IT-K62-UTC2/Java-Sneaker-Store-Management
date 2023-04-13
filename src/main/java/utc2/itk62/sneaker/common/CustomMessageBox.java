@@ -29,6 +29,14 @@ public class CustomMessageBox {
 
     }
 
+    public static void boxInfo(String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("Notification");
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
     public static void boxOk(String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
