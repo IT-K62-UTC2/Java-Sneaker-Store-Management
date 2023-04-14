@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import utc2.itk62.sneaker.common.Paging;
+import utc2.itk62.sneaker.constant.Status;
 import utc2.itk62.sneaker.models.Staff;
 import utc2.itk62.sneaker.repositories.StaffRepo;
 import utc2.itk62.sneaker.util.FormatDateTime;
@@ -111,7 +112,7 @@ public class StaffService {
             row.createCell(7, CellType.STRING).setCellValue(item.getPhoneNumber());
             row.createCell(8, CellType.STRING).setCellValue(item.getGender());
             row.createCell(9, CellType.STRING).setCellValue(item.getPathAvatar());
-            row.createCell(10, CellType.NUMERIC).setCellValue(item.getStatus());
+            row.createCell(10, CellType.STRING).setCellValue(item.getStatus() == Status.STATUS_ACTIVE ? "Đang hoạt động" : "Không hoạt động");
             row.createCell(11, CellType.STRING).setCellValue(FormatDateTime.formatTimeStampToString(item.getCreatedAt()));
             row.createCell(12,CellType.STRING).setCellValue(FormatDateTime.formatTimeStampToString(item.getUpdatedAt()));
             sheet.autoSizeColumn(i);
