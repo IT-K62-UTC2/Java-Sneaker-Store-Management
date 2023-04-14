@@ -2,24 +2,20 @@ package utc2.itk62.sneaker.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import utc2.itk62.sneaker.models.Category;
 import utc2.itk62.sneaker.models.Product;
-import utc2.itk62.sneaker.models.Staff;
 import utc2.itk62.sneaker.models.Supplier;
 import utc2.itk62.sneaker.services.CategoryService;
 import utc2.itk62.sneaker.services.ProductService;
+import utc2.itk62.sneaker.util.CustomMessageBox;
 
-import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 public class CategoryController {
@@ -29,7 +25,7 @@ public class CategoryController {
     @FXML
     public TextField searchValue;
     @FXML
-    public ComboBox findBy;
+    public TableView<Category> tableListCategory;
     @FXML
     public TableColumn<Category, Integer> colSttCategory;
     @FXML
@@ -43,9 +39,7 @@ public class CategoryController {
     @FXML
     public TableColumn<Category, Timestamp> colUpdatedAtCategory;
     @FXML
-    public TableView<Category> tableListCategory;
-    @FXML
-    public TableColumn<Product,Integer> colSTTProduct;
+    public TableColumn<Product, Integer> colSTTProduct;
     @FXML
     public TableColumn<Product, Supplier> colSupplierProduct;
     @FXML
@@ -68,44 +62,78 @@ public class CategoryController {
     public TextField idCategory;
     @FXML
     public TextField nameCategory;
+    @FXML
+    public ComboBox<String> keySearch;
+    @FXML
+    public Button btnExportExcel;
+    @FXML
+    public Button btnDeleteCategory;
+    @FXML
+    public Button btnAddCategory;
+    @FXML
+    public Button btnUpdateCategory;
 
 
     private ObservableList<Category> categoryList;
+    private ObservableList<String> listKeySearch = FXCollections.observableArrayList("ID", "Name");
 
-
-    public void initialize() throws SQLException {
-        // Gender
-
+    public void initialize() {
+        // Add keysearch
+        keySearch.setItems(listKeySearch);
+        keySearch.setValue("ID");
         reloadTableView();
+        setupBtnExportExcel();
+        setupHandleSearch();
     }
 
+
+    // Setup handle search
+    private void setupHandleSearch() {
+
+
+    }
+
+    ;
+
+
+    // setup handle export excel
+    private void setupBtnExportExcel() {
+        btnExportExcel.setOnAction(action -> {
+            categoryService.exportExcel(categoryList);
+        });
+    }
+
+
     private void reloadTableView() {
-        // table view categoryList
         tableListCategory.getItems().clear();
+        tableListProduct.getItems().clear();
         categoryList = FXCollections.observableArrayList(categoryService.getAllCategory());
         for (Category category : categoryList) {
             category.setProductList(productService.getProductsByIdCategory(category.getId()));
         }
         colIdCategory.setCellValueFactory(new PropertyValueFactory<Category, Integer>("id"));
         colNameCategory.setCellValueFactory(new PropertyValueFactory<Category, String>("name"));
-        colStatusCategory.setCellValueFactory(new PropertyValueFactory<Category,Integer>("status"));
-        colCreatedAtCategory.setCellValueFactory(new PropertyValueFactory<Category,Timestamp>("createdAt"));
-        colUpdatedAtCategory.setCellValueFactory(new PropertyValueFactory<Category,Timestamp>("updatedAt"));
+        colStatusCategory.setCellValueFactory(new PropertyValueFactory<Category, Integer>("status"));
+        colCreatedAtCategory.setCellValueFactory(new PropertyValueFactory<Category, Timestamp>("createdAt"));
+        colUpdatedAtCategory.setCellValueFactory(new PropertyValueFactory<Category, Timestamp>("updatedAt"));
         tableListCategory.setItems(categoryList);
+
+        // update table other
         tableListCategory.getSelectionModel().selectFirst();
-
-        // table view list product
-       updateProductCurrentRowCategory();
-    }
-
-    @FXML
-    public void handleBtnExportEx(ActionEvent actionEvent) {
-
+        updateProductCurrentRowCategory();
+        updateCurrentCategoryToForm();
     }
 
     @FXML
     public void handleClickedTableView(MouseEvent mouseEvent) {
         updateProductCurrentRowCategory();
+        updateCurrentCategoryToForm();
+    }
+
+    @FXML
+    public void handleOnKeyPresedTableView(KeyEvent keyEvent) {
+        updateProductCurrentRowCategory();
+        updateCurrentCategoryToForm();
     }
 
     private void updateProductCurrentRowCategory() {
@@ -114,15 +142,61 @@ public class CategoryController {
         colSizeProduct.setCellValueFactory(new PropertyValueFactory<Product, Double>("size"));
         colPriceProduct.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
         colDescProduct.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));
-        colStatusProduct.setCellValueFactory(new PropertyValueFactory<Product,Integer>("status"));
+        colStatusProduct.setCellValueFactory(new PropertyValueFactory<Product, Integer>("status"));
+        colStatusProduct.setCellValueFactory(new PropertyValueFactory<Product, Integer>("quantity"));
         colSupplierProduct.setCellValueFactory(new PropertyValueFactory<Product, Supplier>("supplier"));
-        colCreatedAtProduct.setCellValueFactory(new PropertyValueFactory<Product,Timestamp>("createdAt"));
-        colUpdatedAtProduct.setCellValueFactory(new PropertyValueFactory<Product,Timestamp>("updatedAt"));
+        colCreatedAtProduct.setCellValueFactory(new PropertyValueFactory<Product, Timestamp>("createdAt"));
+        colUpdatedAtProduct.setCellValueFactory(new PropertyValueFactory<Product, Timestamp>("updatedAt"));
         tableListProduct.setItems(FXCollections.observableArrayList(tableListCategory.getSelectionModel().getSelectedItem().getProductList()));
     }
 
+    private void updateCurrentCategoryToForm() {
+        Category category = tableListCategory.getSelectionModel().getSelectedItem();
+        idCategory.setText(String.valueOf(category.getId()));
+        nameCategory.setText(category.getName());
+    }
 
-    public void handleOnKeyPresedTableView(KeyEvent keyEvent) {
+
+    @FXML
+    public void handleChangeSeachValue(KeyEvent keyEvent) {
+        // Khởi tạo FilteredList và gán nó với danh sách positionList
+        FilteredList<Category> filteredList = new FilteredList<>(categoryList, p -> true);
+
+        // Gán FilteredList làm nguồn dữ liệu cho TableView
+        tableListCategory.setItems(filteredList);
+        String searchText = searchValue.getText().toLowerCase();
+        filteredList.setPredicate(p -> {
+            if (searchText.isEmpty()) {
+                return true;
+            }
+            if ("Name".equals(keySearch.getValue())) {
+                return p.getName().toLowerCase().contains(searchText);
+            }
+            return String.valueOf(p.getId()).toLowerCase().contains(searchText);
+        });
+        tableListCategory.getSelectionModel().selectFirst();
+        updateCurrentCategoryToForm();
         updateProductCurrentRowCategory();
     }
-}
+
+    @FXML
+    public void handleBtnAdd(ActionEvent actionEvent) {
+        tableListCategory.getSelectionModel().clearSelection();
+        if(idCategory.getText()!=null&&idCategory.getText().length()>0){
+            idCategory.setText("");
+            nameCategory.setText("");
+            CustomMessageBox.boxInfo("Please enter the name category");
+            nameCategory.requestFocus();
+            return;
+        }
+        Category category=new Category(nameCategory.getText(),null);
+        if(!categoryService.createCategory(category)){
+            CustomMessageBox.boxError("Sometimes the category service is not available");
+            return;
+        }
+        CustomMessageBox.boxOk("Created category successfully");
+        reloadTableView();
+    }
+};
+
+    

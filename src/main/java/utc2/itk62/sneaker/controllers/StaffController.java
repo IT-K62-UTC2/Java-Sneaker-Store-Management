@@ -90,6 +90,8 @@ public class StaffController {
     public Button btnAddImage;
     @FXML
     public TableColumn< Staff,Integer> colIdStaff;
+    @FXML
+    public Button btnExportExcel;
 
     private ToggleGroup toggleGenderGroup = new ToggleGroup();
     private ObservableList<Staff> staffList;
@@ -135,13 +137,17 @@ public class StaffController {
         colCreatedAt.setCellValueFactory(new PropertyValueFactory<Staff, Timestamp>("createdAt"));
         colStatus.setCellValueFactory(new PropertyValueFactory<Staff, Integer>("status"));
         tableListStaff.setItems(staffList);
-        tableListStaff.getSelectionModel().selectFirst();
 
+        tableListStaff.getSelectionModel().selectFirst();
         updateStaffCurrentRowToForm();
     }
 
     private Staff updateStaffCurrentRowToForm() {
         Staff selectedStaff = tableListStaff.getSelectionModel().getSelectedItem();
+        if (selectedStaff == null) {
+            cleanForm();
+            return null;
+        }
         idStaff.setText(String.valueOf(selectedStaff.getId()));
         position.setValue(selectedStaff.getPosition());
         username.setText(selectedStaff.getUsername());
@@ -215,7 +221,6 @@ public class StaffController {
     @FXML
     public void handleAddStaff(ActionEvent actionEvent) {
         tableListStaff.getSelectionModel().clearSelection();
-        System.out.println(idStaff.getText());
         if(idStaff.getText() != null && idStaff.getText().length() > 0) {
             cleanForm();
         }
@@ -272,7 +277,11 @@ public class StaffController {
             cccd.requestFocus();
             return;
         }
-        if(StaffValidator.isExistCCCD(cccd.getText()))
+        if(StaffValidator.isExistCCCD(cccd.getText())) {
+            CustomMessageBox.boxError("CCCD is exists");
+            cccd.requestFocus();
+            return;
+        }
 
         // Validate email
         if(!StaffValidator.validateEmail(email.getText())){
@@ -304,12 +313,6 @@ public class StaffController {
         }
         CustomMessageBox.boxOk("Create staff successfully");
         reloadTableView();
-
-
-    }
-
-    @FXML
-    public void handleBtnSearch(ActionEvent actionEvent) {
     }
 
     public void cleanForm() {
@@ -371,10 +374,17 @@ public class StaffController {
             if(keySearch.getValue().equals("PhoneNumber")) {
                 return p.getPhoneNumber().toLowerCase().contains(valueSearch.getText());
             }
+            if(keySearch.getValue().equals("Name")) {
+                return p.getFullName().toLowerCase().contains(valueSearch.getText());
+            }
 
             return p.getCccd().toLowerCase().contains(valueSearch.getText());
         });
-        tableListStaff.getSelectionModel().selectFirst();
+        if(tableListStaff.getSelectionModel() != null) {
+            tableListStaff.getSelectionModel().selectFirst();
+        }
         updateStaffCurrentRowToForm();
     }
+
+
 }

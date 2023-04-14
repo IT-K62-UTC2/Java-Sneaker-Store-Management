@@ -1,12 +1,8 @@
 package utc2.itk62.sneaker.Validator;
 
-import javafx.css.Match;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import utc2.itk62.sneaker.services.StaffService;
 
-import java.time.LocalDate;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

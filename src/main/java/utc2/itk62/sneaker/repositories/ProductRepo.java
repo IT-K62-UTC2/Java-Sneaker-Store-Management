@@ -58,7 +58,6 @@ public class ProductRepo {
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1, idCategory);
-            System.out.println(query);
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 // Product
