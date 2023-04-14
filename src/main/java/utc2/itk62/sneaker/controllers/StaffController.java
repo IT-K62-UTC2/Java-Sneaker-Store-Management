@@ -2,6 +2,7 @@ package utc2.itk62.sneaker.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -13,11 +14,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import utc2.itk62.sneaker.Validator.StaffValidator;
-import utc2.itk62.sneaker.util.CustomMessageBox;
 import utc2.itk62.sneaker.models.Position;
 import utc2.itk62.sneaker.models.Staff;
 import utc2.itk62.sneaker.services.PositionServie;
 import utc2.itk62.sneaker.services.StaffService;
+import utc2.itk62.sneaker.util.CustomMessageBox;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -88,11 +89,13 @@ public class StaffController {
     @FXML
     public Button btnAddImage;
     @FXML
-    public Button btnClean;
+    public TableColumn< Staff,Integer> colIdStaff;
 
     private ToggleGroup toggleGenderGroup = new ToggleGroup();
     private ObservableList<Staff> staffList;
     private ObservableList<Position> positionList = FXCollections.observableArrayList(positionService.getAllPosition());
+    private ObservableList<String> listKetSearch = FXCollections.observableArrayList(
+            "ID","Username", "Name", "Address", "PhoneNumber", "CCCD");
 
     public void initialize() throws SQLException {
         // Gender
@@ -104,6 +107,11 @@ public class StaffController {
         position.getItems().clear();
         position.setItems(positionList);
         reloadTableView();
+
+
+        // Search
+        keySearch.setItems(listKetSearch);
+        keySearch.setValue("ID");
     }
 
     private String getGender() {
@@ -116,6 +124,7 @@ public class StaffController {
         tableListStaff.getItems().clear();
         staffList = FXCollections.observableArrayList(staffService.getAllStaff());
         colAddress.setCellValueFactory(new PropertyValueFactory<Staff, String>("address"));
+        colIdStaff.setCellValueFactory(new PropertyValueFactory<Staff, Integer>("id"));
         colCccd.setCellValueFactory(new PropertyValueFactory<Staff, String>("cccd"));
         colEmail.setCellValueFactory(new PropertyValueFactory<Staff, String>("email"));
         colFullname.setCellValueFactory(new PropertyValueFactory<Staff, String>("fullName"));
@@ -208,7 +217,7 @@ public class StaffController {
         tableListStaff.getSelectionModel().clearSelection();
         System.out.println(idStaff.getText());
         if(idStaff.getText() != null && idStaff.getText().length() > 0) {
-            btnClean.fire();
+            cleanForm();
         }
         // Validate image
         if(!StaffValidator.validateImageAvatar(imageAvatar)) {
@@ -303,8 +312,7 @@ public class StaffController {
     public void handleBtnSearch(ActionEvent actionEvent) {
     }
 
-    @FXML
-    public void handleBtnClean(ActionEvent actionEvent) {
+    public void cleanForm() {
         username.setText("");
         imageAvatar.setImage(null);
 //        password.setText("");
@@ -337,5 +345,36 @@ public class StaffController {
     @FXML
     public void handleBtnExportExcel(ActionEvent actionEvent) {
         staffService.exportExcel(staffList);
+    }
+
+    @FXML
+    public void handleChangeSearchValue(KeyEvent actionEvent) {
+        // Khởi tạo FilteredList và gán nó với danh sách positionList
+        FilteredList<Staff> filteredList = new FilteredList<>(staffList, p -> true);
+
+        // Gán FilteredList làm nguồn dữ liệu cho TableView
+        tableListStaff.setItems(filteredList);
+        filteredList.setPredicate(p -> {
+            if(valueSearch.getText().isEmpty()) {
+                return true;
+            }
+            // "ID","Username", "Name", "Address", "PhoneNumber", "CCCD");
+            if(keySearch.getValue().equals("ID")) {
+                return String.valueOf(p.getId()).toLowerCase().contains(valueSearch.getText());
+            }
+            if(keySearch.getValue().equals("Username")) {
+                return p.getUsername().toLowerCase().contains(valueSearch.getText());
+            }
+            if(keySearch.getValue().equals("Address")) {
+                return p.getAddress().toLowerCase().contains(valueSearch.getText());
+            }
+            if(keySearch.getValue().equals("PhoneNumber")) {
+                return p.getPhoneNumber().toLowerCase().contains(valueSearch.getText());
+            }
+
+            return p.getCccd().toLowerCase().contains(valueSearch.getText());
+        });
+        tableListStaff.getSelectionModel().selectFirst();
+        updateStaffCurrentRowToForm();
     }
 }
