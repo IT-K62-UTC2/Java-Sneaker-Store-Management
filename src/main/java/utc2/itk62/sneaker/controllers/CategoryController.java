@@ -11,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import utc2.itk62.sneaker.models.Category;
 import utc2.itk62.sneaker.models.Product;
+import utc2.itk62.sneaker.models.Staff;
 import utc2.itk62.sneaker.models.Supplier;
 import utc2.itk62.sneaker.services.CategoryService;
 import utc2.itk62.sneaker.services.ProductService;
@@ -189,12 +190,32 @@ public class CategoryController {
             nameCategory.requestFocus();
             return;
         }
+        if(nameCategory.getText().length()<0 || nameCategory.getText().equals("")){
+            CustomMessageBox.boxInfo("Please enter the name category");
+            nameCategory.requestFocus();
+            return;
+        }
         Category category=new Category(nameCategory.getText(),null);
         if(!categoryService.createCategory(category)){
             CustomMessageBox.boxError("Sometimes the category service is not available");
             return;
         }
         CustomMessageBox.boxOk("Created category successfully");
+        reloadTableView();
+    }
+
+    @FXML
+    public void handleBtnUpdate(ActionEvent actionEvent) {
+        Category currentCategory = new Category();
+//        currentCategory.setId(Integer.parseInt(idCategory.getText()));
+//        currentCategory.setName();
+        System.out.println(currentCategory.getName());
+        System.out.println(currentCategory.getId());
+        if (!categoryService.updateCategory(currentCategory)) {
+            CustomMessageBox.boxError("Update category failed");
+            return;
+        }
+        CustomMessageBox.boxOk("Update staff");
         reloadTableView();
     }
 };

@@ -74,4 +74,11 @@ public class CategoryService {
             }
         }
     }
+
+    public boolean updateCategory(Category currentCategory) {
+        if(categoryRepo.updateCategory(currentCategory) <= 0) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -99,7 +99,7 @@
                           </rowConstraints>
                            <children>
                               <Button mnemonicParsing="false" fx:id="btnAddCategory" onAction="#handleBtnAdd" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                              <Button mnemonicParsing="false" fx:id="btnUpdateCategory" text="Update" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                              <Button mnemonicParsing="false" fx:id="btnUpdateCategory" onAction="#handleBtnUpdate" text="Update" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
                               <Button mnemonicParsing="false" fx:id="btnDeleteCategory" text="Delete" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
                            </children>
                         </GridPane>

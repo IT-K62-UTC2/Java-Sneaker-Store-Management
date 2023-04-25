@@ -1,6 +1,7 @@
 package utc2.itk62.sneaker.Validator;
 
 import javafx.scene.image.ImageView;
+import utc2.itk62.sneaker.models.Staff;
 import utc2.itk62.sneaker.services.StaffService;
 
 import java.util.regex.Matcher;
@@ -24,9 +25,12 @@ public class StaffValidator {
 
     }
 
-    public static boolean isExistEmail(String email) {
-        if(staffService.getStaffByEmail(email) != null) {
-            return true;
+    public static boolean isExistEmail(String email, int id) {
+        Staff staffInDb = staffService.getStaffByEmail(email);
+        if(staffInDb != null) {
+            if (staffInDb.getId() != id) {
+                return true;
+            }
         }
         return false;
     }
@@ -42,9 +46,12 @@ public class StaffValidator {
         return m.matches();
     }
 
-    public static boolean isExistUsername(String username) {
-        if(staffService.getStaffByUserName(username) != null) {
-            return true;
+    public static boolean isExistUsername(String username, int id) {
+        Staff staffInDb = staffService.getStaffByUserName(username);
+        if(staffInDb != null) {
+            if(staffInDb.getId() != id){
+                return true;
+            }
         }
         return false;
     }
@@ -62,9 +69,13 @@ public class StaffValidator {
         return true;
     }
 
-    public static boolean isExistCCCD(String cccd) {
-        if(staffService.getStaffByCCCD(cccd) != null) {
-            return true;
+    public static boolean isExistCCCD(String cccd, int id) {
+        Staff staffInDb = staffService.getStaffByCCCD(cccd);
+
+        if(staffInDb != null) {
+            if(staffInDb.getId() != id) {
+                return true;
+            }
         }
         return false;
     }
@@ -89,9 +100,12 @@ public class StaffValidator {
         return m.matches();
     }
 
-    public static boolean isExistPhoneNumber(String phoneNumber) {
-        if(staffService.getStaffByPhoneNumber(phoneNumber) != null) {
-            return true;
+    public static boolean isExistPhoneNumber(String phoneNumber, int id) {
+        Staff staffInDb = staffService.getStaffByPhoneNumber(phoneNumber);
+        if(staffInDb != null) {
+            if (staffInDb.getId() !=id) {
+                return true;
+            }
         }
         return false;
     }

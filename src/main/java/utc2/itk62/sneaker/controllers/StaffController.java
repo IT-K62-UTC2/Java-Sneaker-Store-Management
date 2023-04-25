@@ -30,7 +30,7 @@ public class StaffController {
     @FXML
     public TextField idStaff;
     @FXML
-    public TextField username;
+    public TextField  username;
     @FXML
     public TextField address;
     @FXML
@@ -210,6 +210,9 @@ public class StaffController {
     @FXML
     public void handleUpdateStaff(ActionEvent actionEvent) {
         Staff currentSelectStaff = getStaffCurrentForm();
+        if(!callValidateFormStaff()) {
+            return;
+        }
         if (!staffService.updateStaff(currentSelectStaff)) {
             CustomMessageBox.boxError("Update staff failed");
             return;
@@ -218,84 +221,97 @@ public class StaffController {
         reloadTableView();
     }
 
-    @FXML
-    public void handleAddStaff(ActionEvent actionEvent) {
-        tableListStaff.getSelectionModel().clearSelection();
-        if(idStaff.getText() != null && idStaff.getText().length() > 0) {
-            cleanForm();
-        }
+    private boolean callValidateFormStaff() {
         // Validate image
         if(!StaffValidator.validateImageAvatar(imageAvatar)) {
             CustomMessageBox.boxInfo("Please select an image");
             btnAddImage.fire();
             username.requestFocus();
-            return;
+            return false;
         }
 
         // Validate user name
         if(!StaffValidator.validateUsername(username.getText())) {
             CustomMessageBox.boxError("Invalid username");
             username.requestFocus();
-            return;
+            return false;
         }
 
-        if(StaffValidator.isExistUsername(username.getText())) {
+        if(StaffValidator.isExistUsername(username.getText(), idStaff.getText().equals("") ? 0 : Integer.parseInt(idStaff.getText()))) {
             CustomMessageBox.boxError("Username is exists");
             username.requestFocus();
-            return;
+            return false;
         }
 
         // Validate full name
         if(!StaffValidator.validateFullname(fullname.getText())) {
             CustomMessageBox.boxError("Invalid full name");
             fullname.requestFocus();
-            return;
+            return false;
         }
 
         // Validate address
         if(!StaffValidator.validateAddress(address.getText())) {
             CustomMessageBox.boxError("Invalid address");
             address.requestFocus();
-            return;
+            return false;
         }
 
         // Validate phone number
         if (!StaffValidator.validatePhoneNumber(phoneNumber.getText())){
             CustomMessageBox.boxError("Invalid phone number");
             phoneNumber.requestFocus();
-            return;
+            return false;
         }
-        if(StaffValidator.isExistPhoneNumber(phoneNumber.getText())) {
+        if(StaffValidator.isExistPhoneNumber(phoneNumber.getText(),
+                idStaff.getText().equals("") ? 0
+                        : Integer.parseInt(idStaff.getText()))) {
             CustomMessageBox.boxError("Phone number is exists");
             phoneNumber.requestFocus();
-            return;
+            return false;
         }
 
         // Validate CCCD
         if(!StaffValidator.validateCCCD(cccd.getText())){
             CustomMessageBox.boxError("Invalid cccd");
             cccd.requestFocus();
-            return;
+            return false;
         }
-        if(StaffValidator.isExistCCCD(cccd.getText())) {
+        if(StaffValidator.isExistCCCD(cccd.getText(),
+                idStaff.getText().equals("") ? 0
+                        : Integer.parseInt(idStaff.getText()))) {
             CustomMessageBox.boxError("CCCD is exists");
             cccd.requestFocus();
-            return;
+            return false;
         }
 
         // Validate email
         if(!StaffValidator.validateEmail(email.getText())){
             CustomMessageBox.boxError("Invalid email");
             email.requestFocus();
-            return;
+            return false;
         }
 
-        if(StaffValidator.isExistEmail(email.getText())) {
+        if(StaffValidator.isExistEmail(email.getText(),
+                idStaff.getText().equals("") ? 0
+                        : Integer.parseInt(idStaff.getText()))) {
             CustomMessageBox.boxError("Email is exists");
             email.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    @FXML
+    public void handleAddStaff(ActionEvent actionEvent) {
+        tableListStaff.getSelectionModel().clearSelection();
+        if(idStaff.getText() != null && idStaff.getText().length() > 0) {
+            cleanForm();
+        }
+        
+        if(!callValidateFormStaff()) {
             return;
         }
-
         Staff staff = new Staff();
         staff.setPassword("1");
         staff.setGender(getGender());

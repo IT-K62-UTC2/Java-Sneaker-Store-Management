@@ -97,6 +97,7 @@ public class CategoryRepo {
             ptmt.setString(1, category.getName());
             ptmt.setInt(2, category.getId());
             result = ptmt.executeUpdate();
+            System.out.println(query);
             conn.commit();
         }catch (SQLException e){
             try {
