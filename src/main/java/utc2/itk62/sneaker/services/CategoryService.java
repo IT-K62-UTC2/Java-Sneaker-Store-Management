@@ -33,6 +33,13 @@ public class CategoryService {
         return true;
     }
 
+    public boolean deleteCategory(Category category) {
+        if(categoryRepo.deleteCategory(category.getId()) <= 0) {
+            return false;
+        }
+        return true;
+    }
+
     public void exportExcel(ObservableList<Category> categoryList) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Category");

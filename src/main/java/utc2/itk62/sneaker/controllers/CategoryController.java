@@ -3,15 +3,11 @@ package utc2.itk62.sneaker.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import utc2.itk62.sneaker.models.Category;
 import utc2.itk62.sneaker.models.Product;
-import utc2.itk62.sneaker.models.Staff;
 import utc2.itk62.sneaker.models.Supplier;
 import utc2.itk62.sneaker.services.CategoryService;
 import utc2.itk62.sneaker.services.ProductService;
@@ -85,16 +81,97 @@ public class CategoryController {
         reloadTableView();
         setupBtnExportExcel();
         setupHandleSearch();
+        setUpTableListCategory();
+        setUpUpdateCategory();
+        setUpAddCategory();
+        setUpDeleteCategory();
     }
 
 
     // Setup handle search
     private void setupHandleSearch() {
+        searchValue.setOnKeyReleased(keyEvent -> {
+            // Khởi tạo FilteredList và gán nó với danh sách positionList
+            FilteredList<Category> filteredList = new FilteredList<>(categoryList, p -> true);
 
-
+            // Gán FilteredList làm nguồn dữ liệu cho TableView
+            tableListCategory.setItems(filteredList);
+            String searchText = searchValue.getText().toLowerCase();
+            filteredList.setPredicate(p -> {
+                if (searchText.isEmpty()) {
+                    return true;
+                }
+                if ("Name".equals(keySearch.getValue())) {
+                    return p.getName().toLowerCase().contains(searchText);
+                }
+                return String.valueOf(p.getId()).toLowerCase().contains(searchText);
+            });
+            tableListCategory.getSelectionModel().selectFirst();
+            updateCurrentCategoryToForm();
+            updateProductCurrentRowCategory();
+        });
     }
 
-    ;
+    private void setUpUpdateCategory() {
+        btnUpdateCategory.setOnAction(actionEvent ->{
+            Category category = new Category();
+            category.setId(Integer.parseInt(idCategory.getText()));
+            category.setName(nameCategory.getText());
+            if(!categoryService.updateCategory(category)) {
+                CustomMessageBox.boxError("Something went wrong");
+                return;
+            }
+            CustomMessageBox.boxOk("Update category successfully");
+            reloadTableView();
+        });
+    }
+
+    private void setUpDeleteCategory() {
+        btnDeleteCategory.setOnAction(actionEvent -> {
+            Category category = tableListCategory.getSelectionModel().getSelectedItem();
+            if(category == null) {
+                return;
+            }
+            if(!categoryService.deleteCategory(category)) {
+                CustomMessageBox.boxError("Something went wrong");
+                return;
+            }
+            CustomMessageBox.boxOk("Delete category successfully");
+            reloadTableView();
+        });
+    }
+
+    private void setUpAddCategory() {
+        btnAddCategory.setOnAction(actionEvent ->{
+            Category category = new Category();
+            if(!idCategory.getText().equals("")) {
+                cleanForm();
+            }
+            if(nameCategory.getText().equals("")) {
+                CustomMessageBox.boxError("Please enter a name category");
+                nameCategory.requestFocus();
+                return;
+            }
+            category.setName(nameCategory.getText());
+            if(!categoryService.createCategory(category)) {
+                CustomMessageBox.boxError("Something went wrong");
+                return;
+            }
+            CustomMessageBox.boxOk("Add category successfully");
+            reloadTableView();
+        });
+    }
+
+    private void setUpTableListCategory() {
+        tableListCategory.setOnMouseClicked(mouseEvent -> {
+            updateProductCurrentRowCategory();
+            updateCurrentCategoryToForm();
+        });
+        tableListCategory.setOnKeyPressed(keyEvent -> {
+            updateProductCurrentRowCategory();
+            updateCurrentCategoryToForm();
+        });
+    }
 
 
     // setup handle export excel
@@ -106,8 +183,12 @@ public class CategoryController {
 
 
     private void reloadTableView() {
-        tableListCategory.getItems().clear();
-        tableListProduct.getItems().clear();
+        if (!tableListProduct.getItems().isEmpty()) {
+            tableListProduct.getItems().clear();
+        }
+        if (!tableListCategory.getItems().isEmpty()) {
+            tableListCategory.getItems().clear();
+        }
         categoryList = FXCollections.observableArrayList(categoryService.getAllCategory());
         for (Category category : categoryList) {
             category.setProductList(productService.getProductsByIdCategory(category.getId()));
@@ -121,20 +202,8 @@ public class CategoryController {
 
         // update table other
         tableListCategory.getSelectionModel().selectFirst();
-        updateProductCurrentRowCategory();
         updateCurrentCategoryToForm();
-    }
-
-    @FXML
-    public void handleClickedTableView(MouseEvent mouseEvent) {
         updateProductCurrentRowCategory();
-        updateCurrentCategoryToForm();
-    }
-
-    @FXML
-    public void handleOnKeyPresedTableView(KeyEvent keyEvent) {
-        updateProductCurrentRowCategory();
-        updateCurrentCategoryToForm();
     }
 
     private void updateProductCurrentRowCategory() {
@@ -153,70 +222,18 @@ public class CategoryController {
 
     private void updateCurrentCategoryToForm() {
         Category category = tableListCategory.getSelectionModel().getSelectedItem();
+        if (category == null) {
+            cleanForm();
+            return;
+        }
         idCategory.setText(String.valueOf(category.getId()));
         nameCategory.setText(category.getName());
+
     }
 
-
-    @FXML
-    public void handleChangeSeachValue(KeyEvent keyEvent) {
-        // Khởi tạo FilteredList và gán nó với danh sách positionList
-        FilteredList<Category> filteredList = new FilteredList<>(categoryList, p -> true);
-
-        // Gán FilteredList làm nguồn dữ liệu cho TableView
-        tableListCategory.setItems(filteredList);
-        String searchText = searchValue.getText().toLowerCase();
-        filteredList.setPredicate(p -> {
-            if (searchText.isEmpty()) {
-                return true;
-            }
-            if ("Name".equals(keySearch.getValue())) {
-                return p.getName().toLowerCase().contains(searchText);
-            }
-            return String.valueOf(p.getId()).toLowerCase().contains(searchText);
-        });
-        tableListCategory.getSelectionModel().selectFirst();
-        updateCurrentCategoryToForm();
-        updateProductCurrentRowCategory();
-    }
-
-    @FXML
-    public void handleBtnAdd(ActionEvent actionEvent) {
-        tableListCategory.getSelectionModel().clearSelection();
-        if(idCategory.getText()!=null&&idCategory.getText().length()>0){
-            idCategory.setText("");
-            nameCategory.setText("");
-            CustomMessageBox.boxInfo("Please enter the name category");
-            nameCategory.requestFocus();
-            return;
-        }
-        if(nameCategory.getText().length()<0 || nameCategory.getText().equals("")){
-            CustomMessageBox.boxInfo("Please enter the name category");
-            nameCategory.requestFocus();
-            return;
-        }
-        Category category=new Category(nameCategory.getText(),null);
-        if(!categoryService.createCategory(category)){
-            CustomMessageBox.boxError("Sometimes the category service is not available");
-            return;
-        }
-        CustomMessageBox.boxOk("Created category successfully");
-        reloadTableView();
-    }
-
-    @FXML
-    public void handleBtnUpdate(ActionEvent actionEvent) {
-        Category currentCategory = new Category();
-//        currentCategory.setId(Integer.parseInt(idCategory.getText()));
-//        currentCategory.setName();
-        System.out.println(currentCategory.getName());
-        System.out.println(currentCategory.getId());
-        if (!categoryService.updateCategory(currentCategory)) {
-            CustomMessageBox.boxError("Update category failed");
-            return;
-        }
-        CustomMessageBox.boxOk("Update staff");
-        reloadTableView();
+    private void cleanForm() {
+        idCategory.setText("");
+        nameCategory.setText("");
     }
 };
 

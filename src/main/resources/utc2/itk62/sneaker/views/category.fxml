@@ -41,7 +41,7 @@
                   <TableColumn fx:id="colUpdatedAtProduct" prefWidth="75.0" text="Updated At" />
               </columns>
             </TableView>
-            <TableView fx:id="tableListCategory" onKeyPressed="#handleOnKeyPresedTableView" onMouseClicked="#handleClickedTableView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+            <TableView fx:id="tableListCategory" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
               <columns>
                 <TableColumn fx:id="colSttCategory" prefWidth="75.0" text="STT" />
                 <TableColumn fx:id="colIdCategory" prefWidth="75.0" text="ID" />
@@ -63,7 +63,7 @@
               </rowConstraints>
                <children>
                   <Label text="Tim kiem" />
-                  <TextField fx:id="searchValue" onKeyReleased="#handleChangeSeachValue" GridPane.columnIndex="1" />
+                  <TextField fx:id="searchValue" GridPane.columnIndex="1" />
                   <ComboBox fx:id="keySearch" prefWidth="150.0" GridPane.columnIndex="2" />
                   <Button mnemonicParsing="false" fx:id="btnExportExcel" text="Export excel" GridPane.columnIndex="3"/>
                </children>
@@ -98,8 +98,8 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button mnemonicParsing="false" fx:id="btnAddCategory" onAction="#handleBtnAdd" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                              <Button mnemonicParsing="false" fx:id="btnUpdateCategory" onAction="#handleBtnUpdate" text="Update" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                              <Button mnemonicParsing="false" fx:id="btnAddCategory" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                              <Button mnemonicParsing="false" fx:id="btnUpdateCategory" text="Update" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
                               <Button mnemonicParsing="false" fx:id="btnDeleteCategory" text="Delete" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
                            </children>
                         </GridPane>
