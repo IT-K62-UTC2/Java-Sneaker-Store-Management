@@ -23,22 +23,64 @@ public class HomeController {
     }
 
     @FXML
-    public void handleBtnStaff(ActionEvent actionEvent) throws IOException {
+    public void handleBtnStaff(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/staff.fxml"));
-        Node node = loader.load();
-        include.getChildren().set(0,node);
+        Node node = null;
+        try {
+            node = loader.load();
+            include.getChildren().set(0,node);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
-    public void handleBtnHome(ActionEvent actionEvent) throws IOException {
+    public void handleBtnHome(ActionEvent actionEvent)  {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/dashboard.fxml"));
-        Node node = loader.load();
-        include.getChildren().set(0,node);
+        Node node = null;
+        try {
+            node = loader.load();
+            include.getChildren().set(0,node);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void handleBtnCategory(ActionEvent actionEvent) throws IOException {
+    @FXML
+    public void handleBtnCategory(ActionEvent actionEvent){
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/category.fxml"));
-        Node node = loader.load();
-        include.getChildren().set(0,node);
+        Node node = null;
+        try {
+            node = loader.load();
+            include.getChildren().set(0,node);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void handleBtnCustomer(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/customer.fxml"));
+        System.out.println(Main.class.getResource("views/customer.fxml"));
+        Node node = null;
+        try {
+            node = loader.load();
+            include.getChildren().set(0,node);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void handleBtnProduct(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/product.fxml"));
+        System.out.println(Main.class.getResource("views/customer.fxml"));
+        Node node = null;
+        try {
+            node = loader.load();
+            include.getChildren().set(0,node);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
