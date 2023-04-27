@@ -1,12 +1,9 @@
 package utc2.itk62.sneaker.controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import utc2.itk62.sneaker.Main;
@@ -20,7 +17,7 @@ public class HomeController {
     public ImageView image;
 
     public void initialize() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/product.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/sale.fxml"));
         Node node = loader.load();
         include.getChildren().add(0,node);
     }
@@ -39,7 +36,7 @@ public class HomeController {
 
     @FXML
     public void handleBtnHome(ActionEvent actionEvent)  {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/sale.fxml"));
         Node node = null;
         try {
             node = loader.load();

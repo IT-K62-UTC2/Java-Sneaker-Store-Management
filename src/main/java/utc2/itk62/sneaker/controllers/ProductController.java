@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import utc2.itk62.sneaker.models.*;
 import utc2.itk62.sneaker.services.CategoryService;
 import utc2.itk62.sneaker.services.ProductService;
@@ -42,6 +44,7 @@ public class ProductController {
     public TableColumn<Product, Integer> colStatus;
     public TableColumn<Product, Timestamp> colCreatedAt;
     public TableColumn<Product, Timestamp> colUpdatedAt;
+    public ImageView image;
 
 
     private ObservableList<Product> productList;
@@ -93,6 +96,7 @@ public class ProductController {
         quantity.setText(String.valueOf(product.getQuantity()));
         desc.setText(product.getDescription());
         price.setText(String.valueOf(product.getPrice()));
+        image.setImage(new Image(product.getAvatar()));
     }
 
     private void setUpTableView( ) {

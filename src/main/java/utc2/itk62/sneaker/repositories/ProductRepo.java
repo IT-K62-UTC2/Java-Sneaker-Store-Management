@@ -38,6 +38,7 @@ public class ProductRepo {
                 Product product = new Product();
                 product.setCategory(category);
                 product.setSupplier(supplier);
+                product.setQuantity(rs.getInt("product.quantity"));
                 product.setId(rs.getInt("id"));
                 product.setName(rs.getString("product.name"));
                 product.setSize(rs.getDouble("size"));
@@ -78,6 +79,7 @@ public class ProductRepo {
                 product.setPrice(rs.getDouble("price"));
                 product.setAvatar(rs.getString("avatar"));
                 product.setStatus(rs.getInt("status"));
+                product.setQuantity(rs.getInt("quantity"));
                 product.setCreatedAt(rs.getTimestamp("created_at"));
                 product.setUpdatedAt(rs.getTimestamp("updated_at"));
 

@@ -114,7 +114,11 @@
                                         <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="90.0" text="Export excel" GridPane.columnIndex="3" />
                                     </children>
                                 </GridPane>
-                                <ImageView fitHeight="200.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <ImageView fx:id="image" fitHeight="250.0" fitWidth="250.0" layoutX="55.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </AnchorPane>
                             </children>
                         </GridPane>
                     </children>
