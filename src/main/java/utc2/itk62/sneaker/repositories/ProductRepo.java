@@ -21,7 +21,7 @@ public class ProductRepo {
     public List<Product> getAllProducts(Paging paging) {
         paging.checkPageLimit();
         List<Product> productList = new ArrayList<Product>();
-        String query = "SELECT * FROM product " +
+        String query = "SELECT product.*, category.name, supplier.name FROM product " +
                 " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
                 " LEFT JOIN category ON category.id = product.id_category" +
                 " WHERE product.status = 1 LIMIT ? OFFSET ? ";
