@@ -21,18 +21,26 @@ public class ProductRepo {
     public List<Product> getAllProducts(Paging paging) {
         paging.checkPageLimit();
         List<Product> productList = new ArrayList<Product>();
-        String query = "SELECT * FROM product WHERE status = 1 LIMIT ? OFFSET ? ";
+        String query = "SELECT product.*, category.name, supplier.name FROM product " +
+                " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
+                " LEFT JOIN category ON category.id = product.id_category" +
+                " WHERE product.status = 1 LIMIT ? OFFSET ? ";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1,paging.getLimit());
             ptmt.setInt(2,paging.getOffset());
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
+                Category category = new Category();
+                Supplier supplier = new Supplier();
+                category.setName(rs.getString("category.name"));
+                supplier.setName(rs.getString("supplier.name"));
                 Product product = new Product();
+                product.setCategory(category);
+                product.setSupplier(supplier);
+                product.setQuantity(rs.getInt("product.quantity"));
                 product.setId(rs.getInt("id"));
-//                product.setIdSupplier(rs.getInt("id_supplier"));
-//                product.setIdCategory(rs.getInt("id_category"));
-                product.setName(rs.getString("name"));
+                product.setName(rs.getString("product.name"));
                 product.setSize(rs.getDouble("size"));
                 product.setDescription(rs.getString("desc"));
                 product.setPrice(rs.getDouble("price"));
@@ -71,6 +79,7 @@ public class ProductRepo {
                 product.setPrice(rs.getDouble("price"));
                 product.setAvatar(rs.getString("avatar"));
                 product.setStatus(rs.getInt("status"));
+                product.setQuantity(rs.getInt("quantity"));
                 product.setCreatedAt(rs.getTimestamp("created_at"));
                 product.setUpdatedAt(rs.getTimestamp("updated_at"));
 

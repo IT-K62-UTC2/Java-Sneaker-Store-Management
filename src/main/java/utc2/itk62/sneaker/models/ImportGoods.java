@@ -1,6 +1,7 @@
 package utc2.itk62.sneaker.models;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class ImportGoods {
     private int id;
@@ -8,16 +9,30 @@ public class ImportGoods {
     private int quantity;
     private int moneyTotal;
     private int status;
+    private List<ImportGoodsDetail> importGoodsDetailList;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
     public ImportGoods() {
     }
 
-    public ImportGoods(Staff staff, int quantity, int moneyTotal) {
+    public ImportGoods(int id, Staff staff, int quantity, int moneyTotal, int status, List<ImportGoodsDetail> importGoodsDetailList, Timestamp createdAt, Timestamp updatedAt) {
+        this.id = id;
         this.staff = staff;
         this.quantity = quantity;
         this.moneyTotal = moneyTotal;
+        this.status = status;
+        this.importGoodsDetailList = importGoodsDetailList;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public List<ImportGoodsDetail> getImportGoodsDetailList() {
+        return importGoodsDetailList;
+    }
+
+    public void setImportGoodsDetailList(List<ImportGoodsDetail> importGoodsDetailList) {
+        this.importGoodsDetailList = importGoodsDetailList;
     }
 
     public void setId(int id) {

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -26,8 +27,20 @@
             </rowConstraints>
             <children>
                 <TableView fx:id="tableListProduct" maxWidth="1200.0" prefHeight="700.0" prefWidth="1200.0" GridPane.rowIndex="2">
-
-                </TableView>
+               <columns>
+                  <TableColumn fx:id="stt" prefWidth="75.0" text="STT" />
+                  <TableColumn fx:id="colId" prefWidth="75.0" text="Mã sản phẩm" />
+                  <TableColumn fx:id="colSupplier" prefWidth="75.0" text="Nhà cung cấp" />
+                  <TableColumn fx:id="colCategory" prefWidth="75.0" text="Thể loại " />
+                  <TableColumn fx:id="colName" prefWidth="75.0" text="Tên " />
+                  <TableColumn fx:id="colSize" prefWidth="75.0" text="Size" />
+                  <TableColumn fx:id="colQuantity" prefWidth="75.0" text="Số lượng" />
+                  <TableColumn fx:id="colPrice" prefWidth="75.0" text="Giá" />
+                  <TableColumn fx:id="colDesc" prefWidth="75.0" text="Mô tả" />
+                  <TableColumn fx:id="colStatus" prefWidth="75.0" text="Trạng thái" />
+                  <TableColumn fx:id="colCreatedAt" prefWidth="75.0" text="Ngày tạo" />
+                  <TableColumn fx:id="colUpdatedAt" prefWidth="75.0" text="Ngày cập nhật" />
+               </columns></TableView>
                 <GridPane>
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="840.0" minWidth="10.0" prefWidth="840.0" />
@@ -66,7 +79,7 @@
                                 <TextField fx:id="quantity" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                 <ComboBox fx:id="supplier" prefHeight="26.0" prefWidth="146.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                 <Label text="Price" GridPane.rowIndex="7" />
-                                <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                <TextField fx:id="price" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <TextArea fx:id="desc" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <ComboBox fx:id="category" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                             </children>
@@ -101,7 +114,11 @@
                                         <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="90.0" text="Export excel" GridPane.columnIndex="3" />
                                     </children>
                                 </GridPane>
-                                <ImageView fitHeight="200.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <ImageView fx:id="image" fitHeight="250.0" fitWidth="250.0" layoutX="55.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </AnchorPane>
                             </children>
                         </GridPane>
                     </children>

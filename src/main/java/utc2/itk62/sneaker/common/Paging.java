@@ -7,6 +7,7 @@ public class Paging {
     public Paging(int limit, int page) {
         this.limit = limit;
         this.offset = (page - 1) * limit;
+        checkPageLimit();
     }
 
     public void checkPageLimit() {

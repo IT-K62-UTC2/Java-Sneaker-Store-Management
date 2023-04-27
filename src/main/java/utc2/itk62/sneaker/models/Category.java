@@ -66,4 +66,9 @@ public class Category {
     public Timestamp getUpdatedAt() {
         return updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

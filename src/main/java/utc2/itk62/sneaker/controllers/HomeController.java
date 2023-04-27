@@ -17,7 +17,7 @@ public class HomeController {
     public ImageView image;
 
     public void initialize() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/category.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/sale.fxml"));
         Node node = loader.load();
         include.getChildren().add(0,node);
     }
@@ -36,7 +36,7 @@ public class HomeController {
 
     @FXML
     public void handleBtnHome(ActionEvent actionEvent)  {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/sale.fxml"));
         Node node = null;
         try {
             node = loader.load();
@@ -75,6 +75,18 @@ public class HomeController {
     public void handleBtnProduct(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/product.fxml"));
         System.out.println(Main.class.getResource("views/customer.fxml"));
+        Node node = null;
+        try {
+            node = loader.load();
+            include.getChildren().set(0,node);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void handleImportGoods(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/import-goods.fxml"));
+        System.out.println(Main.class.getResource("views/import-goods.fxml"));
         Node node = null;
         try {
             node = loader.load();

@@ -157,7 +157,6 @@ public class StaffController {
         phoneNumber.setText(selectedStaff.getPhoneNumber());
         cccd.setText(selectedStaff.getCccd());
         imageAvatar.setImage(new Image(selectedStaff.getPathAvatar()));
-//        gender.setValue(selectedStaff.getGender());
         toggleGenderGroup.selectToggle(selectedStaff.getGender().equals(maleBtn.getText()) ? maleBtn : femaleBtn);
         return selectedStaff;
     }
