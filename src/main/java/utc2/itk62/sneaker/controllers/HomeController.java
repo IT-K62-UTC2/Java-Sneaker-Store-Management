@@ -17,7 +17,7 @@ public class HomeController {
     public ImageView image;
 
     public void initialize() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/category.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/product.fxml"));
         Node node = loader.load();
         include.getChildren().add(0,node);
     }
