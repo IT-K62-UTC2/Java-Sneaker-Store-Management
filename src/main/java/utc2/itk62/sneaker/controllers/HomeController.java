@@ -1,9 +1,12 @@
 package utc2.itk62.sneaker.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import utc2.itk62.sneaker.Main;
@@ -75,6 +78,18 @@ public class HomeController {
     public void handleBtnProduct(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/product.fxml"));
         System.out.println(Main.class.getResource("views/customer.fxml"));
+        Node node = null;
+        try {
+            node = loader.load();
+            include.getChildren().set(0,node);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void handleImportGoods(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/import-goods.fxml"));
+        System.out.println(Main.class.getResource("views/import-goods.fxml"));
         Node node = null;
         try {
             node = loader.load();

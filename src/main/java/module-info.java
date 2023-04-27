@@ -7,6 +7,7 @@ module utc2.itk62.sneaker {
     requires java.sql;
     requires mysql.connector.java;
     requires org.apache.poi.ooxml;
+    requires jasperreports;
 
     opens utc2.itk62.sneaker to javafx.fxml;
     exports utc2.itk62.sneaker.controllers;
