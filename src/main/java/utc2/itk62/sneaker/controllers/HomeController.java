@@ -35,10 +35,18 @@ public class HomeController {
         Node node = loader.load();
         include.getChildren().set(0,node);
     }
+    @FXML
+    public void handleBtnSupplier(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/supplier.fxml"));
+        Node node = loader.load();
+        include.getChildren().set(0,node);
+    }
+    @FXML
 
     public void handleBtnCategory(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/category.fxml"));
         Node node = loader.load();
         include.getChildren().set(0,node);
     }
+
 }

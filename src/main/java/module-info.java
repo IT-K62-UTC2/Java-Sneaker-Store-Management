@@ -9,6 +9,7 @@ module utc2.itk62.sneaker {
     requires org.apache.poi.ooxml;
 
     opens utc2.itk62.sneaker to javafx.fxml;
+    opens utc2.itk62.sneaker.controllers to javafx.fxml;
     exports utc2.itk62.sneaker.controllers;
     exports utc2.itk62.sneaker;
     exports utc2.itk62.sneaker.models;
