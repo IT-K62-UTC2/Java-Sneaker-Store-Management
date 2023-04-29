@@ -5,9 +5,13 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class FormatDateTime {
-    public static String formatTimeStampToString(Timestamp timestamp) {
+    public static String timestampToString(Timestamp timestamp) {
         String s = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(timestamp);
         return s;
+    }
+
+    public static Timestamp stringToTimestamp(String timestamp) {
+        return null;
     }
 
     public static int compareDatepicker(LocalDate fromDate, LocalDate toDate) {

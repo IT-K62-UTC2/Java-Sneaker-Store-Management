@@ -58,8 +58,8 @@ public class CategoryService {
             row.createCell(1,CellType.NUMERIC).setCellValue(item.getId());
             row.createCell(2,CellType.STRING).setCellValue(item.getName());
             row.createCell(3, CellType.STRING).setCellValue(item.getStatus() == Status.STATUS_ACTIVE ? "Đang hoạt động" : "Không hoạt động");
-            row.createCell(4, CellType.STRING).setCellValue(FormatDateTime.formatTimeStampToString(item.getCreatedAt()));
-            row.createCell(5,CellType.STRING).setCellValue(FormatDateTime.formatTimeStampToString(item.getUpdatedAt()));
+            row.createCell(4, CellType.STRING).setCellValue(FormatDateTime.timestampToString(item.getCreatedAt()));
+            row.createCell(5,CellType.STRING).setCellValue(FormatDateTime.timestampToString(item.getUpdatedAt()));
             sheet.autoSizeColumn(i);
         }
 

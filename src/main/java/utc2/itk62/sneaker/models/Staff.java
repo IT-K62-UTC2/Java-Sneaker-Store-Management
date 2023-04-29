@@ -145,4 +145,9 @@ public class Staff {
     public void setPathAvatar(String pathAvatar) {
         this.pathAvatar = pathAvatar;
     }
+
+    @Override
+    public String toString() {
+        return fullName;
+    }
 }

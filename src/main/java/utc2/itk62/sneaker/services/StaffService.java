@@ -113,8 +113,8 @@ public class StaffService {
             row.createCell(8, CellType.STRING).setCellValue(item.getGender());
             row.createCell(9, CellType.STRING).setCellValue(item.getPathAvatar());
             row.createCell(10, CellType.STRING).setCellValue(item.getStatus() == Status.STATUS_ACTIVE ? "Đang hoạt động" : "Không hoạt động");
-            row.createCell(11, CellType.STRING).setCellValue(FormatDateTime.formatTimeStampToString(item.getCreatedAt()));
-            row.createCell(12,CellType.STRING).setCellValue(FormatDateTime.formatTimeStampToString(item.getUpdatedAt()));
+            row.createCell(11, CellType.STRING).setCellValue(FormatDateTime.timestampToString(item.getCreatedAt()));
+            row.createCell(12,CellType.STRING).setCellValue(FormatDateTime.timestampToString(item.getUpdatedAt()));
             sheet.autoSizeColumn(i);
         }
 
