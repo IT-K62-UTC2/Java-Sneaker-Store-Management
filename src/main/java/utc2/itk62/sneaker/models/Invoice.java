@@ -6,6 +6,7 @@ public class Invoice {
     private int id;
     private Staff staff;
     private Customer customer;
+    private int totalQuantity;
     private double moneyTotal;
     private String deliveryAddress;
     private String deliveryPhoneNumber;
@@ -16,12 +17,25 @@ public class Invoice {
     public Invoice() {
     }
 
-    public Invoice(Staff staff, Customer customer, double moneyTotal, String deliveryAddress, String deliveryPhoneNumber) {
+    public Invoice(int id, Staff staff, Customer customer, int totalQuantity, double moneyTotal, String deliveryAddress, String deliveryPhoneNumber, int status, Timestamp createdAt, Timestamp updatedAt) {
+        this.id = id;
         this.staff = staff;
         this.customer = customer;
+        this.totalQuantity = totalQuantity;
         this.moneyTotal = moneyTotal;
         this.deliveryAddress = deliveryAddress;
         this.deliveryPhoneNumber = deliveryPhoneNumber;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public int getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
     }
 
     public void setId(int id) {

@@ -13,6 +13,23 @@ public class ProductService {
         return productRepo.getProductListByIdCategory(idCategory);
     }
 
+    public boolean updateProduct(Product product) {
+        if(productRepo.updateProduct(product) <=0) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updateQuantityProduct(int quantity, int idProduct) {
+        Product product = new Product();
+        product.setQuantity(quantity);
+        product.setId(idProduct);
+        if(productRepo.updateQuantityProduct(product) <= 0) {
+            return  false;
+        }
+        return true;
+    }
+
     public List<Product> getAllProduct() {
         return productRepo.getAllProducts(new Paging(0,0));
     }

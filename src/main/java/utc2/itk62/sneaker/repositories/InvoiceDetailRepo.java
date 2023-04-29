@@ -54,20 +54,16 @@ public class InvoiceDetailRepo {
     }
 
     public int createInvoiceDetail(InvoiceDetail invoiceDetail) {
-        String query = "INSERT INTO invoice_detail(" +
-                "id_invoice," +
-                " id_product" +
-                ", product_quantity, " +
-                "money_total"
-                + "VALUES(?, ?, ?, ?)";
+        String query = "INSERT INTO invoice_detail(id_invoice, id_product, product_quantity, money_total)" +
+                "VALUES(?, ?, ?, ?)";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
         try{
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
-//            ptmt.setInt(1, invoiceDetail.getIdInvoice());
-//            ptmt.setInt(2, invoiceDetail.getIdProduct());
+            ptmt.setInt(1, invoiceDetail.getInvoice().getId());
+            ptmt.setInt(2, invoiceDetail.getProduct().getId());
             ptmt.setInt(3, invoiceDetail.getProductQuantity());
             ptmt.setDouble(4, invoiceDetail.getMoneyTotal());
             result = ptmt.executeUpdate();

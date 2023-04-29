@@ -18,6 +18,30 @@ public class ProductRepo {
     public ProductRepo() {
     }
 
+    public int updateQuantityProduct (Product product) {
+        String query = "UPDATE product SET quantity = quantity + ? WHERE id = ?";
+        int result = 0;
+        Connection conn = ConnectionUtil.getConnection();
+        try{
+            conn.setAutoCommit(false);
+            PreparedStatement ptmt = conn.prepareStatement(query);
+            ptmt.setInt(1, product.getQuantity());
+            ptmt.setInt(2, product.getId());
+            result = ptmt.executeUpdate();
+            conn.commit();
+        }catch (SQLException e){
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            e.printStackTrace();
+        } finally{
+            ConnectionUtil.closeConnection();
+        }
+        return result;
+    }
+
     public List<Product> getAllProducts(Paging paging) {
         paging.checkPageLimit();
         List<Product> productList = new ArrayList<Product>();
