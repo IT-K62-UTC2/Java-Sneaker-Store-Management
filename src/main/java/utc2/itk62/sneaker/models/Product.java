@@ -127,4 +127,9 @@ public class Product {
     public Timestamp getUpdatedAt() {
         return updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

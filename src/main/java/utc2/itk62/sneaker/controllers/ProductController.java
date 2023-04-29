@@ -52,6 +52,8 @@ public class ProductController {
     private ObservableList<Category> categoryList = FXCollections.observableArrayList(categoryService.getAllCategory());
 
     public void initialize() {
+
+
         // set supplier
         supplier.setItems(supplierList);
 

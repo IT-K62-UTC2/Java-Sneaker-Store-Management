@@ -5,10 +5,7 @@ import utc2.itk62.sneaker.connection.ConnectionUtil;
 import utc2.itk62.sneaker.models.Category;
 import utc2.itk62.sneaker.models.Invoice;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -153,22 +150,30 @@ public class InvoiceRepo {
         return result;
     }
 
-    public int createInvoice(Invoice invoice) {
-        String query = "INSERT INTO customer(id_staff, id_customer, money_total, delivery_address, delivery_phone_number) "
-                + "VALUES(?, ?, ?, ?, ?) ";
+    public Invoice createInvoice(Invoice invoice) {
+        String query = "INSERT INTO invoice(id_staff, id_customer, money_total, delivery_address, delivery_phone_number, total_quantity) "
+                + "VALUES(?, ?, ?, ?, ?, ?) ";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
         try{
             conn.setAutoCommit(false);
-            PreparedStatement ptmt = conn.prepareStatement(query);
-//            ptmt.setInt(1, invoice.getIdStaff());
-//            ptmt.setInt(2, invoice.getIdCustomer());
+            PreparedStatement ptmt = conn.prepareStatement(query,  Statement.RETURN_GENERATED_KEYS);
+            ptmt.setInt(1, invoice.getStaff().getId());
+            ptmt.setInt(2, invoice.getCustomer().getId());
             ptmt.setDouble(3, invoice.getMoneyTotal());
             ptmt.setString(4, invoice.getDeliveryAddress());
             ptmt.setString(5,invoice.getDeliveryPhoneNumber());
+            ptmt.setInt(6,invoice.getTotalQuantity());
             result = ptmt.executeUpdate();
+            ResultSet rs = ptmt.getGeneratedKeys();
+            Invoice invoiceInDb = new Invoice();
+            if (rs.next()) {
+                invoiceInDb.setId(rs.getInt(1));
+                System.out.println(invoiceInDb.getId());
+            }
             conn.commit();
+            return invoiceInDb;
         }catch (SQLException e){
             try {
                 conn.rollback();
@@ -179,7 +184,7 @@ public class InvoiceRepo {
         } finally {
             ConnectionUtil.closeConnection();
         }
-        return result;
+        return null;
     }
 
 

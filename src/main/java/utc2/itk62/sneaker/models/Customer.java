@@ -105,4 +105,9 @@ public class Customer {
     public Timestamp getUpdatedAt() {
         return updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return fullName+" - " + phoneNumber;
+    }
 }
