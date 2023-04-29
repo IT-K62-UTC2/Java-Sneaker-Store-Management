@@ -3,7 +3,9 @@ package utc2.itk62.sneaker.repositories;
 import utc2.itk62.sneaker.common.Paging;
 import utc2.itk62.sneaker.connection.ConnectionUtil;
 import utc2.itk62.sneaker.models.Category;
+import utc2.itk62.sneaker.models.Customer;
 import utc2.itk62.sneaker.models.Invoice;
+import utc2.itk62.sneaker.models.Staff;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +18,10 @@ public class InvoiceRepo {
     public List<Invoice> getAllInvoices(Paging paging) {
         paging.checkPageLimit();
         List<Invoice> invoiceList = new ArrayList<Invoice>();
-        String query = "SELECT * FROM invoice WHERE status = 1 LIMIT ? OFFSET ? ";
+        String query = "SELECT invoice.*, customer.fullname, staff.fullname FROM invoice " +
+                " LEFT JOIN customer ON customer.id = invoice.id_customer" +
+                " LEFT JOIN staff ON staff.id = invoice.id_staff" +
+                " WHERE invoice.status = 1 LIMIT ? OFFSET ? ";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1,paging.getLimit());
@@ -25,8 +30,13 @@ public class InvoiceRepo {
             while (rs.next()) {
                 Invoice invoice = new Invoice();
                 invoice.setId(rs.getInt("id"));
-//                invoice.setIdStaff(rs.getInt("id_staff"));
-//                invoice.setIdCustomer(rs.getInt("id_customer"));
+                Staff staff = new Staff();
+                staff.setFullName(rs.getString("staff.fullname"));
+                Customer customer = new Customer();
+                customer.setFullName(rs.getString("customer.fullname"));
+                invoice.setStaff(staff);
+                invoice.setCustomer(customer);
+                invoice.setTotalQuantity(rs.getInt("total_quantity"));
                 invoice.setMoneyTotal(rs.getDouble("money_total"));
                 invoice.setDeliveryAddress(rs.getString("delivery_address"));
                 invoice.setDeliveryPhoneNumber(rs.getString("delivery_phone_number"));

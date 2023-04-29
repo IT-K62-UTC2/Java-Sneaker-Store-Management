@@ -1,6 +1,7 @@
 package utc2.itk62.sneaker.models;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Invoice {
     private int id;
@@ -13,11 +14,20 @@ public class Invoice {
     private int status;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private List<InvoiceDetail> listInvoiceDetails;
 
     public Invoice() {
     }
 
-    public Invoice(int id, Staff staff, Customer customer, int totalQuantity, double moneyTotal, String deliveryAddress, String deliveryPhoneNumber, int status, Timestamp createdAt, Timestamp updatedAt) {
+    public List<InvoiceDetail> getListInvoiceDetails() {
+        return listInvoiceDetails;
+    }
+
+    public void setListInvoiceDetails(List<InvoiceDetail> listInvoiceDetails) {
+        this.listInvoiceDetails = listInvoiceDetails;
+    }
+
+    public Invoice(int id, Staff staff, Customer customer, int totalQuantity, double moneyTotal, String deliveryAddress, String deliveryPhoneNumber, int status, Timestamp createdAt, Timestamp updatedAt, List<InvoiceDetail> listInvoiceDetails) {
         this.id = id;
         this.staff = staff;
         this.customer = customer;
@@ -28,6 +38,7 @@ public class Invoice {
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.listInvoiceDetails = listInvoiceDetails;
     }
 
     public int getTotalQuantity() {
