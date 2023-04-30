@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.CategoryController">
+   <children>
+      <GridPane layoutX="11.0" layoutY="7.0" prefHeight="700.0" prefWidth="1200.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="325.6" minHeight="10.0" prefHeight="67.20000457763672" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="325.6" minHeight="10.0" prefHeight="188.79999542236328" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="331.0000061035156" minHeight="10.0" prefHeight="96.19999389648439" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="388.0000366210938" minHeight="10.0" prefHeight="117.80000610351561" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="388.0000366210938" minHeight="10.0" prefHeight="171.60002441406255" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="313.5999755859375" minHeight="0.0" prefHeight="54.79997558593743" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="313.5999755859375" minHeight="10.0" prefHeight="147.1999633789062" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TableView fx:id="tableListProduct" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
+              <columns>
+                <TableColumn fx:id="colSTTProduct" prefWidth="75.0" text="STT" />
+                <TableColumn fx:id="colSupplierProduct" prefWidth="75.0" text="Supplier" />
+                  <TableColumn fx:id="colNameProduct" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="colQuantity" prefWidth="75.0" text="Quantity" />
+                  <TableColumn fx:id="colSizeProduct" prefWidth="75.0" text="Size" />
+                  <TableColumn fx:id="colDescProduct" prefWidth="75.0" text="Desc" />
+                  <TableColumn fx:id="colPriceProduct" prefWidth="75.0" text="Price" />
+                  <TableColumn fx:id="colStatusProduct" prefWidth="75.0" text="Status" />
+                  <TableColumn fx:id="colCreatedAtProduct" prefWidth="75.0" text="Created At" />
+                  <TableColumn fx:id="colUpdatedAtProduct" prefWidth="75.0" text="Updated At" />
+              </columns>
+            </TableView>
+            <TableView fx:id="tableListCategory" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+              <columns>
+                <TableColumn fx:id="colSttCategory" prefWidth="75.0" text="STT" />
+                <TableColumn fx:id="colIdCategory" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="colNameCategory" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="colStatusCategory" prefWidth="75.0" text="Status" />
+                  <TableColumn fx:id="colCreatedAtCategory" prefWidth="75.0" text="Created At" />
+                  <TableColumn fx:id="colUpdatedAtCategory" prefWidth="75.0" text="Updated At" />
+              </columns>
+            </TableView>
+            <GridPane GridPane.rowIndex="2">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Tim kiem" />
+                  <TextField fx:id="searchValue" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="keySearch" prefWidth="150.0" GridPane.columnIndex="2" />
+                  <Button mnemonicParsing="false" fx:id="btnExportExcel" text="Export excel" GridPane.columnIndex="3"/>
+               </children>
+            </GridPane>
+            <Label text="Danh sách category" GridPane.rowIndex="3" />
+            <Label text="Danh sách product trong category" GridPane.rowIndex="5" />
+            <GridPane GridPane.rowIndex="1">
+               <rowConstraints>
+                  <RowConstraints />
+               </rowConstraints>
+               <columnConstraints>
+                  <ColumnConstraints />
+               </columnConstraints>
+               <children>
+                  <GridPane prefHeight="358.0" prefWidth="1223.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="239.19998779296876" minHeight="10.0" prefHeight="119.39999084472656" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="145.60001220703126" minHeight="0.0" prefHeight="49.80000915527343" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <GridPane GridPane.rowIndex="1">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button mnemonicParsing="false" fx:id="btnAddCategory" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                              <Button mnemonicParsing="false" fx:id="btnUpdateCategory" text="Update" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                              <Button mnemonicParsing="false" fx:id="btnDeleteCategory" text="Delete" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                           </children>
+                        </GridPane>
+                        <GridPane prefHeight="61.0" prefWidth="1200.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="112.00000610351563" minHeight="10.0" prefHeight="44.799995803833006" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="185.5999969482422" minHeight="10.0" prefHeight="52.200004196166994" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Mã danh mục" GridPane.halignment="CENTER" />
+                              <Label text="Tên danh mục" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                              <TextField fx:id="idCategory" GridPane.columnIndex="1" />
+                              <TextField fx:id="nameCategory" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+            <Label text="QUẢN LÍ DANH MỤC" GridPane.halignment="CENTER" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

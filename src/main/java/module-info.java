@@ -8,9 +8,10 @@ module utc2.itk62.sneaker {
     requires mysql.connector.java;
     requires org.apache.poi.ooxml;
     requires jasperreports;
+    requires javafx.swing;
 
-    opens utc2.itk62.sneaker to javafx.fxml;
-    exports utc2.itk62.sneaker.controllers;
-    exports utc2.itk62.sneaker;
-    exports utc2.itk62.sneaker.models;
+    opens utc2.itk62.store to javafx.fxml;
+    exports utc2.itk62.store.controllers;
+    exports utc2.itk62.store;
+    exports utc2.itk62.store.models;
 }

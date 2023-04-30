@@ -1,0 +1,127 @@
+package utc2.itk62.store.models;
+
+import java.sql.Timestamp;
+
+public class Product {
+    private int id;
+    private Supplier supplier;
+    private Category category;
+    private String name;
+    private String description;
+    private int quantity;
+    private double price;
+    private String avatar;
+    private int status;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
+
+    public Product() {
+    }
+
+    public Product(Supplier supplier, Category category, String name, String description, int quantity, double price, String avatar) {
+        this.supplier = supplier;
+        this.category = category;
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.price = price;
+        this.avatar = avatar;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+}
