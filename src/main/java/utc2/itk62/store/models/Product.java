@@ -1,5 +1,7 @@
 package utc2.itk62.store.models;
 
+import utc2.itk62.store.util.FormatDouble;
+
 import java.sql.Timestamp;
 
 public class Product {
@@ -15,6 +17,8 @@ public class Product {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
+    private String strPrice;
+
     public Product() {
     }
 
@@ -26,6 +30,7 @@ public class Product {
         this.quantity = quantity;
         this.price = price;
         this.avatar = avatar;
+        strPrice = FormatDouble.toString(this.price);
     }
 
     public int getQuantity() {
@@ -65,6 +70,11 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+        strPrice = FormatDouble.toString(this.price);
+    }
+
+    public String getStrPrice() {
+        return strPrice;
     }
 
     public void setAvatar(String avatar) {

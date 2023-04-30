@@ -17,7 +17,7 @@ public class InvoiceDetailRepo {
 
     public List<InvoiceDetail> getAllInvoicesDetailByInvoiceId(int invoiceId) {
         List<InvoiceDetail> invoiceList = new ArrayList<InvoiceDetail>();
-            String query = "SELECT invoice_detail.*, product.price, product.name  FROM invoice_detail " +
+            String query = "SELECT invoice_detail.*, product.price, product.name, product.id  FROM invoice_detail " +
                 "LEFT JOIN product ON product.id = invoice_detail.id_product WHERE id_invoice = ?";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
@@ -27,7 +27,9 @@ public class InvoiceDetailRepo {
                 InvoiceDetail invoiceDetail = new InvoiceDetail();
                 invoiceDetail.setId(rs.getInt("id"));
                 Product product = new Product();
+
                 product.setName(rs.getString("product.name"));
+                product.setId(rs.getInt("product.id"));
                 product.setPrice(rs.getDouble("product.price"));
                 invoiceDetail.setProduct(product);
                 invoiceDetail.setProductQuantity(rs.getInt("product_quantity"));

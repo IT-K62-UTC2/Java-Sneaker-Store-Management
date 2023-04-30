@@ -15,6 +15,7 @@ import utc2.itk62.store.connection.ConnectionUtil;
 import utc2.itk62.store.models.*;
 import utc2.itk62.store.services.InvoiceDetailsService;
 import utc2.itk62.store.services.InvoiceService;
+import utc2.itk62.store.util.FormatDateTime;
 import utc2.itk62.store.util.FormatDouble;
 
 import java.io.File;
@@ -66,7 +67,6 @@ public class HistoryInvoiceController {
         }
         colCustomerInvoice.setCellValueFactory(new PropertyValueFactory<>("customer"));
         colStaffInvoice.setCellValueFactory(new PropertyValueFactory<>("staff"));
-
         colTotalMoneyInvoice.setCellValueFactory(new PropertyValueFactory<>("moneyTotal"));
         colTotalMoneyInvoice.setCellFactory(column -> new TableCell<Invoice, Double>() {
             @Override
@@ -125,7 +125,7 @@ public class HistoryInvoiceController {
             updateInvoiceDetailsCurrentRowInvoice();
         });
         tableListInvoice.setOnKeyPressed(keyEvent -> {
-            loadInvoice();
+//            loadInvoice();
             updateInvoiceDetailsCurrentRowInvoice();
         });
     }
@@ -133,9 +133,20 @@ public class HistoryInvoiceController {
     public void exportInvoice() {
         try {
             Map<String, Object> params = new HashMap<String, Object>();
-            params.put("idInvoice", tableListInvoice.getSelectionModel().getSelectedItem().getId());
+            Invoice currentInvoice = tableListInvoice.getSelectionModel().getSelectedItem();
+            params.put("idInvoice", currentInvoice.getId());
+            params.put("staff", currentInvoice.getStaff().getFullName());
+            params.put("customer", currentInvoice.getCustomer().getFullName());
+            params.put("deliveryAddress", currentInvoice.getDeliveryAddress());
+            params.put("deliveryPhoneNumber", currentInvoice.getDeliveryPhoneNumber());
+            params.put("tax", "0");
+            params.put("discount", "-0");
+            params.put("subTotal", FormatDouble.toString(currentInvoice.getMoneyTotal()));
+            params.put("totalDue", FormatDouble.toString(currentInvoice.getMoneyTotal()));
+            params.put("date", FormatDateTime.dateToString(currentInvoice.getCreatedAt()));
+            params.put("time", FormatDateTime.timeToString(currentInvoice.getCreatedAt()));
             JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource( tableListInvoice.getSelectionModel().getSelectedItem().getListInvoiceDetails());
-            File fileTemp = new File("src/main/resources/utc2/itk62/sneaker/report/test.jrxml");
+            File fileTemp = new File("src/main/resources/utc2/itk62/store/report/invoice.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(fileTemp.getAbsolutePath());
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,jrBeanCollectionDataSource);
             showJasperReport(jasperPrint);

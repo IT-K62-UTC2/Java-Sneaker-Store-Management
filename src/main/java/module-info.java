@@ -5,7 +5,7 @@ module utc2.itk62.sneaker {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
-    requires mysql.connector.java;
+    requires mysql.connector.j;
     requires org.apache.poi.ooxml;
     requires jasperreports;
     requires javafx.swing;
