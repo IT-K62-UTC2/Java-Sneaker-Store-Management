@@ -4,19 +4,30 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.JFXPanel;
+import javafx.embed.swing.SwingNode;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.swing.JRViewer;
+import net.sf.jasperreports.swing.JRViewerPanel;
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import utc2.itk62.store.connection.ConnectionUtil;
 import utc2.itk62.store.models.*;
 import utc2.itk62.store.services.InvoiceDetailsService;
 import utc2.itk62.store.services.InvoiceService;
+import utc2.itk62.store.util.FormatDateTime;
 import utc2.itk62.store.util.FormatDouble;
 
+import javax.swing.*;
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -48,7 +59,7 @@ public class HistoryInvoiceController {
     public TableColumn<InvoiceDetail, Integer> colQuantityInvoiceDetail;
     public TableColumn<InvoiceDetail, Double> colTotalMoneyInvoiceDetail;
     public TableView<InvoiceDetail> tableListInvoiceDetail;
-    public Pane viewInvoice;
+    public AnchorPane viewInvoice;
     public Button btnExportInvoice;
 
     private ObservableList<Invoice> listInvoice;
@@ -66,7 +77,6 @@ public class HistoryInvoiceController {
         }
         colCustomerInvoice.setCellValueFactory(new PropertyValueFactory<>("customer"));
         colStaffInvoice.setCellValueFactory(new PropertyValueFactory<>("staff"));
-
         colTotalMoneyInvoice.setCellValueFactory(new PropertyValueFactory<>("moneyTotal"));
         colTotalMoneyInvoice.setCellFactory(column -> new TableCell<Invoice, Double>() {
             @Override
@@ -125,7 +135,7 @@ public class HistoryInvoiceController {
             updateInvoiceDetailsCurrentRowInvoice();
         });
         tableListInvoice.setOnKeyPressed(keyEvent -> {
-            loadInvoice();
+//            loadInvoice();
             updateInvoiceDetailsCurrentRowInvoice();
         });
     }
@@ -133,11 +143,23 @@ public class HistoryInvoiceController {
     public void exportInvoice() {
         try {
             Map<String, Object> params = new HashMap<String, Object>();
-            params.put("idInvoice", tableListInvoice.getSelectionModel().getSelectedItem().getId());
+            Invoice currentInvoice = tableListInvoice.getSelectionModel().getSelectedItem();
+            params.put("idInvoice", currentInvoice.getId());
+            params.put("staff", currentInvoice.getStaff().getFullName());
+            params.put("customer", currentInvoice.getCustomer().getFullName());
+            params.put("deliveryAddress", currentInvoice.getDeliveryAddress());
+            params.put("deliveryPhoneNumber", currentInvoice.getDeliveryPhoneNumber());
+            params.put("tax", "0");
+            params.put("discount", "-0");
+            params.put("subTotal", FormatDouble.toString(currentInvoice.getMoneyTotal()));
+            params.put("totalDue", FormatDouble.toString(currentInvoice.getMoneyTotal()));
+            params.put("date", FormatDateTime.dateToString(currentInvoice.getCreatedAt()));
+            params.put("time", FormatDateTime.timeToString(currentInvoice.getCreatedAt()));
             JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource( tableListInvoice.getSelectionModel().getSelectedItem().getListInvoiceDetails());
-            File fileTemp = new File("src/main/resources/utc2/itk62/sneaker/report/test.jrxml");
+            File fileTemp = new File("src/main/resources/utc2/itk62/store/report/invoice.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(fileTemp.getAbsolutePath());
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,jrBeanCollectionDataSource);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, jrBeanCollectionDataSource);;
+
             showJasperReport(jasperPrint);
         } catch (JRException e) {
             throw new RuntimeException(e);
@@ -163,7 +185,7 @@ public class HistoryInvoiceController {
 
     private void setupBtnExportInvoice() {
         btnExportInvoice.setOnAction(actionEvent -> {
-            exportInvoice();
+             exportInvoice();
         });
     }
 
@@ -172,7 +194,6 @@ public class HistoryInvoiceController {
         jasperViewer.setTitle("Invoice");
         jasperViewer.setZoomRatio(0.5F);
         jasperViewer.setFitPageZoomRatio();
-        jasperViewer.setResizable(false);
         jasperViewer.setSize(600, 800);
         jasperViewer.setLocationRelativeTo(null);
         jasperViewer.setVisible(true);

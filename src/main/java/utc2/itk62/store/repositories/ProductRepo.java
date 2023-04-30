@@ -124,20 +124,20 @@ public class ProductRepo {
     }
 
     public int createProduct(Product product) {
-        String query = "INSERT INTO product(id_supplier, id_category, name, size, desc, price, avatar" +
-                " VALUES(?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO product(id_supplier, id_category, name, desc, price, avatar" +
+                " VALUES(?, ?, ?, ?, ?, ?)";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
         try{
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
-//            ptmt.setInt(1, product.getIdSupplier());
-//            ptmt.setInt(2, product.getIdCategory());
+            ptmt.setInt(1, product.getSupplier().getId());
+            ptmt.setInt(2, product.getCategory().getId());
             ptmt.setString(3, product.getName());
-            ptmt.setString(5, product.getDescription());
-            ptmt.setDouble(6, product.getPrice());
-            ptmt.setString(7, product.getAvatar());
+            ptmt.setString(4, product.getDescription());
+            ptmt.setDouble(5, product.getPrice());
+            ptmt.setString(6, product.getAvatar());
             result = ptmt.executeUpdate();
             conn.commit();
         }catch (SQLException e){
@@ -153,7 +153,6 @@ public class ProductRepo {
                 "id_supplier = ?, " +
                 "id_category = ?, " +
                 "name = ?, " +
-                "size = ?, " +
                 "desc = ?, " +
                 "price = ?, " +
                 "avatar = ?, " +
@@ -166,10 +165,10 @@ public class ProductRepo {
             ptmt.setInt(1, product.getSupplier().getId());
             ptmt.setInt(2, product.getCategory().getId());
             ptmt.setString(3, product.getName());
-            ptmt.setString(5, product.getDescription());
-            ptmt.setDouble(6, product.getPrice());
-            ptmt.setString(7, product.getAvatar());
-            ptmt.setInt(8, product.getId());
+            ptmt.setString(4, product.getDescription());
+            ptmt.setDouble(5, product.getPrice());
+            ptmt.setString(6, product.getAvatar());
+            ptmt.setInt(7, product.getId());
             result = ptmt.executeUpdate();
             conn.commit();
         }catch (SQLException e){

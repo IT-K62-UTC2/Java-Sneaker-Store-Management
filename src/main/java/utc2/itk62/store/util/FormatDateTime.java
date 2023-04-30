@@ -1,5 +1,7 @@
 package utc2.itk62.store.util;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -23,5 +25,36 @@ public class FormatDateTime {
             return 0;
         }
         return 1;
+    }
+
+    public static String timeToString(Timestamp timestamp) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date(timestamp.getTime());
+        return dateFormat.format(date);
+    }
+    public static String dateToString(Timestamp timestamp) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date(timestamp.getTime());
+        return dateFormat.format(date);
+    }
+
+
+
+    public static String DateToString(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(date);
+    }
+
+    public static String timeToString(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        return dateFormat.format(date);
+    }
+
+    public static Date stringDatePickerToDate(String strDate, SimpleDateFormat format) {
+        try {
+            return format.parse(strDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
