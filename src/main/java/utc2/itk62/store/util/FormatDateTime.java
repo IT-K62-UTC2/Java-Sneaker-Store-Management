@@ -1,5 +1,6 @@
 package utc2.itk62.store.util;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -47,5 +48,13 @@ public class FormatDateTime {
     public static String timeToString(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         return dateFormat.format(date);
+    }
+
+    public static Date stringDatePickerToDate(String strDate, SimpleDateFormat format) {
+        try {
+            return format.parse(strDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

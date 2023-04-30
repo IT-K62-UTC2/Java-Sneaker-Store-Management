@@ -13,16 +13,23 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import utc2.itk62.store.Validator.StaffValidator;
 import utc2.itk62.store.models.Position;
 import utc2.itk62.store.models.Staff;
 import utc2.itk62.store.services.PositionServie;
 import utc2.itk62.store.services.StaffService;
 import utc2.itk62.store.util.CustomMessageBox;
+import utc2.itk62.store.util.FormatDateTime;
 
 import java.io.File;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class StaffController {
     private static final StaffService staffService = new StaffService();
@@ -114,6 +121,9 @@ public class StaffController {
         // Search
         keySearch.setItems(listKetSearch);
         keySearch.setValue("ID");
+
+        setupSearchByDate();
+
     }
 
     private String getGender() {
@@ -398,6 +408,26 @@ public class StaffController {
             tableListStaff.getSelectionModel().selectFirst();
         }
         updateStaffCurrentRowToForm();
+    }
+
+    private void setupSearchByDate() {
+        fromDate.setOnAction(actionEvent -> {
+            FilteredList<Staff> filteredList = new FilteredList<>(staffList, p -> true);
+            LocalDate beginSearch = fromDate.getValue();
+            // Gán FilteredList làm nguồn dữ liệu cho TableView
+            tableListStaff.setItems(filteredList);
+            filteredList.setPredicate(p -> {
+               // TODO: return true when filtering. return false when not filtering
+                if(p.getCreatedAt().toLocalDateTime().isAfter(ChronoLocalDateTime.from(fromDate.getValue()))) {
+                    return true;
+                }
+                return  false;
+            });
+            if(tableListStaff.getSelectionModel() != null) {
+                tableListStaff.getSelectionModel().selectFirst();
+            }
+            updateStaffCurrentRowToForm();
+        });
     }
 
 

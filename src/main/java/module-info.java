@@ -9,9 +9,10 @@ module utc2.itk62.sneaker {
     requires org.apache.poi.ooxml;
     requires jasperreports;
     requires javafx.swing;
-
+    requires itextpdf;
     opens utc2.itk62.store to javafx.fxml;
     exports utc2.itk62.store.controllers;
     exports utc2.itk62.store;
     exports utc2.itk62.store.models;
+    exports utc2.itk62.store.util;
 }

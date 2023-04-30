@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.HistoryInvoiceController">
@@ -75,7 +74,7 @@
                   <VBox layoutX="176.0" layoutY="137.0" prefHeight="700.0" prefWidth="533.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Button fx:id="btnExportInvoice" mnemonicParsing="false" text="Xuất hoá đơn" />
-                        <Pane fx:id="viewInvoice" prefHeight="679.0" prefWidth="450.0" />
+                        <AnchorPane fx:id="viewInvoice" prefHeight="675.0" prefWidth="450.0" />
                      </children>
                   </VBox>
                </children>
