@@ -2,11 +2,13 @@ package utc2.itk62.store.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import utc2.itk62.store.Validator.CustomerValidator;
 import utc2.itk62.store.models.Customer;
+import utc2.itk62.store.models.Staff;
 import utc2.itk62.store.services.CustomerService;
 import utc2.itk62.store.util.CustomAlert;
 
@@ -59,6 +61,8 @@ public class CustomerController {
 
     private ObservableList<Customer> customerList;
     private ToggleGroup toggleGenderGroup = new ToggleGroup();
+    private ObservableList<String> listKetSearch = FXCollections.observableArrayList(
+            "ID","Name", "Address","Email",  "PhoneNumber", "CCCD", "Gender");
     public void initialize () {
         // Gender
         btnFemale.setToggleGroup(toggleGenderGroup);
@@ -70,6 +74,52 @@ public class CustomerController {
         setupBtnDelete();
         setupBtnUpdate();
         setupBtnExportExcel();
+
+        // Search
+        keySearch.setItems(listKetSearch);
+        keySearch.setValue("ID");
+        setupSearch();
+
+    }
+
+    private void setupSearch() {
+        searchValue.setOnKeyTyped(keyEvent ->  {
+            // Khởi tạo FilteredList và gán nó với danh sách positionList
+            FilteredList<Customer> filteredList = new FilteredList<>(customerList, p -> true);
+
+            // Gán FilteredList làm nguồn dữ liệu cho TableView
+            tableListCustomer.setItems(filteredList);
+            filteredList.setPredicate(p -> {
+                if(searchValue.getText().isEmpty()) {
+                    return true;
+                }
+                if(keySearch.getValue().equals("ID")) {
+                    return String.valueOf(p.getId()).toLowerCase().contains(searchValue.getText());
+                }
+                if(keySearch.getValue().equals("Name")) {
+                    return p.getFullName().toLowerCase().contains(searchValue.getText());
+                }
+                if(keySearch.getValue().equals("Address")) {
+                    return p.getAddress().toLowerCase().contains(searchValue.getText());
+                }
+                if(keySearch.getValue().equals("Email")) {
+                    return p.getEmail().toLowerCase().contains(searchValue.getText());
+                }
+                if(keySearch.getValue().equals("PhoneNumber")) {
+                    return p.getPhoneNumber().toLowerCase().contains(searchValue.getText());
+                }
+                if(keySearch.getValue().equals("Gender")) {
+                    return p.getFullName().toLowerCase().contains(searchValue.getText());
+                }
+
+                return p.getCccd().toLowerCase().contains(searchValue.getText());
+            });
+            if(tableListCustomer.getSelectionModel() != null) {
+                tableListCustomer.getSelectionModel().selectFirst();
+            }
+
+            updateCustomerCurrentRowToForm();
+        });
     }
 
     private void setupBtnExportExcel() {
@@ -94,11 +144,15 @@ public class CustomerController {
         colUpdatedAt.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
         tableListCustomer.setItems(customerList);
         tableListCustomer.getSelectionModel().selectFirst();
-        updateProductCurrentRowToForm();
+        updateCustomerCurrentRowToForm();
     }
 
-    private void updateProductCurrentRowToForm() {
+    private void updateCustomerCurrentRowToForm() {
         Customer customer = tableListCustomer.getSelectionModel().getSelectedItem();
+        if ( customer == null) {
+            cleanForm();
+            return;
+        }
         id.setText(String.valueOf(customer.getId()));
         name.setText(customer.getFullName());
         address.setText(customer.getAddress());
@@ -110,10 +164,10 @@ public class CustomerController {
 
     private void setUpTableView() {
         tableListCustomer.setOnMouseClicked(mouseEvent -> {
-            updateProductCurrentRowToForm();
+            updateCustomerCurrentRowToForm();
         });
         tableListCustomer.setOnKeyPressed(keyPressed ->{
-            updateProductCurrentRowToForm();
+            updateCustomerCurrentRowToForm();
         });
     }
 
