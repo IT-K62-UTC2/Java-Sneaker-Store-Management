@@ -30,7 +30,9 @@ import utc2.itk62.store.util.FormatDouble;
 import javax.swing.*;
 import java.io.File;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HistoryInvoiceController {
@@ -97,9 +99,9 @@ public class HistoryInvoiceController {
         colIdInvoice.setCellValueFactory(new PropertyValueFactory<>("id"));
         tableListInvoice.setItems(listInvoice);
         tableListInvoice.getSelectionModel().selectFirst();
-
         // update table invoice details
         updateInvoiceDetailsCurrentRowInvoice();
+        loadInvoice();
     }
 
     private void updateInvoiceDetailsCurrentRowInvoice() {
@@ -131,11 +133,11 @@ public class HistoryInvoiceController {
 
     private void setUpTableListInvoice() {
         tableListInvoice.setOnMouseClicked(mouseEvent -> {
-//            loadInvoice();
+            loadInvoice();
             updateInvoiceDetailsCurrentRowInvoice();
         });
         tableListInvoice.setOnKeyPressed(keyEvent -> {
-//            loadInvoice();
+            loadInvoice();
             updateInvoiceDetailsCurrentRowInvoice();
         });
     }
@@ -155,11 +157,24 @@ public class HistoryInvoiceController {
             params.put("totalDue", FormatDouble.toString(currentInvoice.getMoneyTotal()));
             params.put("date", FormatDateTime.dateToString(currentInvoice.getCreatedAt()));
             params.put("time", FormatDateTime.timeToString(currentInvoice.getCreatedAt()));
-            JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource( tableListInvoice.getSelectionModel().getSelectedItem().getListInvoiceDetails());
+            List<InvoiceDetail> invoiceDetailList = currentInvoice.getListInvoiceDetails();
             File fileTemp = new File("src/main/resources/utc2/itk62/store/report/invoice.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(fileTemp.getAbsolutePath());
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, jrBeanCollectionDataSource);;
-
+            JasperPrint jasperPrint;
+            if(invoiceDetailList.isEmpty()) {
+                jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+            } else {
+                JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(invoiceDetailList);
+                jasperPrint = JasperFillManager.fillReport(jasperReport, params, jrBeanCollectionDataSource);
+            };
+            JRViewer viewer = new JRViewer(jasperPrint);
+            viewer.setZoomRatio(.5F);
+            viewer.setFitPageZoomRatio();
+            viewer.setVisible(true);
+            SwingNode swingNode = new SwingNode();
+            swingNode.setContent(viewer);
+            viewInvoice.getChildren().add(swingNode);
+            viewInvoice.requestLayout();
             showJasperReport(jasperPrint);
         } catch (JRException e) {
             throw new RuntimeException(e);
@@ -171,11 +186,37 @@ public class HistoryInvoiceController {
     public void loadInvoice() {
         try {
             Map<String, Object> params = new HashMap<String, Object>();
-            params.put("idInvoice", tableListInvoice.getSelectionModel().getSelectedItem().getId());
-            File fileTemp = new File("src/main/resources/utc2/itk62/sneaker/report/invoice.jrxml");
+            Invoice currentInvoice = tableListInvoice.getSelectionModel().getSelectedItem();
+            params.put("idInvoice", currentInvoice.getId());
+            params.put("staff", currentInvoice.getStaff().getFullName());
+            params.put("customer", currentInvoice.getCustomer().getFullName());
+            params.put("deliveryAddress", currentInvoice.getDeliveryAddress());
+            params.put("deliveryPhoneNumber", currentInvoice.getDeliveryPhoneNumber());
+            params.put("tax", "0");
+            params.put("discount", "-0");
+            params.put("subTotal", FormatDouble.toString(currentInvoice.getMoneyTotal()));
+            params.put("totalDue", FormatDouble.toString(currentInvoice.getMoneyTotal()));
+            params.put("date", FormatDateTime.dateToString(currentInvoice.getCreatedAt()));
+            params.put("time", FormatDateTime.timeToString(currentInvoice.getCreatedAt()));
+            List<InvoiceDetail> invoiceDetailList = currentInvoice.getListInvoiceDetails();
+            File fileTemp = new File("src/main/resources/utc2/itk62/store/report/invoice.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(fileTemp.getAbsolutePath());
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, ConnectionUtil.getConnection());
+            JasperPrint jasperPrint;
+            if(invoiceDetailList.isEmpty()) {
+                jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+            } else {
+                JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(invoiceDetailList);
+                jasperPrint = JasperFillManager.fillReport(jasperReport, params, jrBeanCollectionDataSource);
+            }
 
+            JRViewer viewer = new JRViewer(jasperPrint);
+            viewer.setZoomRatio(.5F);
+            viewer.setFitPageZoomRatio();
+            viewer.setVisible(true);
+            SwingNode swingNode = new SwingNode();
+            swingNode.setContent(viewer);
+            viewInvoice.getChildren().add(swingNode);
+            viewInvoice.requestLayout();
         } catch (JRException e) {
             throw new RuntimeException(e);
         } finally{

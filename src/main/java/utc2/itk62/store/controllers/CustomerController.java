@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import utc2.itk62.store.models.Customer;
 import utc2.itk62.store.services.CustomerService;
-import utc2.itk62.store.util.CustomMessageBox;
+import utc2.itk62.store.util.CustomAlert;
 
 import java.sql.Timestamp;
 
@@ -119,10 +119,10 @@ public class CustomerController {
             customer.setGender(gender.getValue());
             customer.setPhoneNumber(phoneNumber.getText());
             if(!customerService.createCustomer(customer)) {
-                CustomMessageBox.boxError("Something went wrong");
+                CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!", "Sometimes customer service is not available");
                 return;
             }
-            CustomMessageBox.boxOk("Create customer successfully");
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION,id.getScene().getWindow(), "Success", "Create customer successfully");
         });
     }
 
@@ -131,11 +131,12 @@ public class CustomerController {
             if(id.getText().equals("")) {
                 return;
             }
-            if(!customerService.deleteCustomer(Integer.parseInt(id.getText()))) {
-                CustomMessageBox.boxError("Something went wrong");
+            if(!CustomAlert.showAlert(Alert.AlertType.CONFIRMATION, id.getScene().getWindow(), "Delete customer", "Are you sure you want to delete this customer")) {
                 return;
             }
-            CustomMessageBox.boxOk("Delete customer successfully");
+            if(!customerService.deleteCustomer(Integer.parseInt(id.getText()))) {
+                CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!", "Sometimes the customer service is not available");
+            }
             reloadTableView();
         });
 
@@ -155,10 +156,10 @@ public class CustomerController {
             customer.setGender(getGender());
             customer.setPhoneNumber(phoneNumber.getText());
             if(!customerService.updateCustomer(customer)) {
-                CustomMessageBox.boxError("Something went wrong");
+                CustomAlert.showAlert(Alert.AlertType.ERROR,id.getScene().getWindow(),"Error!","Sometimes customer service is not available");
                 return;
             }
-            CustomMessageBox.boxOk("Customer customer successfully");
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(),"Success", "Customer customer successfully");
             reloadTableView();
         });
     }

@@ -13,23 +13,18 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import utc2.itk62.store.Validator.StaffValidator;
 import utc2.itk62.store.models.Position;
 import utc2.itk62.store.models.Staff;
 import utc2.itk62.store.services.PositionServie;
 import utc2.itk62.store.services.StaffService;
-import utc2.itk62.store.util.CustomMessageBox;
-import utc2.itk62.store.util.FormatDateTime;
+import utc2.itk62.store.util.CustomAlert;
 
 import java.io.File;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class StaffController {
     private static final StaffService staffService = new StaffService();
@@ -203,12 +198,15 @@ public class StaffController {
 
     @FXML
     public void handleDeleteStaff(ActionEvent actionEvent) {
+        if(idStaff.getText().equals("")) {
+            return;
+        }
         Staff currentSelectStaff = updateStaffCurrentRowToForm();
-        if (!CustomMessageBox.isYes("Delete", "Are you sure you want to delete")) {
+        if (!CustomAlert.showAlert(Alert.AlertType.CONFIRMATION, idStaff.getScene().getWindow(), "Delete staff", "Are you sure you want to delete this staff")) {
             return;
         }
         if (!staffService.deleteStaff(currentSelectStaff)) {
-            CustomMessageBox.boxError("Delete staff failed");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, idStaff.getScene().getWindow(), "Error!","Delete staff failed");
             return;
         }
         tableListStaff.getItems().remove(currentSelectStaff);
@@ -222,17 +220,17 @@ public class StaffController {
             return;
         }
         if (!staffService.updateStaff(currentSelectStaff)) {
-            CustomMessageBox.boxError("Update staff failed");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, idStaff.getScene().getWindow(), "Error!", "Update staff failed");
             return;
         }
-        CustomMessageBox.boxOk("Update staff");
+        CustomAlert.showAlert(Alert.AlertType.INFORMATION, idStaff.getScene().getWindow(), "Success!", "Update staff successfully");
         reloadTableView();
     }
 
     private boolean callValidateFormStaff() {
         // Validate image
         if(!StaffValidator.validateImageAvatar(imageAvatar)) {
-            CustomMessageBox.boxInfo("Please select an image");
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, idStaff.getScene().getWindow(), "Form Error!", "Please selected an image");
             btnAddImage.fire();
             username.requestFocus();
             return false;
@@ -240,62 +238,62 @@ public class StaffController {
 
         // Validate user name
         if(!StaffValidator.validateUsername(username.getText())) {
-            CustomMessageBox.boxError("Invalid username");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, username.getScene().getWindow(), "Form Error!", "Invalid username");
             username.requestFocus();
             return false;
         }
 
         if(StaffValidator.isExistUsername(username.getText(), idStaff.getText().equals("") ? 0 : Integer.parseInt(idStaff.getText()))) {
-            CustomMessageBox.boxError("Username is exists");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, username.getScene().getWindow(), "Form Error!", "Username is exist");
             username.requestFocus();
             return false;
         }
 
         // Validate full name
         if(!StaffValidator.validateFullname(fullname.getText())) {
-            CustomMessageBox.boxError("Invalid full name");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, fullname.getScene().getWindow(), "Form Error!", "Invalid fullname");
             fullname.requestFocus();
             return false;
         }
 
         // Validate address
         if(!StaffValidator.validateAddress(address.getText())) {
-            CustomMessageBox.boxError("Invalid address");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, address.getScene().getWindow(), "Form Error!", "Invalid address");
             address.requestFocus();
             return false;
         }
 
         // Validate phone number
         if (!StaffValidator.validatePhoneNumber(phoneNumber.getText())){
-            CustomMessageBox.boxError("Invalid phone number");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, phoneNumber.getScene().getWindow(), "Form Error!", "Invalid phone number");
             phoneNumber.requestFocus();
             return false;
         }
         if(StaffValidator.isExistPhoneNumber(phoneNumber.getText(),
                 idStaff.getText().equals("") ? 0
                         : Integer.parseInt(idStaff.getText()))) {
-            CustomMessageBox.boxError("Phone number is exists");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, phoneNumber.getScene().getWindow(), "Form Error!", "Phone number is exist");
             phoneNumber.requestFocus();
             return false;
         }
 
         // Validate CCCD
         if(!StaffValidator.validateCCCD(cccd.getText())){
-            CustomMessageBox.boxError("Invalid cccd");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, cccd.getScene().getWindow(), "Form Error!", "Invalid CCCD");
             cccd.requestFocus();
             return false;
         }
         if(StaffValidator.isExistCCCD(cccd.getText(),
                 idStaff.getText().equals("") ? 0
                         : Integer.parseInt(idStaff.getText()))) {
-            CustomMessageBox.boxError("CCCD is exists");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, cccd.getScene().getWindow(), "Form Error!", "CCCD is exist");
             cccd.requestFocus();
             return false;
         }
 
         // Validate email
         if(!StaffValidator.validateEmail(email.getText())){
-            CustomMessageBox.boxError("Invalid email");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, email.getScene().getWindow(), "Form Error!", "Invalid email");
             email.requestFocus();
             return false;
         }
@@ -303,7 +301,7 @@ public class StaffController {
         if(StaffValidator.isExistEmail(email.getText(),
                 idStaff.getText().equals("") ? 0
                         : Integer.parseInt(idStaff.getText()))) {
-            CustomMessageBox.boxError("Email is exists");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, fullname.getScene().getWindow(), "Form Error!", "Email is exist");
             email.requestFocus();
             return false;
         }
@@ -332,10 +330,10 @@ public class StaffController {
         staff.setUsername(username.getText());
         staff.setCccd(cccd.getText());
         if(!staffService.createStaff(staff)) {
-            CustomMessageBox.boxError("Sometimes the staff service is not available");
+            CustomAlert.showAlert(Alert.AlertType.ERROR, idStaff.getScene().getWindow(), "Error!", "Sometimes the staff service is not available");
             return;
         }
-        CustomMessageBox.boxOk("Create staff successfully");
+        CustomAlert.showAlert(Alert.AlertType.INFORMATION, idStaff.getScene().getWindow(), "Success", "Staff created successfully");
         reloadTableView();
     }
 

@@ -11,7 +11,7 @@ import utc2.itk62.store.models.Product;
 import utc2.itk62.store.models.Supplier;
 import utc2.itk62.store.services.CategoryService;
 import utc2.itk62.store.services.ProductService;
-import utc2.itk62.store.util.CustomMessageBox;
+import utc2.itk62.store.util.CustomAlert;
 
 import java.sql.Timestamp;
 
@@ -113,13 +113,18 @@ public class CategoryController {
     private void setUpUpdateCategory() {
         btnUpdateCategory.setOnAction(actionEvent ->{
             Category category = new Category();
+            if(nameCategory.getText().equals("")) {
+                CustomAlert.showAlert(Alert.AlertType.ERROR, idCategory.getScene().getWindow(), "Form Error!","Invalid category name");
+                nameCategory.requestFocus();
+                return;
+            }
             category.setId(Integer.parseInt(idCategory.getText()));
             category.setName(nameCategory.getText());
             if(!categoryService.updateCategory(category)) {
-                CustomMessageBox.boxError("Something went wrong");
+                CustomAlert.showAlert(Alert.AlertType.ERROR, idCategory.getScene().getWindow(),"Error!", "Sometimes the category service is not available");
                 return;
             }
-            CustomMessageBox.boxOk("Update category successfully");
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, idCategory.getScene().getWindow(),"Success!", "Update category successfully");
             reloadTableView();
         });
     }
@@ -130,11 +135,13 @@ public class CategoryController {
             if(category == null) {
                 return;
             }
-            if(!categoryService.deleteCategory(category)) {
-                CustomMessageBox.boxError("Something went wrong");
+            if(!CustomAlert.showAlert(Alert.AlertType.CONFIRMATION, idCategory.getScene().getWindow(),"Delete Category", "Are you sure you want to delete this category")) {
                 return;
             }
-            CustomMessageBox.boxOk("Delete category successfully");
+            if(!categoryService.deleteCategory(category)) {
+                CustomAlert.showAlert(Alert.AlertType.ERROR, idCategory.getScene().getWindow(), "Error!","Sometimes the category service is not available");
+                return;
+            }
             reloadTableView();
         });
     }
@@ -146,16 +153,16 @@ public class CategoryController {
                 cleanForm();
             }
             if(nameCategory.getText().equals("")) {
-                CustomMessageBox.boxError("Please enter a name category");
+                CustomAlert.showAlert(Alert.AlertType.ERROR, idCategory.getScene().getWindow(), "Form Error!","Invalid category name");
                 nameCategory.requestFocus();
                 return;
             }
             category.setName(nameCategory.getText());
             if(!categoryService.createCategory(category)) {
-                CustomMessageBox.boxError("Something went wrong");
+                CustomAlert.showAlert(Alert.AlertType.ERROR,idCategory.getScene().getWindow(), "Error","Sometimes the category service is not available");
                 return;
             }
-            CustomMessageBox.boxOk("Add category successfully");
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, idCategory.getScene().getWindow(), "Success","Add category successfully");
             reloadTableView();
         });
     }

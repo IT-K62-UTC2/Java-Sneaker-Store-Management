@@ -17,7 +17,7 @@ import utc2.itk62.store.services.CustomerService;
 import utc2.itk62.store.services.InvoiceDetailsService;
 import utc2.itk62.store.services.InvoiceService;
 import utc2.itk62.store.services.ProductService;
-import utc2.itk62.store.util.CustomMessageBox;
+import utc2.itk62.store.util.CustomAlert;
 import utc2.itk62.store.util.FormatDouble;
 
 import java.io.IOException;
@@ -231,7 +231,7 @@ public class SaleController {
             invoice.setTotalQuantity(Integer.parseInt(totalQuantityView.getText()));
             Invoice invoiceInDb = invoiceService.createInvoice(invoice);
             if (invoiceInDb == null) {
-                CustomMessageBox.boxError("Something went wrong");
+                CustomAlert.showAlert(Alert.AlertType.ERROR, tableViewOrder.getScene().getWindow(), "Error!", "Sometimes the invoice service is not available");
                 return;
             }
             for (int i = 0; i < listOrders.size(); i++) {
@@ -241,7 +241,7 @@ public class SaleController {
                 productService.updateQuantityProduct(-invoiceDetail.getProductQuantity(), invoiceDetail.getProduct().getId());
                 invoiceDetail.getProduct().setQuantity(invoiceDetail.getProduct().getQuantity() - invoiceDetail.getProductQuantity());
             }
-            CustomMessageBox.boxOk("Pay successfully");
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, tableViewOrder.getScene().getWindow(), "Success","Pay successfully");
             tableViewOrder.getItems().clear();
         });
 
