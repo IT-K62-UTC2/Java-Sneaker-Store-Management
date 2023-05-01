@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import utc2.itk62.store.Validator.StaffValidator;
 import utc2.itk62.store.models.Customer;
 import utc2.itk62.store.services.CustomerService;
 import utc2.itk62.store.util.CustomAlert;
@@ -111,12 +112,19 @@ public class CustomerController {
 
     private void setupBtnAdd() {
         btnAdd.setOnAction(actionEvent ->  {
+            tableListCustomer.getSelectionModel().clearSelection();
+//            if(id.getText() != null && id.getText().length() > 0) {
+//                cleanForm();
+//            }
+//            if(!validateFormStaff()) {
+//                return;
+//            }
             Customer customer = new Customer();
             customer.setFullName(name.getText());
             customer.setAddress(address.getText());
             customer.setCccd(cccd.getText());
             customer.setEmail(email.getText());
-            customer.setGender(gender.getValue());
+            customer.setGender(getGender());
             customer.setPhoneNumber(phoneNumber.getText());
             if(!customerService.createCustomer(customer)) {
                 CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!", "Sometimes customer service is not available");
@@ -125,6 +133,99 @@ public class CustomerController {
             CustomAlert.showAlert(Alert.AlertType.INFORMATION,id.getScene().getWindow(), "Success", "Create customer successfully");
         });
     }
+
+//    private void cleanForm() {
+//        .setText("");
+//        imageAvatar.setImage(null);
+////        password.setText("");
+//        email.setText("");
+//        address.setText("");
+//        fullname.setText("");
+//        idStaff.setText("");
+//        phoneNumber.setText("");
+//        cccd.setText("");
+//    }
+
+//    private boolean validateFormStaff() {
+//        // Validate image
+//        if(!StaffValidator.validateImageAvatar(imageAvatar)) {
+//            CustomAlert.showAlert(Alert.AlertType.INFORMATION, idStaff.getScene().getWindow(), "Form Error!", "Please selected an image");
+//            btnAddImage.fire();
+//            username.requestFocus();
+//            return false;
+//        }
+//
+//        // Validate user name
+//        if(!StaffValidator.validateUsername(username.getText())) {
+//            CustomAlert.showAlert(Alert.AlertType.ERROR, username.getScene().getWindow(), "Form Error!", "Invalid username");
+//            username.requestFocus();
+//            return false;
+//        }
+//
+//        if(StaffValidator.isExistUsername(username.getText(), idStaff.getText().equals("") ? 0 : Integer.parseInt(idStaff.getText()))) {
+//            CustomAlert.showAlert(Alert.AlertType.ERROR, username.getScene().getWindow(), "Form Error!", "Username is exist");
+//            username.requestFocus();
+//            return false;
+//        }
+//
+//        // Validate full name
+//        if(!StaffValidator.validateFullname(fullname.getText())) {
+//            CustomAlert.showAlert(Alert.AlertType.ERROR, fullname.getScene().getWindow(), "Form Error!", "Invalid fullname");
+//            fullname.requestFocus();
+//            return false;
+//        }
+//
+//        // Validate address
+//        if(!StaffValidator.validateAddress(address.getText())) {
+//            CustomAlert.showAlert(Alert.AlertType.ERROR, address.getScene().getWindow(), "Form Error!", "Invalid address");
+//            address.requestFocus();
+//            return false;
+//        }
+//
+//        // Validate phone number
+//        if (!StaffValidator.validatePhoneNumber(phoneNumber.getText())){
+//            CustomAlert.showAlert(Alert.AlertType.ERROR, phoneNumber.getScene().getWindow(), "Form Error!", "Invalid phone number");
+//            phoneNumber.requestFocus();
+//            return false;
+//        }
+//        if(StaffValidator.isExistPhoneNumber(phoneNumber.getText(),
+//                idStaff.getText().equals("") ? 0
+//                        : Integer.parseInt(idStaff.getText()))) {
+//            CustomAlert.showAlert(Alert.AlertType.ERROR, phoneNumber.getScene().getWindow(), "Form Error!", "Phone number is exist");
+//            phoneNumber.requestFocus();
+//            return false;
+//        }
+//
+//        // Validate CCCD
+//        if(!StaffValidator.validateCCCD(cccd.getText())){
+//            CustomAlert.showAlert(Alert.AlertType.ERROR, cccd.getScene().getWindow(), "Form Error!", "Invalid CCCD");
+//            cccd.requestFocus();
+//            return false;
+//        }
+//        if(StaffValidator.isExistCCCD(cccd.getText(),
+//                idStaff.getText().equals("") ? 0
+//                        : Integer.parseInt(idStaff.getText()))) {
+//            CustomAlert.showAlert(Alert.AlertType.ERROR, cccd.getScene().getWindow(), "Form Error!", "CCCD is exist");
+//            cccd.requestFocus();
+//            return false;
+//        }
+//
+//        // Validate email
+//        if(!StaffValidator.validateEmail(email.getText())){
+//            CustomAlert.showAlert(Alert.AlertType.ERROR, email.getScene().getWindow(), "Form Error!", "Invalid email");
+//            email.requestFocus();
+//            return false;
+//        }
+//
+//        if(StaffValidator.isExistEmail(email.getText(),
+//                idStaff.getText().equals("") ? 0
+//                        : Integer.parseInt(idStaff.getText()))) {
+//            CustomAlert.showAlert(Alert.AlertType.ERROR, fullname.getScene().getWindow(), "Form Error!", "Email is exist");
+//            email.requestFocus();
+//            return false;
+//        }
+//        return true;
+//    }
 
     private void setupBtnDelete() {
         btnDelete.setOnAction(actionEvent -> {

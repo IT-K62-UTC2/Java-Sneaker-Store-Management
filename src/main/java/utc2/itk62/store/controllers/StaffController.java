@@ -359,7 +359,7 @@ public class StaffController {
         // Chỉ cho phép chọn file hình ảnh
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Hình ảnh", "*.jpg", "*.jpeg", "*.png"));
         // Hiển thị hộp thoại chọn file
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        File selectedFile = fileChooser.showOpenDialog(idStaff.getScene().getWindow());
         // Kiểm tra xem người dùng đã chọn file chưa
         if (selectedFile != null) {
             // Lấy đường dẫn của file được chọn
