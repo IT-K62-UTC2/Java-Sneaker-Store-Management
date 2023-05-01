@@ -44,7 +44,7 @@ public class ProductRepo {
     public List<Product> getAllProducts(Paging paging) {
         paging.checkPageLimit();
         List<Product> productList = new ArrayList<Product>();
-        String query = "SELECT product.*, category.name, supplier.name FROM product " +
+        String query = "SELECT product.*, category.name, category.id, supplier.name, supplier.id FROM product " +
                 " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
                 " LEFT JOIN category ON category.id = product.id_category" +
                 " WHERE product.status = 1 LIMIT ? OFFSET ? ";
@@ -56,8 +56,10 @@ public class ProductRepo {
             while (rs.next()) {
                 Category category = new Category();
                 Supplier supplier = new Supplier();
+                category.setId(rs.getInt("category.id"));
                 category.setName(rs.getString("category.name"));
                 supplier.setName(rs.getString("supplier.name"));
+                supplier.setId(rs.getInt("supplier.id"));
                 Product product = new Product();
                 product.setCategory(category);
                 product.setSupplier(supplier);
@@ -153,10 +155,11 @@ public class ProductRepo {
         String query = "UPDATE product SET " +
                 "id_supplier = ?, " +
                 "id_category = ?, " +
-                "name = ?, " +
-                "desc = ?, " +
+                "`name` = ?, " +
+                "`desc` = ?, " +
                 "price = ?, " +
                 "avatar = ?, " +
+                "quantity = ? " +
                 "WHERE id = ?";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
@@ -169,7 +172,8 @@ public class ProductRepo {
             ptmt.setString(4, product.getDescription());
             ptmt.setDouble(5, product.getPrice());
             ptmt.setString(6, product.getAvatar());
-            ptmt.setInt(7, product.getId());
+            ptmt.setInt(7, product.getQuantity());
+            ptmt.setInt(8, product.getId());
             result = ptmt.executeUpdate();
             conn.commit();
         }catch (SQLException e){

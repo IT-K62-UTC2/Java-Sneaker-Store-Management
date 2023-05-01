@@ -67,6 +67,7 @@ public class ProductController {
         setupPriceTextField();
         setupQuantityTextField();
         setupBtnAddProduct();
+        setupBtnUpdateProduct();
 
 
         // set supplier
@@ -83,27 +84,59 @@ public class ProductController {
 
     }
 
+    private void setupBtnUpdateProduct() {
+        btnUpdate.setOnAction(actionEvent -> {
+            Product product = getProductCurrentForm();
+            if (!validateFormProduct()) {
+                return;
+            }
+            if (!productService.updateProduct(product)) {
+                CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!", "Update product failed");
+                return;
+            }
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Success!", "Update product successfully");
+            reloadTableView();
+        });
+    }
+
+    private Product getProductCurrentForm() {
+        Product product = tableListProduct.getSelectionModel().getSelectedItem();
+        System.out.println("Preupdate supplier: " + product.getSupplier().getId());
+        System.out.println("Preupdate category: " + product.getCategory().getId());
+        System.out.println("Form supplier: " + supplier.getValue().getId());
+        System.out.println("Form category: " + category.getValue().getId());
+
+        product.setId(Integer.parseInt(id.getText()));
+        product.setSupplier(supplier.getValue());
+        product.setCategory(category.getValue());
+        product.setName(name.getText());
+        product.setPrice(FormatDouble.toDouble(price.getText()));
+        product.setQuantity(Integer.parseInt(quantity.getText()));
+        product.setDescription(desc.getText());
+        product.setAvatar(image.getImage().getUrl());
+        return product;
+    }
+
     private void setupBtnAddProduct() {
         btnAdd.setOnAction(actionEvent -> {
             tableListProduct.getSelectionModel().clearSelection();
-            if(id.getText() != null && id.getText().length() > 0) {
+            if (id.getText() != null && id.getText().length() > 0) {
                 cleanForm();
             }
 
-            if(!validateFormProduct()) {
+            if (!validateFormProduct()) {
                 return;
             }
-            Product product = new Product();;
+            Product product = new Product();
+            ;
             product.setAvatar(image.getImage().getUrl());
-            System.out.println(category.getValue().getId());
-            System.out.println(supplier.getValue().getId() + "Supplier");
             product.setCategory(category.getValue());
             product.setDescription(desc.getText());
             product.setName(name.getText());
             product.setPrice(FormatDouble.toDouble(price.getText()));
             product.setSupplier(supplier.getValue());
             product.setQuantity(Integer.parseInt(quantity.getText()));
-            if(!productService.createStaff(product)) {
+            if (!productService.createStaff(product)) {
                 CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!", "Sometimes the product service is not available");
                 return;
             }
@@ -114,7 +147,7 @@ public class ProductController {
 
     private boolean validateFormProduct() {
         // Validate image
-        if(!ProductValidator.validateImageAvatar(image)) {
+        if (!ProductValidator.validateImageAvatar(image)) {
             CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Form Error!", "Please selected an image");
             btnAddImage.fire();
             name.requestFocus();
@@ -122,21 +155,21 @@ public class ProductController {
         }
 
         // Validate name product
-        if(!ProductValidator.validateNameProduct(name.getText())) {
+        if (!ProductValidator.validateNameProduct(name.getText())) {
             CustomAlert.showAlert(Alert.AlertType.ERROR, name.getScene().getWindow(), "Form Error!", "Invalid name product");
             name.requestFocus();
             return false;
         }
 
         // Validate price
-        if(!ProductValidator.validatePrice(FormatDouble.toDouble(price.getText()))) {
+        if (!ProductValidator.validatePrice(FormatDouble.toDouble(price.getText()))) {
             CustomAlert.showAlert(Alert.AlertType.ERROR, price.getScene().getWindow(), "Form Error!", "Price always > 0");
             price.requestFocus();
             return false;
         }
 
         // validate quantity
-        if(!ProductValidator.validateQuantity(Integer.parseInt(quantity.getText()))) {
+        if (!ProductValidator.validateQuantity(Integer.parseInt(quantity.getText()))) {
             CustomAlert.showAlert(Alert.AlertType.ERROR, quantity.getScene().getWindow(), "Form Error!", "Quantity not less than 0");
             quantity.requestFocus();
             return false;
@@ -177,7 +210,6 @@ public class ProductController {
         // table view
         tableListProduct.getItems().clear();
         productList = FXCollections.observableArrayList(productService.getAllProduct());
-
         colSupplier.setCellValueFactory(new PropertyValueFactory<Product, Supplier>("supplier"));
         colCategory.setCellValueFactory(new PropertyValueFactory<Product, Category>("category"));
         colPrice.setCellValueFactory(new PropertyValueFactory<Product, String>("price"));
@@ -193,7 +225,7 @@ public class ProductController {
         colName.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
         colId.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
         colCreatedAt.setCellValueFactory(new PropertyValueFactory<Product, Timestamp>("createdAt"));
-        colUpdatedAt.setCellValueFactory(new PropertyValueFactory<Product,Timestamp>("updatedAt"));
+        colUpdatedAt.setCellValueFactory(new PropertyValueFactory<Product, Timestamp>("updatedAt"));
         colStatus.setCellValueFactory(new PropertyValueFactory<Product, Integer>("status"));
         tableListProduct.setItems(productList);
         tableListProduct.getSelectionModel().selectFirst();
@@ -204,7 +236,6 @@ public class ProductController {
         price.textProperty().addListener((observable, oldValue, newValue) -> {
             // kiểm tra xem chuỗi mới nhập vào có thể định dạng thành số không
             try {
-                System.out.println("price");
                 String valueAmount = FormatDouble.toString(FormatDouble.toDouble(newValue));
                 price.setText(valueAmount);
             } catch (NumberFormatException e) {
@@ -236,7 +267,7 @@ public class ProductController {
         image.setImage(new Image(product.getAvatar()));
     }
 
-    private void setUpTableView( ) {
+    private void setUpTableView() {
         tableListProduct.setOnMouseClicked(mouseEvent -> {
             updateProductCurrentRowToForm();
         });
