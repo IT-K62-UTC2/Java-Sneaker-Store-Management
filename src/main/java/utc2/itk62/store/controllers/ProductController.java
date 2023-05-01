@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -12,6 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import utc2.itk62.store.Validator.ProductValidator;
 import utc2.itk62.store.models.Category;
+import utc2.itk62.store.models.Customer;
 import utc2.itk62.store.models.Product;
 import utc2.itk62.store.models.Supplier;
 import utc2.itk62.store.services.CategoryService;
@@ -27,6 +29,7 @@ public class ProductController {
     private static final ProductService productService = new ProductService();
     private static final SupplierService supplierService = new SupplierService();
     private static final CategoryService categoryService = new CategoryService();
+
 
     public TableView<Product> tableListProduct;
     public TextField id;
@@ -62,6 +65,9 @@ public class ProductController {
     private ObservableList<Product> productList;
     private ObservableList<Supplier> supplierList = FXCollections.observableArrayList(supplierService.getAllSuppliers());
     private ObservableList<Category> categoryList = FXCollections.observableArrayList(categoryService.getAllCategory());
+    private ObservableList<String> listKetSearch = FXCollections.observableArrayList(
+            "ID","Supplier", "Category", "Name", "Quantity", "Description");
+
 
     public void initialize() {
         setupPriceTextField();
@@ -69,6 +75,9 @@ public class ProductController {
         setupBtnAddProduct();
         setupBtnUpdateProduct();
         setupBtnDeleteProduct();
+        keySearch.setItems(listKetSearch);
+        keySearch.setValue("ID");
+        setupSearch();
 
         // set supplier
         supplier.setItems(supplierList);
@@ -82,6 +91,44 @@ public class ProductController {
         setUpTableView();
         reloadTableView();
 
+    }
+
+    private void setupSearch() {
+        valueSearch.setOnKeyTyped(keyEvent ->  {
+            // Khởi tạo FilteredList và gán nó với danh sách positionList
+            FilteredList<Product> filteredList = new FilteredList<>(productList, p -> true);
+
+            // Gán FilteredList làm nguồn dữ liệu cho TableView
+            tableListProduct.setItems(filteredList);
+            filteredList.setPredicate(p -> {
+                if(valueSearch.getText().isEmpty()) {
+                    return true;
+                }
+                if(keySearch.getValue().equals("ID")) {
+                    return String.valueOf(p.getId()).toLowerCase().contains(valueSearch.getText());
+                }
+                if(keySearch.getValue().equals("Name")) {
+                    return p.getName().toLowerCase().contains(valueSearch.getText());
+                }
+                if(keySearch.getValue().equals("Supplier")) {
+                    return p.getSupplier().getName().toLowerCase().contains(valueSearch.getText());
+                }
+                if(keySearch.getValue().equals("Category")) {
+                    return p.getCategory().getName().toLowerCase().contains(valueSearch.getText());
+                }
+
+                if(keySearch.getValue().equals("Description")) {
+                    return p.getDescription().toLowerCase().contains(valueSearch.getText());
+                }
+
+                return p.getQuantity() == Integer.parseInt(valueSearch.getText());
+            });
+            if(tableListProduct.getSelectionModel() != null) {
+               tableListProduct.getSelectionModel().selectFirst();
+            }
+
+            updateProductCurrentRowToForm();
+        });
     }
 
     private void setupBtnUpdateProduct() {
@@ -101,11 +148,9 @@ public class ProductController {
 
     private Product getProductCurrentForm() {
         Product product = tableListProduct.getSelectionModel().getSelectedItem();
-        System.out.println("Preupdate supplier: " + product.getSupplier().getId());
-        System.out.println("Preupdate category: " + product.getCategory().getId());
-        System.out.println("Form supplier: " + supplier.getValue().getId());
-        System.out.println("Form category: " + category.getValue().getId());
-
+        if(product == null) {
+            return null;
+        }
         product.setId(Integer.parseInt(id.getText()));
         product.setSupplier(supplier.getValue());
         product.setCategory(category.getValue());
@@ -229,7 +274,9 @@ public class ProductController {
 
     private void reloadTableView() {
         // table view
-        tableListProduct.getItems().clear();
+        if(!tableListProduct.getItems().isEmpty()) {
+            tableListProduct.getItems().clear();
+        }
         productList = FXCollections.observableArrayList(productService.getAllProduct());
         colSupplier.setCellValueFactory(new PropertyValueFactory<Product, Supplier>("supplier"));
         colCategory.setCellValueFactory(new PropertyValueFactory<Product, Category>("category"));
@@ -278,6 +325,10 @@ public class ProductController {
 
     private void updateProductCurrentRowToForm() {
         Product product = tableListProduct.getSelectionModel().getSelectedItem();
+        if (product == null) {
+            cleanForm();
+            return;
+        }
         id.setText(String.valueOf(product.getId()));
         supplier.setValue(product.getSupplier());
         category.setValue(product.getCategory());
