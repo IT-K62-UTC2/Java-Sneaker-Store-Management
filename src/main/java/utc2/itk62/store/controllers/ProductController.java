@@ -68,7 +68,7 @@ public class ProductController {
         setupQuantityTextField();
         setupBtnAddProduct();
         setupBtnUpdateProduct();
-
+        setupBtnDeleteProduct();
 
         // set supplier
         supplier.setItems(supplierList);
@@ -136,11 +136,11 @@ public class ProductController {
             product.setPrice(FormatDouble.toDouble(price.getText()));
             product.setSupplier(supplier.getValue());
             product.setQuantity(Integer.parseInt(quantity.getText()));
-            if (!productService.createStaff(product)) {
+            if (!productService.createProduct(product)) {
                 CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!", "Sometimes the product service is not available");
                 return;
             }
-            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Success", "Staff product successfully");
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Success", "Add product successfully");
             reloadTableView();
         });
     }
@@ -203,6 +203,27 @@ public class ProductController {
                 // Lấy đường dẫn của file được chọn
                 image.setImage(new Image(String.valueOf(selectedFile)));
             }
+        });
+    }
+
+    private void setupBtnDeleteProduct() {
+        btnDelete.setOnAction(actionEvent -> {
+            if(id.getText().equals("")) {
+                return;
+            }
+            Product product = tableListProduct.getSelectionModel().getSelectedItem();
+            if(product == null) {
+                return;
+            }
+            if (!CustomAlert.showAlert(Alert.AlertType.CONFIRMATION, id.getScene().getWindow(), "Delete product", "Are you sure you want to delete this product")) {
+                return;
+            }
+            if (!productService.deleteProduct(product)) {
+                CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!","Delete product failed");
+                return;
+            }
+            tableListProduct.getItems().remove(product);
+            reloadTableView();
         });
     }
 

@@ -34,8 +34,15 @@ public class ProductService {
         return productRepo.getAllProducts(new Paging(0,0));
     }
 
-    public boolean createStaff(Product product) {
+    public boolean createProduct(Product product) {
         if(productRepo.createProduct(product) <=0) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean deleteProduct(Product product) {
+        if (productRepo.deleteProduct(product.getId()) <= 0) {
             return false;
         }
         return true;
