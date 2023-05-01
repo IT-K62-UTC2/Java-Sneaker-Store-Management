@@ -12,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import utc2.itk62.store.Validator.StaffValidator;
 import utc2.itk62.store.models.Position;
 import utc2.itk62.store.models.Staff;

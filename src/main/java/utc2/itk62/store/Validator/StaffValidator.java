@@ -81,13 +81,14 @@ public class StaffValidator {
     }
 
     public static boolean validateAddress(String address) {
-        String regex = "^[a-zA-Z0-9]+$";
-        Pattern p = Pattern.compile(regex);
-        if (address == null) {
+        if(address.equals("")) {
             return false;
         }
-        Matcher m = p.matcher(address);
-        return m.matches();
+
+        if(address.startsWith(" ")) {
+            return false;
+        }
+        return  true;
     }
 
     public static boolean validatePhoneNumber(String phoneNumber) {
@@ -111,7 +112,7 @@ public class StaffValidator {
     }
 
     public static boolean validateFullname(String fullname) {
-        String regex = "^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}$";
+        String regex = "^(?!\\s)[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$";
         Pattern p = Pattern.compile(regex);
         if (fullname == null) {
             return false;

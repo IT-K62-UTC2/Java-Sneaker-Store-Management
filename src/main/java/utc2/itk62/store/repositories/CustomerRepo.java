@@ -21,8 +21,8 @@ public class CustomerRepo {
         String query = "SELECT * FROM customer WHERE status = 1 LIMIT ? OFFSET ? ";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
-            ptmt.setInt(1,paging.getLimit());
-            ptmt.setInt(2,paging.getOffset());
+            ptmt.setInt(1, paging.getLimit());
+            ptmt.setInt(2, paging.getOffset());
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 Customer customer = new Customer();
@@ -50,10 +50,11 @@ public class CustomerRepo {
         String query = "SELECT * FROM customer WHERE status = 1 AND id = ?";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
-            ptmt.setInt(1,customerId);
+            ptmt.setInt(1, customerId);
             ResultSet rs = ptmt.executeQuery();
             Customer customer = null;
             while (rs.next()) {
+                customer = new Customer();
                 customer.setId(rs.getInt("id"));
                 customer.setFullName(rs.getString("fullname"));
                 customer.setAddress(rs.getString("address"));
@@ -73,14 +74,15 @@ public class CustomerRepo {
         }
     }
 
-    public Customer getCustomerByPhoneNumber(String phoneNumber){
+    public Customer getCustomerByPhoneNumber(String phoneNumber) {
         String query = "SELECT * FROM customer WHERE status = 1 AND phone_number = ?";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
-            ptmt.setString(1,phoneNumber);
+            ptmt.setString(1, phoneNumber);
             ResultSet rs = ptmt.executeQuery();
             Customer customer = null;
             while (rs.next()) {
+                customer = new Customer();
                 customer.setId(rs.getInt("id"));
                 customer.setFullName(rs.getString("fullname"));
                 customer.setAddress(rs.getString("address"));
@@ -106,7 +108,7 @@ public class CustomerRepo {
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
-        try{
+        try {
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
             ptmt.setString(1, customer.getFullName());
@@ -117,7 +119,7 @@ public class CustomerRepo {
             ptmt.setString(6, customer.getCccd());
             result = ptmt.executeUpdate();
             conn.commit();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             try {
                 conn.rollback();
             } catch (SQLException ex) {
@@ -136,7 +138,7 @@ public class CustomerRepo {
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
-        try{
+        try {
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
             ptmt.setString(1, customer.getFullName());
@@ -149,7 +151,7 @@ public class CustomerRepo {
 
             result = ptmt.executeUpdate();
             conn.commit();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             try {
                 conn.rollback();
             } catch (SQLException ex) {
@@ -168,14 +170,14 @@ public class CustomerRepo {
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
-        try{
+        try {
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
             ptmt.setInt(1, idCustomer);
 
             result = ptmt.executeUpdate();
             conn.commit();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             try {
                 conn.rollback();
             } catch (SQLException ex) {
@@ -189,4 +191,59 @@ public class CustomerRepo {
     }
 
 
+    public Customer getCustomerByEmail(String email) {
+        String query = "SELECT * FROM customer WHERE status = 1 AND email = ?";
+        try {
+            PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
+            ptmt.setString(1, email);
+            ResultSet rs = ptmt.executeQuery();
+            Customer customer = null;
+            while (rs.next()) {
+                customer = new Customer();
+                customer.setId(rs.getInt("id"));
+                customer.setFullName(rs.getString("fullname"));
+                customer.setAddress(rs.getString("address"));
+                customer.setEmail(rs.getString("email"));
+                customer.setPhoneNumber(rs.getString("phone_number"));
+                customer.setCccd(rs.getString("cccd"));
+                customer.setGender(rs.getString("gender"));
+                customer.setStatus(rs.getInt("status"));
+                customer.setCreatedAt(rs.getTimestamp("created_at"));
+                customer.setUpdatedAt(rs.getTimestamp("updated_at"));
+            }
+            return customer;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionUtil.closeConnection();
+        }
+    }
+
+    public Customer getCustomerByCccd(String cccd) {
+        String query = "SELECT * FROM customer WHERE status = 1 AND cccd = ?";
+        try {
+            PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
+            ptmt.setString(1, cccd);
+            ResultSet rs = ptmt.executeQuery();
+            Customer customer = null;
+            while (rs.next()) {
+                customer = new Customer();
+                customer.setId(rs.getInt("id"));
+                customer.setFullName(rs.getString("fullname"));
+                customer.setAddress(rs.getString("address"));
+                customer.setEmail(rs.getString("email"));
+                customer.setPhoneNumber(rs.getString("phone_number"));
+                customer.setCccd(rs.getString("cccd"));
+                customer.setGender(rs.getString("gender"));
+                customer.setStatus(rs.getInt("status"));
+                customer.setCreatedAt(rs.getTimestamp("created_at"));
+                customer.setUpdatedAt(rs.getTimestamp("updated_at"));
+            }
+            return customer;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionUtil.closeConnection();
+        }
+    }
 }
