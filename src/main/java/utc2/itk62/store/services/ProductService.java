@@ -33,4 +33,11 @@ public class ProductService {
     public List<Product> getAllProduct() {
         return productRepo.getAllProducts(new Paging(0,0));
     }
+
+    public boolean createStaff(Product product) {
+        if(productRepo.createProduct(product) <=0) {
+            return false;
+        }
+        return true;
+    }
 }
