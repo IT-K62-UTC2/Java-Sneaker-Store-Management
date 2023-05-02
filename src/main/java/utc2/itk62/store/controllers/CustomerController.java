@@ -124,7 +124,7 @@ public class CustomerController {
 
     private void setupBtnExportExcel() {
         btnExportExcel.setOnAction(actionEvent -> {
-            customerService.exportExcel(customerList);
+            customerService.exportExcel(customerList, id.getScene().getWindow());
         });
     }
 

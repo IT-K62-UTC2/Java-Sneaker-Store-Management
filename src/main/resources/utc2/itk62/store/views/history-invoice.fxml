@@ -73,7 +73,12 @@
                <children>
                   <VBox layoutX="176.0" layoutY="137.0" prefHeight="700.0" prefWidth="533.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="btnExportInvoice" mnemonicParsing="false" text="Xuất hoá đơn" />
+                        <HBox>
+                           <children>
+                              <Button fx:id="btnExportInvoice" mnemonicParsing="false" text="Xuất hoá đơn" />
+                              <Button fx:id="btnExportExcel" mnemonicParsing="false" text="Export Excel" />
+                           </children>
+                        </HBox>
                         <AnchorPane fx:id="viewInvoice" prefHeight="675.0" prefWidth="450.0" />
                      </children>
                   </VBox>

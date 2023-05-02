@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import utc2.itk62.store.Validator.StaffValidator;
 import utc2.itk62.store.models.Position;
 import utc2.itk62.store.models.Staff;
@@ -24,6 +25,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDateTime;
+
+import static java.awt.SystemColor.window;
 
 public class StaffController {
     private static final StaffService staffService = new StaffService();
@@ -369,7 +372,7 @@ public class StaffController {
 
     @FXML
     public void handleBtnExportExcel(ActionEvent actionEvent) {
-        staffService.exportExcel(staffList);
+        staffService.exportExcel(staffList, idStaff.getScene().getWindow());
     }
 
     @FXML

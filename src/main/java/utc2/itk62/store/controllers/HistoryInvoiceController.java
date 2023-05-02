@@ -48,10 +48,12 @@ public class HistoryInvoiceController {
     public TableView<InvoiceDetail> tableListInvoiceDetail;
     public AnchorPane viewInvoice;
     public Button btnExportInvoice;
+    public Button btnExportExcel;
 
     private ObservableList<Invoice> listInvoice;
 
     public void initialize() {
+        setupExportExcel();
         reloadTableView();
         setUpTableListInvoice();
         setupBtnExportInvoice();
@@ -87,6 +89,12 @@ public class HistoryInvoiceController {
         // update table invoice details
         updateInvoiceDetailsCurrentRowInvoice();
         loadInvoice();
+    }
+
+    private void setupExportExcel() {
+        btnExportExcel.setOnAction(actionEvent -> {
+            invoicesService.exportExcel(listInvoice, keySearch.getScene().getWindow());
+        });
     }
 
     private void updateInvoiceDetailsCurrentRowInvoice() {

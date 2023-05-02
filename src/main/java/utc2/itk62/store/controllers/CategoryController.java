@@ -186,7 +186,7 @@ public class CategoryController {
     // setup handle export excel
     private void setupBtnExportExcel() {
         btnExportExcel.setOnAction(action -> {
-            categoryService.exportExcel(categoryList);
+            categoryService.exportExcel(categoryList, idCategory.getScene().getWindow());
         });
     }
 

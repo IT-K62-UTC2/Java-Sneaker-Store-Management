@@ -3,6 +3,7 @@ package utc2.itk62.store.services;
 import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -40,7 +41,7 @@ public class CategoryService {
         return true;
     }
 
-    public void exportExcel(ObservableList<Category> categoryList) {
+    public void exportExcel(ObservableList<Category> categoryList, Window window) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Category");
         Row header = sheet.createRow(0);
@@ -51,8 +52,8 @@ public class CategoryService {
         header.createCell(4).setCellValue("Ngày tạo");
         header.createCell(5).setCellValue("Ngày cập nhật");
         sheet.autoSizeColumn(0);
-        for (int i = 1; i < categoryList.size(); i++) {
-            Category item = categoryList.get(i);
+        for (int i = 1; i <= categoryList.size(); i++) {
+            Category item = categoryList.get(i-1);
             Row row = sheet.createRow(i);
             row.createCell(0, CellType.NUMERIC).setCellValue(i);
             row.createCell(1,CellType.NUMERIC).setCellValue(item.getId());
@@ -68,7 +69,7 @@ public class CategoryService {
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx");
         fileChooser.getExtensionFilters().add(extFilter);
         fileChooser.setInitialFileName("Category");
-        File file = fileChooser.showSaveDialog(new Stage());
+        File file = fileChooser.showSaveDialog(window);
         if (file != null) {
             FileOutputStream outputStream = null;
             try {
