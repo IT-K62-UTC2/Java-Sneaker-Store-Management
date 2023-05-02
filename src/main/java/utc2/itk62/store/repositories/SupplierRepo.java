@@ -17,8 +17,8 @@ public class SupplierRepo {
         String query = "SELECT * FROM supplier WHERE status = 1 LIMIT ? OFFSET ?";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
-            ptmt.setInt(1,paging.getLimit());
-            ptmt.setInt(2,paging.getOffset());
+            ptmt.setInt(1, paging.getLimit());
+            ptmt.setInt(2, paging.getOffset());
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 Supplier supplier = new Supplier();
@@ -46,7 +46,7 @@ public class SupplierRepo {
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
-        try{
+        try {
             conn.setAutoCommit(false);
             PreparedStatement ptmt = conn.prepareStatement(query);
             ptmt.setString(1, supplier.getName());
@@ -55,7 +55,41 @@ public class SupplierRepo {
             ptmt.setString(4, supplier.getEmail());
             result = ptmt.executeUpdate();
             conn.commit();
-        }catch (SQLException e){
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionUtil.closeConnection();
+        }
+        return result;
+    }
+
+    public int updateSupplier(Supplier supplier) {
+        String query = "UPDATE supplier SET" +
+                " address = ?,  " +
+                " phone_number = ?," +
+                " `name` = ?," +
+                " `email` = ?" +
+                " WHERE id = ? AND status = 1";
+        int result = 0;
+        Connection conn = ConnectionUtil.getConnection();
+        try {
+            conn.setAutoCommit(false);
+            PreparedStatement ptmt = conn.prepareStatement(query);
+            ptmt.setString(1, supplier.getAddress());
+            ptmt.setString(2, supplier.getPhoneNumber());
+            ptmt.setString(3, supplier.getName());
+            ptmt.setString(4, supplier.getEmail());
+            ptmt.setInt(5, supplier.getId());
+
+            System.out.println(ptmt);
+            result = ptmt.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             e.printStackTrace();
         } finally {
             ConnectionUtil.closeConnection();

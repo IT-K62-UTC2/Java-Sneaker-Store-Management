@@ -19,4 +19,11 @@ public class SupplierService {
         }
         return true;
     }
+
+    public boolean updateSupplier(Supplier supplier) {
+        if(supplierRepo.updateSupplier(supplier) <=0) {
+            return false;
+        }
+        return true;
+    }
 }

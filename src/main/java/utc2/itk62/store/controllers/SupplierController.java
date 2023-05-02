@@ -8,7 +8,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import utc2.itk62.store.Validator.SupplierValidator;
 import utc2.itk62.store.models.Category;
 import utc2.itk62.store.models.Product;
-import utc2.itk62.store.models.Staff;
 import utc2.itk62.store.models.Supplier;
 import utc2.itk62.store.services.ProductService;
 import utc2.itk62.store.services.SupplierService;
@@ -55,6 +54,7 @@ public class SupplierController {
     public void initialize() {
         reloadTableView();
         setupBtnAddSupplier();
+        setupUpdateSupplier();
         setUpTableListCategory();
     }
 
@@ -132,12 +132,12 @@ public class SupplierController {
     }
 
     private void setupBtnAddSupplier() {
-        btnAdd.setOnAction(actionEvent ->{
+        btnAdd.setOnAction(actionEvent -> {
             tableListSupplier.getSelectionModel().clearSelection();
-            if(!id.getText().equals("")) {
+            if (!id.getText().equals("")) {
                 cleanForm();
             }
-            if(!validateForm()) {
+            if (!validateForm()) {
                 return;
             }
 
@@ -151,32 +151,58 @@ public class SupplierController {
                 CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!", "Sometimes the supplier service is not available");
                 return;
             }
-            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Success","Add supplier successfully");
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Success", "Add supplier successfully");
             reloadTableView();
         });
     }
 
+    public void setupUpdateSupplier() {
+        btnUpdate.setOnAction(actionEvent -> {
+            Supplier supplier = getSupplierCurrentForm();
+            if (!validateForm()) {
+                return;
+            }
+            if (!supplierService.updateSupplier(supplier)) {
+                CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!", "Update supplier failed");
+                return;
+            }
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Success!", "Update staff successfully");
+            reloadTableView();
+        });
+    }
+
+    private Supplier getSupplierCurrentForm() {
+        Supplier supplier = new Supplier();
+        supplier.setId(Integer.parseInt(id.getText()));
+        supplier.setEmail(email.getText());
+        supplier.setName(name.getText());
+        supplier.setAddress(address.getText());
+        supplier.setPhoneNumber(phoneNumber.getText());
+        return supplier;
+    }
+
+
     private boolean validateForm() {
-        if(!SupplierValidator.validateName(name.getText())) {
-            CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Form Error!","Invalid supplier name");
+        if (!SupplierValidator.validateName(name.getText())) {
+            CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Form Error!", "Invalid supplier name");
             name.requestFocus();
             return false;
         }
 
-        if(!SupplierValidator.validateEmail(email.getText())) {
-            CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Form Error!","Invalid supplier email");
+        if (!SupplierValidator.validateEmail(email.getText())) {
+            CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Form Error!", "Invalid supplier email");
             email.requestFocus();
             return false;
         }
 
-        if(!SupplierValidator.validatePhoneNumber(phoneNumber.getText())) {
-            CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Form Error!","Invalid supplier phone number");
+        if (!SupplierValidator.validatePhoneNumber(phoneNumber.getText())) {
+            CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Form Error!", "Invalid supplier phone number");
             phoneNumber.requestFocus();
             return false;
         }
 
-        if(!SupplierValidator.validateAddress(address.getText())) {
-            CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Form Error!","Invalid supplier address");
+        if (!SupplierValidator.validateAddress(address.getText())) {
+            CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Form Error!", "Invalid supplier address");
             address.requestFocus();
             return false;
         }
