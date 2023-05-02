@@ -13,11 +13,12 @@ import utc2.itk62.store.util.FormatDouble;
 public class CardProductController {
     public Button btnAdd;
     public Label priceProduct;
-    public Label sizeProduct;
     public ImageView imageProduct;
     public Label nameProduct;
     public Spinner<Integer> cashQuantity;
     public Label quantity;
+    public Label descProduct;
+    public Label idProduct;
 
     private Product product;
 
@@ -27,6 +28,8 @@ public class CardProductController {
 
     public void setProduct(Product product) {
         this.product = product;
+        idProduct.setText(String.valueOf(product.getId()));
+        descProduct.setText(product.getDescription());
         priceProduct.setText(FormatDouble.toString(product.getPrice()));
         nameProduct.setText(String.valueOf(product.getName()));
         imageProduct.setImage(new Image(product.getAvatar()));

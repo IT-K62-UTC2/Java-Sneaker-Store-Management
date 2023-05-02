@@ -10,6 +10,8 @@ module utc2.itk62.sneaker {
     requires jasperreports;
     requires javafx.swing;
     requires itextpdf;
+    requires java.mail;
+    requires activation;
     opens utc2.itk62.store to javafx.fxml;
     exports utc2.itk62.store.controllers;
     exports utc2.itk62.store;

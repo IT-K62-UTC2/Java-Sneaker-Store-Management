@@ -9,11 +9,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="350.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.CardProductController">
+<AnchorPane prefHeight="400.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.CardProductController">
    <children>
       <VBox layoutX="92.0" prefHeight="200.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="300.0">
+            <HBox prefHeight="22.0" prefWidth="230.0">
+               <children>
+                  <Label text="Mã sản phẩm:" />
+                  <Label fx:id="idProduct" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="156.0" text="0001" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="8.0" prefWidth="230.0">
                <children>
                   <Label fx:id="nameProduct" text="Nike AF1 Vip pro">
                      <HBox.margin>
@@ -22,14 +28,14 @@
                   </Label>
                </children>
             </HBox>
-            <AnchorPane prefHeight="220.0" prefWidth="200.0">
+            <AnchorPane prefHeight="230.0" prefWidth="400.0">
                <children>
-                  <ImageView fx:id="imageProduct" fitHeight="200.0" fitWidth="200.0" layoutX="15.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imageProduct" fitHeight="210.0" fitWidth="210.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
             <HBox>
                <VBox.margin>
-                  <Insets left="20.0" />
+                  <Insets />
                </VBox.margin>
                <children>
                   <Label prefHeight="18.0" prefWidth="45.0" text="Price:">
@@ -41,24 +47,20 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <Label text="vnđ">
+                  <Label prefWidth="25.0" text="vnđ">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
                   </Label>
                </children>
             </HBox>
-            <HBox>
+            <HBox prefHeight="14.0" prefWidth="250.0">
                <children>
-                  <Label prefHeight="18.0" prefWidth="50.0" text="Size: " />
-                  <Label fx:id="sizeProduct" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="125.0" text="size">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
+                  <Label prefHeight="18.0" prefWidth="45.0" text="Desc" />
+                  <Label fx:id="descProduct" text="Đây là mô tả sản phẩm" />
                </children>
                <VBox.margin>
-                  <Insets left="20.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="60.0" prefWidth="230.0">
