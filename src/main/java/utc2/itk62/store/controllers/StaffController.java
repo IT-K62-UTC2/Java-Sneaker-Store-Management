@@ -208,6 +208,7 @@ public class StaffController {
             CustomAlert.showAlert(Alert.AlertType.ERROR, idStaff.getScene().getWindow(), "Error!","Delete staff failed");
             return;
         }
+        CustomAlert.showAlert(Alert.AlertType.INFORMATION, idStaff.getScene().getWindow(), "Success!","Delete staff successfully");
         tableListStaff.getItems().remove(currentSelectStaff);
         reloadTableView();
     }

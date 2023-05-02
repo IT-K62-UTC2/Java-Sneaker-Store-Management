@@ -21,7 +21,14 @@ public class SupplierService {
     }
 
     public boolean updateSupplier(Supplier supplier) {
-        if(supplierRepo.updateSupplier(supplier) <=0) {
+        if (supplierRepo.updateSupplier(supplier) <= 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean deleteSupplier(Supplier supplier) {
+        if (supplierRepo.deleteSupplier(supplier.getId()) <= 0) {
             return false;
         }
         return true;

@@ -55,7 +55,26 @@ public class SupplierController {
         reloadTableView();
         setupBtnAddSupplier();
         setupUpdateSupplier();
+        setupDeleteSupplier();
         setUpTableListCategory();
+    }
+
+    private void setupDeleteSupplier() {
+        btnDelete.setOnAction(actionEvent -> {
+            if(id.getText().equals("")) {
+                return;
+            }
+            Supplier supplier = getSupplierCurrentForm();
+            if (!CustomAlert.showAlert(Alert.AlertType.CONFIRMATION, id.getScene().getWindow(), "Delete supplier", "Are you sure you want to delete this supplier?")) {
+                return;
+            }
+            if (!supplierService.deleteSupplier(supplier)) {
+                CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!","Delete supplier failed");
+                return;
+            }
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Success!","Delete supplier successfully");
+            reloadTableView();
+        });
     }
 
     private void reloadTableView() {
@@ -166,7 +185,7 @@ public class SupplierController {
                 CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!", "Update supplier failed");
                 return;
             }
-            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Success!", "Update staff successfully");
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Success!", "Update supplier successfully");
             reloadTableView();
         });
     }

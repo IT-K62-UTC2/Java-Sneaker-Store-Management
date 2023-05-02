@@ -96,4 +96,23 @@ public class SupplierRepo {
         }
         return result;
     }
+
+    public int deleteSupplier(int supplierId) {
+        String query = "UPDATE supplier SET status = 0 WHERE id = ?";
+        int result = 0;
+        Connection conn = ConnectionUtil.getConnection();
+
+        try{
+            conn.setAutoCommit(false);
+            PreparedStatement ptmt = conn.prepareStatement(query);
+            ptmt.setInt(1, supplierId);
+            result = ptmt.executeUpdate();
+            conn.commit();
+        }catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            ConnectionUtil.closeConnection();
+        }
+        return result;
+    }
 }
