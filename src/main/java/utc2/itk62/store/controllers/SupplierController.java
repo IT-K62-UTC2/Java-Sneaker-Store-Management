@@ -1,17 +1,18 @@
 package utc2.itk62.store.controllers;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
+import utc2.itk62.store.Validator.SupplierValidator;
 import utc2.itk62.store.models.Category;
 import utc2.itk62.store.models.Product;
+import utc2.itk62.store.models.Staff;
 import utc2.itk62.store.models.Supplier;
 import utc2.itk62.store.services.ProductService;
 import utc2.itk62.store.services.SupplierService;
+import utc2.itk62.store.util.CustomAlert;
 import utc2.itk62.store.util.FormatDouble;
 
 import java.sql.Timestamp;
@@ -53,6 +54,8 @@ public class SupplierController {
 
     public void initialize() {
         reloadTableView();
+        setupBtnAddSupplier();
+        setUpTableListCategory();
     }
 
     private void reloadTableView() {
@@ -115,5 +118,69 @@ public class SupplierController {
         colQuantityProduct.setCellValueFactory(new PropertyValueFactory<Product, Integer>("quantity"));
         colCategoryProduct.setCellValueFactory(new PropertyValueFactory<Product, Category>("category"));
         tableListProduct.setItems(FXCollections.observableArrayList(tableListSupplier.getSelectionModel().getSelectedItem().getProductList()));
+    }
+
+    private void setUpTableListCategory() {
+        tableListSupplier.setOnMouseClicked(mouseEvent -> {
+            updateCurrentSupplierToForm();
+            updateProductCurrentRowSupplier();
+        });
+        tableListSupplier.setOnKeyPressed(keyEvent -> {
+            updateCurrentSupplierToForm();
+            updateProductCurrentRowSupplier();
+        });
+    }
+
+    private void setupBtnAddSupplier() {
+        btnAdd.setOnAction(actionEvent ->{
+            tableListSupplier.getSelectionModel().clearSelection();
+            if(!id.getText().equals("")) {
+                cleanForm();
+            }
+            if(!validateForm()) {
+                return;
+            }
+
+            Supplier supplier = new Supplier();
+            supplier.setName(name.getText());
+            supplier.setAddress(address.getText());
+            supplier.setEmail(email.getText());
+            supplier.setPhoneNumber(phoneNumber.getText());
+
+            if (!supplierService.createSupplier(supplier)) {
+                CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!", "Sometimes the supplier service is not available");
+                return;
+            }
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Success","Add supplier successfully");
+            reloadTableView();
+        });
+    }
+
+    private boolean validateForm() {
+        if(!SupplierValidator.validateName(name.getText())) {
+            CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Form Error!","Invalid supplier name");
+            name.requestFocus();
+            return false;
+        }
+
+        if(!SupplierValidator.validateEmail(email.getText())) {
+            CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Form Error!","Invalid supplier email");
+            email.requestFocus();
+            return false;
+        }
+
+        if(!SupplierValidator.validatePhoneNumber(phoneNumber.getText())) {
+            CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Form Error!","Invalid supplier phone number");
+            phoneNumber.requestFocus();
+            return false;
+        }
+
+        if(!SupplierValidator.validateAddress(address.getText())) {
+            CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Form Error!","Invalid supplier address");
+            address.requestFocus();
+            return false;
+        }
+
+        return true;
     }
 }

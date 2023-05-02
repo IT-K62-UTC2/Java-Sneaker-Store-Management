@@ -4,6 +4,7 @@ import utc2.itk62.store.common.Paging;
 import utc2.itk62.store.connection.ConnectionUtil;
 import utc2.itk62.store.models.Supplier;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,5 +38,28 @@ public class SupplierRepo {
         } finally {
             ConnectionUtil.closeConnection();
         }
+    }
+
+    public int createSupplier(Supplier supplier) {
+        String query = "INSERT INTO supplier(`name`, address, `phone_number`, `email`)" +
+                " VALUES(?, ?, ?, ?)";
+        int result = 0;
+        Connection conn = ConnectionUtil.getConnection();
+
+        try{
+            conn.setAutoCommit(false);
+            PreparedStatement ptmt = conn.prepareStatement(query);
+            ptmt.setString(1, supplier.getName());
+            ptmt.setString(2, supplier.getAddress());
+            ptmt.setString(3, supplier.getPhoneNumber());
+            ptmt.setString(4, supplier.getEmail());
+            result = ptmt.executeUpdate();
+            conn.commit();
+        }catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            ConnectionUtil.closeConnection();
+        }
+        return result;
     }
 }

@@ -12,4 +12,11 @@ public class SupplierService {
     public List<Supplier> getAllSuppliers() {
         return supplierRepo.getAllSupplier(new Paging(0, 0));
     }
+
+    public boolean createSupplier(Supplier supplier) {
+        if (supplierRepo.createSupplier(supplier) <= 0) {
+            return false;
+        }
+        return true;
+    }
 }
