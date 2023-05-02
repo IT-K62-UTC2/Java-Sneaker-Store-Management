@@ -106,4 +106,15 @@ public class HomeController {
             throw new RuntimeException(e);
         }
     }
+
+    public void handleBtnSupplier(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/supplier.fxml"));
+        Node node = null;
+        try {
+            node = loader.load();
+            include.getChildren().set(0,node);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

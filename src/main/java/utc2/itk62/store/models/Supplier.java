@@ -1,6 +1,7 @@
 package utc2.itk62.store.models;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Supplier {
     private int id;
@@ -9,6 +10,7 @@ public class Supplier {
     private String address;
     private String phoneNumber;
     private int status;
+    private List<Product> productList;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
@@ -20,6 +22,14 @@ public class Supplier {
         this.email = email;
         this.address = address;
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
     }
 
     public String getName() {

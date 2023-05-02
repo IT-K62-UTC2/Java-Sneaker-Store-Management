@@ -42,6 +42,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               <Button mnemonicParsing="false" onAction="#handleBtnHome" prefHeight="26.0" prefWidth="222.0" text="Home" />
@@ -49,8 +50,9 @@
                               <Button mnemonicParsing="false" onAction="#handleBtnCategory" prefHeight="26.0" prefWidth="210.0" text="Category" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" onAction="#handleBtnCustomer" prefHeight="26.0" prefWidth="263.0" text="Customers" GridPane.rowIndex="3" />
                               <Button mnemonicParsing="false" onAction="#handleBtnProduct" prefHeight="26.0" prefWidth="260.0" text="Product" GridPane.rowIndex="5" />
-                              <Button mnemonicParsing="false" onAction="#handleImportGoods" prefHeight="26.0" prefWidth="216.0" text="Import goods" GridPane.rowIndex="6" />
+                              <Button mnemonicParsing="false" onAction="#handleImportGoods" prefHeight="26.0" prefWidth="216.0" text="Import goods" GridPane.rowIndex="7" />
                               <Button mnemonicParsing="false" onAction="#handleHistory" prefHeight="26.0" prefWidth="234.0" text="History" GridPane.rowIndex="4" />
+                              <Button mnemonicParsing="false" onAction="#handleBtnSupplier" prefHeight="26.0" prefWidth="215.0" text="Supplier" GridPane.rowIndex="6" />
                            </children>
                         </GridPane>
                      </children>

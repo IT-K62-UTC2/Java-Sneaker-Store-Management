@@ -47,4 +47,8 @@ public class ProductService {
         }
         return true;
     }
+
+    public List<Product> getProductByIdSupplier(int id) {
+        return productRepo.getProductListByIdSupplier(id);
+    }
 }

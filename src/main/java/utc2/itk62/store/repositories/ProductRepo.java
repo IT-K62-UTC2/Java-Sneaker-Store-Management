@@ -84,7 +84,7 @@ public class ProductRepo {
 
     public List<Product> getProductListByIdCategory(int idCategory) {
         List<Product> productList = new ArrayList<Product>();
-        String query = "SELECT * FROM product" +
+        String query = "SELECT product.*, supplier.name FROM product" +
                 " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
                 " WHERE product.status = 1 AND product.id_category = ?";
         try {
@@ -211,5 +211,46 @@ public class ProductRepo {
             ConnectionUtil.closeConnection();
         }
         return result;
+    }
+
+    public List<Product> getProductListByIdSupplier(int id) {
+        List<Product> productList = new ArrayList<Product>();
+        String query = "SELECT product.*, category.name FROM product" +
+                " LEFT JOIN category ON category.id = product.id_category" +
+                " WHERE product.status = 1 AND product.id_supplier = ?";
+        try {
+            PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
+            ptmt.setInt(1, id);
+            ResultSet rs = ptmt.executeQuery();
+            while (rs.next()) {
+                // Product
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("desc"));
+                product.setPrice(rs.getDouble("price"));
+                product.setAvatar(rs.getString("avatar"));
+                product.setStatus(rs.getInt("status"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setCreatedAt(rs.getTimestamp("created_at"));
+                product.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+                // JOIN table category
+                Category category = new Category();;
+                category.setName(rs.getString("category.name"));
+//                supplier.setEmail(rs.getString("supplier.email"));
+//                supplier.setId(rs.getInt("supplier.id"));
+//                supplier.setPhoneNumber(rs.getString("supplier.phone_number"));
+//                supplier.setAddress(rs.getString("supplier.address"));
+//                supplier.set
+                product.setCategory(category);
+                productList.add(product);
+            }
+            return productList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionUtil.closeConnection();
+        }
     }
 }

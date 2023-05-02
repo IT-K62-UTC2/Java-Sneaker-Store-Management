@@ -281,12 +281,9 @@ public class ProductController {
         colSupplier.setCellValueFactory(new PropertyValueFactory<Product, Supplier>("supplier"));
         colCategory.setCellValueFactory(new PropertyValueFactory<Product, Category>("category"));
         colPrice.setCellValueFactory(new PropertyValueFactory<Product, String>("price"));
-        colPrice.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Product, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Product, String> param) {
-                Product product = param.getValue();
-                return new SimpleStringProperty(FormatDouble.toString(product.getPrice()));
-            }
+        colPrice.setCellValueFactory(param -> {
+            Product product = param.getValue();
+            return new SimpleStringProperty(FormatDouble.toString(product.getPrice()));
         });
         colQuantity.setCellValueFactory(new PropertyValueFactory<Product, Integer>("quantity"));
         colDesc.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));

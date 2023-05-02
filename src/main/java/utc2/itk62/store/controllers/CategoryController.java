@@ -1,5 +1,6 @@
 package utc2.itk62.store.controllers;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -12,6 +13,7 @@ import utc2.itk62.store.models.Supplier;
 import utc2.itk62.store.services.CategoryService;
 import utc2.itk62.store.services.ProductService;
 import utc2.itk62.store.util.CustomAlert;
+import utc2.itk62.store.util.FormatDouble;
 
 import java.sql.Timestamp;
 
@@ -44,9 +46,11 @@ public class CategoryController {
     @FXML
     public TableColumn<Product, String> colDescProduct;
     @FXML
-    public TableColumn<Product, Double> colPriceProduct;
+    public TableColumn<Product, String> colPriceProduct;
     @FXML
     public TableColumn<Product, Integer> colStatusProduct;
+    @FXML
+    public TableColumn<Product, Integer> colQuantity;
     @FXML
     public TableColumn<Product, Timestamp> colCreatedAtProduct;
     @FXML
@@ -214,10 +218,14 @@ public class CategoryController {
     private void updateProductCurrentRowCategory() {
         tableListProduct.getItems().clear();
         colNameProduct.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-        colPriceProduct.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
+        colPriceProduct.setCellValueFactory(new PropertyValueFactory<Product, String>("price"));
+        colPriceProduct.setCellValueFactory(param -> {
+            Product product = param.getValue();
+            return new SimpleStringProperty(FormatDouble.toString(product.getPrice()));
+        });
         colDescProduct.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));
         colStatusProduct.setCellValueFactory(new PropertyValueFactory<Product, Integer>("status"));
-        colStatusProduct.setCellValueFactory(new PropertyValueFactory<Product, Integer>("quantity"));
+        colQuantity.setCellValueFactory(new PropertyValueFactory<Product, Integer>("quantity"));
         colSupplierProduct.setCellValueFactory(new PropertyValueFactory<Product, Supplier>("supplier"));
         colCreatedAtProduct.setCellValueFactory(new PropertyValueFactory<Product, Timestamp>("createdAt"));
         colUpdatedAtProduct.setCellValueFactory(new PropertyValueFactory<Product, Timestamp>("updatedAt"));
