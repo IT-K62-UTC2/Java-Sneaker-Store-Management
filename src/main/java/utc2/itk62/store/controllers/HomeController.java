@@ -4,9 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import utc2.itk62.store.Main;
+import utc2.itk62.store.common.User;
 
 import java.io.IOException;
 
@@ -17,6 +19,7 @@ public class HomeController {
     public ImageView image;
 
     public void initialize() throws IOException {
+        image.setImage(new Image(User.staff.getPathAvatar()));
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/sale.fxml"));
         Node node = loader.load();
         include.getChildren().add(0,node);

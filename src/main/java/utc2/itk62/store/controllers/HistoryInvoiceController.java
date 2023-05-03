@@ -61,6 +61,9 @@ public class HistoryInvoiceController {
 
     private void reloadTableView() {
         listInvoice = FXCollections.observableArrayList(invoicesService.getAllInvoice());
+        if(listInvoice.size() == 0) {
+            return;
+        }
         for (Invoice item : listInvoice) {
             item.setListInvoiceDetails(invoicesDetailsService.getInvoiceDetailByIdInvoice(item.getId()));
         }

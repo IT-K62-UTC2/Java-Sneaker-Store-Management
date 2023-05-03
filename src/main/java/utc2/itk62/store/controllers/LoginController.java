@@ -9,6 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import utc2.itk62.store.Main;
+import utc2.itk62.store.common.User;
 import utc2.itk62.store.services.LoginService;
 
 import java.io.IOException;
@@ -25,7 +26,8 @@ public class LoginController {
 
     @FXML
     public void handleBtnLogin(ActionEvent actionEvent) throws IOException {
-        if(!loginService.CheckLogin(usernameField.getText(), passwordField.getText())) {
+        User.staff = loginService.CheckLogin(usernameField.getText(), passwordField.getText());
+        if(User.staff  == null) {
             statusLabel.setText("Failed");
         } else {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/home.fxml"));
@@ -35,8 +37,5 @@ public class LoginController {
             stage.setScene(scene);
             stage.show();
         }
-
-
-
     }
 }

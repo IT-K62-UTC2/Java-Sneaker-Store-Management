@@ -1,15 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.ImportGoodsController">
+<AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.ImportGoodsController">
    <children>
       <TabPane prefHeight="700.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Nhập hàng" />
+          <Tab text="Nhập hàng">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Nhập hàng" />
+                        <HBox prefHeight="702.0" prefWidth="1200.0">
+                           <children>
+                              <VBox prefHeight="654.0" prefWidth="550.0">
+                                 <children>
+                                    <Label text="Danh sách sản phẩm" />
+                                    <HBox prefHeight="100.0" prefWidth="550.0">
+                                       <children>
+                                          <Label text="Search" />
+                                          <TextField fx:id="valueSearch" />
+                                          <ComboBox fx:id="keySearch" prefWidth="150.0" />
+                                       </children>
+                                    </HBox>
+                                    <TableView fx:id="tableListProduct" prefHeight="350.0" prefWidth="550.0">
+                                      <columns>
+                                        <TableColumn fx:id="colSttProduct" prefWidth="75.0" text="STT" />
+                                        <TableColumn fx:id="colIdProduct" prefWidth="75.0" text="ID" />
+                                          <TableColumn fx:id="colNameProduct" prefWidth="75.0" text="Name" />
+                                          <TableColumn fx:id="colPriceProduct" prefWidth="75.0" text="Price" />
+                                          <TableColumn fx:id="colQuantityProduct" prefWidth="75.0" text="Qty In Stock" />
+                                      </columns>
+                                    </TableView>
+                                    <Pane prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <ImageView fx:id="imageProduct" fitHeight="150.0" fitWidth="150.0" layoutX="14.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </VBox>
+                              <Button fx:id="btnAddProduct" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" text="Add" />
+                              <VBox prefHeight="654.0" prefWidth="550.0">
+                                 <children>
+                                    <Label text="Chi tiết nhập hàng" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button fx:id="deleteAll" mnemonicParsing="false" text="Xoá tất cả" />
+                                       </children>
+                                    </HBox>
+                                    <TableView fx:id="tableListImportDetail" prefHeight="350.0" prefWidth="550.0">
+                                      <columns>
+                                        <TableColumn fx:id="colSttImportDetail" prefWidth="75.0" text="STT" />
+                                          <TableColumn fx:id="colIdProductImportDetail" prefWidth="75.0" text="ID Product" />
+                                          <TableColumn fx:id="colProductImportDetail" prefWidth="75.0" text="Product" />
+                                        <TableColumn fx:id="colUnitPriceImportDetail" prefWidth="75.0" text="Unit Price" />
+                                          <TableColumn fx:id="colQuantityImportDetail" prefWidth="75.0" text="Quantity" />
+                                          <TableColumn fx:id="colAmount" prefWidth="75.0" text="Amount" />
+                                      </columns>
+                                    </TableView>
+                                    <HBox prefHeight="16.0" prefWidth="550.0">
+                                       <children>
+                                          <Label text="Quantity" />
+                                          <Label fx:id="quantityImportGoods" text="0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="16.0" prefWidth="550.0">
+                                       <children>
+                                          <Label text="Money" />
+                                          <Label fx:id="moneyImportGoods" text="0" />
+                                       </children>
+                                    </HBox>
+                                    <Button fx:id="btnImport" mnemonicParsing="false" text="Nhập hàng" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content></Tab>
           <Tab text="Lịch sử nhập hàng" />
         </tabs>
       </TabPane>
