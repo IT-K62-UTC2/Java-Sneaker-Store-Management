@@ -1,5 +1,6 @@
 package utc2.itk62.store.controllers;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -85,9 +86,6 @@ public class SupplierController {
             tableListProduct.getItems().clear();
         }
         supplierList = FXCollections.observableArrayList(supplierService.getAllSuppliers());
-        for (Supplier supplier : supplierList) {
-            supplier.setProductList(productService.getProductByIdSupplier(supplier.getId()));
-        }
         colId.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<Supplier, String>("name"));
         colAddress.setCellValueFactory(new PropertyValueFactory<Supplier, String>("address"));
@@ -97,11 +95,17 @@ public class SupplierController {
         colCreatedAt.setCellValueFactory(new PropertyValueFactory<Supplier, Timestamp>("createdAt"));
         colUpdatedAt.setCellValueFactory(new PropertyValueFactory<Supplier, Timestamp>("updatedAt"));
         tableListSupplier.setItems(supplierList);
+        new Thread(()->{
+            for (Supplier supplier : supplierList) {
+                supplier.setProductList(productService.getProductByIdSupplier(supplier.getId()));
+            }
+            Platform.runLater(this::updateProductCurrentRowSupplier);
+        }).start();
 
         // update table other
         tableListSupplier.getSelectionModel().selectFirst();
         updateCurrentSupplierToForm();
-        updateProductCurrentRowSupplier();
+
     }
 
     private void updateCurrentSupplierToForm() {

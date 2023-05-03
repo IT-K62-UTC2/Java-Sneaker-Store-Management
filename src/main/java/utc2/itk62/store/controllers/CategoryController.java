@@ -199,24 +199,21 @@ public class CategoryController {
         if (!tableListCategory.getItems().isEmpty()) {
             tableListCategory.getItems().clear();
         }
+        categoryList = FXCollections.observableArrayList(categoryService.getAllCategory());
+        colIdCategory.setCellValueFactory(new PropertyValueFactory<Category, Integer>("id"));
+        colNameCategory.setCellValueFactory(new PropertyValueFactory<Category, String>("name"));
+        colStatusCategory.setCellValueFactory(new PropertyValueFactory<Category, Integer>("status"));
+        colCreatedAtCategory.setCellValueFactory(new PropertyValueFactory<Category, Timestamp>("createdAt"));
+        colUpdatedAtCategory.setCellValueFactory(new PropertyValueFactory<Category, Timestamp>("updatedAt"));
+        tableListCategory.setItems(categoryList);
+        tableListCategory.getSelectionModel().selectFirst();
+        updateCurrentCategoryToForm();
         new Thread(()-> {
-            categoryList = FXCollections.observableArrayList(categoryService.getAllCategory());
             for (Category category : categoryList) {
                 category.setProductList(productService.getProductsByIdCategory(category.getId()));
             }
-            Platform.runLater(()->{
-                colIdCategory.setCellValueFactory(new PropertyValueFactory<Category, Integer>("id"));
-                colNameCategory.setCellValueFactory(new PropertyValueFactory<Category, String>("name"));
-                colStatusCategory.setCellValueFactory(new PropertyValueFactory<Category, Integer>("status"));
-                colCreatedAtCategory.setCellValueFactory(new PropertyValueFactory<Category, Timestamp>("createdAt"));
-                colUpdatedAtCategory.setCellValueFactory(new PropertyValueFactory<Category, Timestamp>("updatedAt"));
-                tableListCategory.setItems(categoryList);
-
-                // update table other
-                tableListCategory.getSelectionModel().selectFirst();
-                updateCurrentCategoryToForm();
-                updateProductCurrentRowCategory();
-            });
+            // update table other
+            Platform.runLater(this::updateProductCurrentRowCategory);
         }).start();
     }
 

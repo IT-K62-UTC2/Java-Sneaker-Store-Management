@@ -73,33 +73,33 @@ public class HistoryInvoiceController {
         if(listInvoice.size() == 0) {
             return;
         }
+        colCustomerInvoice.setCellValueFactory(new PropertyValueFactory<>("customer"));
+        colStaffInvoice.setCellValueFactory(new PropertyValueFactory<>("staff"));
+        colTotalMoneyInvoice.setCellValueFactory(new PropertyValueFactory<>("moneyTotal"));
+        colTotalMoneyInvoice.setCellFactory(column -> new TableCell<Invoice, Double>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(FormatDouble.toString(item));
+                }
+            }
+        });
+
+        colTotalQuantityInvoice.setCellValueFactory(new PropertyValueFactory<>("totalQuantity"));
+        colDeliveryAddressInvoice.setCellValueFactory(new PropertyValueFactory<>("deliveryAddress"));
+        colDeliveryPhoneNumberInvoice.setCellValueFactory(new PropertyValueFactory<>("deliveryPhoneNumber"));
+        colCreatedAtInvoice.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        colIdInvoice.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableListInvoice.setItems(listInvoice);
+        tableListInvoice.getSelectionModel().selectFirst();
         new Thread(()-> {
             for (Invoice item : listInvoice) {
                 item.setListInvoiceDetails(invoicesDetailsService.getInvoiceDetailByIdInvoice(item.getId()));
             }
             Platform.runLater(()->{
-                colCustomerInvoice.setCellValueFactory(new PropertyValueFactory<>("customer"));
-                colStaffInvoice.setCellValueFactory(new PropertyValueFactory<>("staff"));
-                colTotalMoneyInvoice.setCellValueFactory(new PropertyValueFactory<>("moneyTotal"));
-                colTotalMoneyInvoice.setCellFactory(column -> new TableCell<Invoice, Double>() {
-                    @Override
-                    protected void updateItem(Double item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            setText(FormatDouble.toString(item));
-                        }
-                    }
-                });
-
-                colTotalQuantityInvoice.setCellValueFactory(new PropertyValueFactory<>("totalQuantity"));
-                colDeliveryAddressInvoice.setCellValueFactory(new PropertyValueFactory<>("deliveryAddress"));
-                colDeliveryPhoneNumberInvoice.setCellValueFactory(new PropertyValueFactory<>("deliveryPhoneNumber"));
-                colCreatedAtInvoice.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
-                colIdInvoice.setCellValueFactory(new PropertyValueFactory<>("id"));
-                tableListInvoice.setItems(listInvoice);
-                tableListInvoice.getSelectionModel().selectFirst();
                 // update table invoice details
                 updateInvoiceDetailsCurrentRowInvoice();
                 loadInvoice();
