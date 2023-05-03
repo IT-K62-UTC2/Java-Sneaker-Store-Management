@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class SaleController {
+public class SellController {
     private static final ProductService productService = new ProductService();
     private static final CustomerService customerService = new CustomerService();
     private static final InvoiceService invoiceService = new InvoiceService();
