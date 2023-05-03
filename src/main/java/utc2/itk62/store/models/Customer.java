@@ -108,6 +108,6 @@ public class Customer {
 
     @Override
     public String toString() {
-        return fullName+" - " + phoneNumber;
+        return fullName+" - " + email;
     }
 }

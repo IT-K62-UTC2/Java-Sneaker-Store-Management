@@ -75,6 +75,7 @@ public class ProductController {
         setupBtnAddProduct();
         setupBtnUpdateProduct();
         setupBtnDeleteProduct();
+        setupBtnExportExcel();
         keySearch.setItems(listKetSearch);
         keySearch.setValue("ID");
         setupSearch();
@@ -91,6 +92,12 @@ public class ProductController {
         setUpTableView();
         reloadTableView();
 
+    }
+
+    private void setupBtnExportExcel() {
+        btnExportExcel.setOnAction(actionEvent ->  {
+            productService.exportExcel(productList, id.getScene().getWindow());
+        });
     }
 
     private void setupSearch() {
