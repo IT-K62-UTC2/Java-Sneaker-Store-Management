@@ -1,5 +1,6 @@
 package utc2.itk62.store.controllers;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -11,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.swing.JRViewer;
 import net.sf.jasperreports.view.JasperViewer;
@@ -25,6 +27,7 @@ import java.sql.Timestamp;
 public class HistoryInvoiceController {
     private static final InvoiceService invoicesService = new InvoiceService();
     private static final InvoiceDetailsService invoicesDetailsService = new InvoiceDetailsService();
+    private PauseTransition pause = new PauseTransition(Duration.seconds(0.5)); // throttle thời gian tạm dừng là 1 giây
 
 
     public TextField valueSearch;
@@ -179,11 +182,13 @@ public class HistoryInvoiceController {
 
     private void setUpTableListInvoice() {
         tableListInvoice.setOnMouseClicked(mouseEvent -> {
-            loadInvoice();
+            pause.setOnFinished(event -> loadInvoice());
+            pause.playFromStart();
             updateInvoiceDetailsCurrentRowInvoice();
         });
         tableListInvoice.setOnKeyPressed(keyEvent -> {
-            loadInvoice();
+            pause.setOnFinished(event -> loadInvoice());
+            pause.playFromStart();
             updateInvoiceDetailsCurrentRowInvoice();
         });
     }

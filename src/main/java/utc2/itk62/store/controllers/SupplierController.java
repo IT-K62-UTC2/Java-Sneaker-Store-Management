@@ -95,17 +95,15 @@ public class SupplierController {
         colCreatedAt.setCellValueFactory(new PropertyValueFactory<Supplier, Timestamp>("createdAt"));
         colUpdatedAt.setCellValueFactory(new PropertyValueFactory<Supplier, Timestamp>("updatedAt"));
         tableListSupplier.setItems(supplierList);
+        // update table other
+        tableListSupplier.getSelectionModel().selectFirst();
+        updateCurrentSupplierToForm();
         new Thread(()->{
             for (Supplier supplier : supplierList) {
                 supplier.setProductList(productService.getProductByIdSupplier(supplier.getId()));
             }
             Platform.runLater(this::updateProductCurrentRowSupplier);
         }).start();
-
-        // update table other
-        tableListSupplier.getSelectionModel().selectFirst();
-        updateCurrentSupplierToForm();
-
     }
 
     private void updateCurrentSupplierToForm() {

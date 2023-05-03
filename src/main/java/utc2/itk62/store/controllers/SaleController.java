@@ -18,7 +18,10 @@ import utc2.itk62.store.Validator.StaffValidator;
 import utc2.itk62.store.common.JasperReportConfig;
 import utc2.itk62.store.common.MailConfig;
 import utc2.itk62.store.common.User;
-import utc2.itk62.store.models.*;
+import utc2.itk62.store.models.Customer;
+import utc2.itk62.store.models.Invoice;
+import utc2.itk62.store.models.InvoiceDetail;
+import utc2.itk62.store.models.Product;
 import utc2.itk62.store.services.CustomerService;
 import utc2.itk62.store.services.InvoiceDetailsService;
 import utc2.itk62.store.services.InvoiceService;
@@ -223,10 +226,10 @@ public class SaleController {
 
     private void setupBtnPay() {
         btnPay.setOnAction(actionEvent -> {
-            if(tableViewOrder.getItems().isEmpty()) {
+            if (tableViewOrder.getItems().isEmpty()) {
                 return;
             }
-            if(!CustomAlert.showAlert(Alert.AlertType.CONFIRMATION, btnPay.getScene().getWindow(), "Thanh toán", "Xác nhận thanh toán?")) {
+            if (!CustomAlert.showAlert(Alert.AlertType.CONFIRMATION, btnPay.getScene().getWindow(), "Thanh toán", "Xác nhận thanh toán?")) {
                 return;
             }
             Invoice invoice = new Invoice();
@@ -254,12 +257,12 @@ public class SaleController {
             }
             invoice.setListInvoiceDetails(exportInvoiceDetails);
             invoice.setId(invoiceInDb.getId());
-            CustomAlert.showAlert(Alert.AlertType.INFORMATION, tableViewOrder.getScene().getWindow(), "Success","Pay successfully");
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, tableViewOrder.getScene().getWindow(), "Success", "Pay successfully");
             tableViewOrder.getItems().clear();
 
 
             JasperPrint jasperPrint = JasperReportConfig.createJasperPrintInvoice(invoice);
-            if(!invoice.getCustomer().getEmail().equals("") && StaffValidator.validateEmail(invoice.getCustomer().getEmail())) {
+            if (!invoice.getCustomer().getEmail().equals("") && StaffValidator.validateEmail(invoice.getCustomer().getEmail())) {
                 MailConfig.sendInvoiceToCustomer(invoice.getCustomer().getEmail(), jasperPrint, invoice);
             }
             showJasperReport(jasperPrint);
