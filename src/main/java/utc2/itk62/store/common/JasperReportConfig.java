@@ -16,6 +16,9 @@ public class JasperReportConfig {
     private static final String PATH_EXPORT_INVOICE = "src/main/resources/utc2/itk62/store/report/invoice.jrxml";
 
     public static JasperPrint createJasperPrintInvoice(Invoice invoice) {
+        if(invoice == null) {
+            return  null;
+        }
         try {
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("idInvoice", invoice.getId());
