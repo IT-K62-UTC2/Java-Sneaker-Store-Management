@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import utc2.itk62.store.Validator.SupplierValidator;
@@ -51,18 +52,58 @@ public class SupplierController {
     public TableColumn<Product, String> colPriceProduct;
 
     private ObservableList<Supplier> supplierList;
+    private ObservableList<String> listKeySearch = FXCollections.observableArrayList(
+            "ID", "Name", "Email", "PhoneNumber", "Address");
 
     public void initialize() {
+        keySearch.setItems(listKeySearch);
+        keySearch.setValue("ID");
         reloadTableView();
         setupBtnAddSupplier();
         setupUpdateSupplier();
         setupDeleteSupplier();
+        setupSearch();
         setUpTableListCategory();
+    }
+
+    private void setupSearch() {
+        valueSearch.setOnKeyReleased(keyEvent -> {
+            // Khởi tạo FilteredList và gán nó với danh sách positionList
+            FilteredList<Supplier> filteredList = new FilteredList<>(supplierList, p -> true);
+
+            // Gán FilteredList làm nguồn dữ liệu cho TableView
+            tableListSupplier.setItems(filteredList);
+            String searchText = valueSearch.getText().toLowerCase();
+            filteredList.setPredicate(p -> {
+                if (searchText.isEmpty()) {
+                    return true;
+                }
+                if ("Name".equals(keySearch.getValue())) {
+                    return p.getName().toLowerCase().contains(searchText);
+                }
+
+                if ("Email".equals(keySearch.getValue())) {
+                    return p.getEmail().toLowerCase().contains(searchText);
+                }
+
+                if ("PhoneNumber".equals(keySearch.getValue())) {
+                    return p.getPhoneNumber().toLowerCase().contains(searchText);
+                }
+
+                if ("Address".equals(keySearch.getValue())) {
+                    return p.getAddress().toLowerCase().contains(searchText);
+                }
+                return String.valueOf(p.getId()).toLowerCase().contains(searchText);
+            });
+            tableListSupplier.getSelectionModel().selectFirst();
+            updateCurrentSupplierToForm();
+            updateProductCurrentRowSupplier();
+        });
     }
 
     private void setupDeleteSupplier() {
         btnDelete.setOnAction(actionEvent -> {
-            if(id.getText().equals("")) {
+            if (id.getText().equals("")) {
                 return;
             }
             Supplier supplier = getSupplierCurrentForm();
@@ -70,10 +111,10 @@ public class SupplierController {
                 return;
             }
             if (!supplierService.deleteSupplier(supplier)) {
-                CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!","Delete supplier failed");
+                CustomAlert.showAlert(Alert.AlertType.ERROR, id.getScene().getWindow(), "Error!", "Delete supplier failed");
                 return;
             }
-            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Success!","Delete supplier successfully");
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, id.getScene().getWindow(), "Success!", "Delete supplier successfully");
             reloadTableView();
         });
     }
@@ -98,7 +139,7 @@ public class SupplierController {
         // update table other
         tableListSupplier.getSelectionModel().selectFirst();
         updateCurrentSupplierToForm();
-        new Thread(()->{
+        new Thread(() -> {
             for (Supplier supplier : supplierList) {
                 supplier.setProductList(productService.getProductByIdSupplier(supplier.getId()));
             }
@@ -128,6 +169,10 @@ public class SupplierController {
     }
 
     private void updateProductCurrentRowSupplier() {
+        Supplier supplier = tableListSupplier.getSelectionModel().getSelectedItem();
+        if(supplier == null) {
+            return;
+        }
         tableListProduct.getItems().clear();
         colNameProduct.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
         colPriceProduct.setCellValueFactory(new PropertyValueFactory<Product, String>("price"));
@@ -138,7 +183,7 @@ public class SupplierController {
         colDescProduct.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));
         colQuantityProduct.setCellValueFactory(new PropertyValueFactory<Product, Integer>("quantity"));
         colCategoryProduct.setCellValueFactory(new PropertyValueFactory<Product, Category>("category"));
-        tableListProduct.setItems(FXCollections.observableArrayList(tableListSupplier.getSelectionModel().getSelectedItem().getProductList()));
+        tableListProduct.setItems(FXCollections.observableArrayList(supplier.getProductList()));
     }
 
     private void setUpTableListCategory() {
