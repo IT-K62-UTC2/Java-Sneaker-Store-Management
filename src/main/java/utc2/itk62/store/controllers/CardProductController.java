@@ -39,7 +39,7 @@ public class CardProductController {
 
     public void initialize() {}
 
-    public void setBtnAdd(SaleController saleController) {
+    public void setBtnAdd(SellController saleController) {
         btnAdd.setOnAction(actionEvent -> {
             if(cashQuantity.getValue() <=0) {
                 return;

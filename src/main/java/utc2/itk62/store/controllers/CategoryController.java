@@ -1,5 +1,6 @@
 package utc2.itk62.store.controllers;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -199,20 +200,21 @@ public class CategoryController {
             tableListCategory.getItems().clear();
         }
         categoryList = FXCollections.observableArrayList(categoryService.getAllCategory());
-        for (Category category : categoryList) {
-            category.setProductList(productService.getProductsByIdCategory(category.getId()));
-        }
         colIdCategory.setCellValueFactory(new PropertyValueFactory<Category, Integer>("id"));
         colNameCategory.setCellValueFactory(new PropertyValueFactory<Category, String>("name"));
         colStatusCategory.setCellValueFactory(new PropertyValueFactory<Category, Integer>("status"));
         colCreatedAtCategory.setCellValueFactory(new PropertyValueFactory<Category, Timestamp>("createdAt"));
         colUpdatedAtCategory.setCellValueFactory(new PropertyValueFactory<Category, Timestamp>("updatedAt"));
         tableListCategory.setItems(categoryList);
-
-        // update table other
         tableListCategory.getSelectionModel().selectFirst();
         updateCurrentCategoryToForm();
-        updateProductCurrentRowCategory();
+        new Thread(()-> {
+            for (Category category : categoryList) {
+                category.setProductList(productService.getProductsByIdCategory(category.getId()));
+            }
+            // update table other
+            Platform.runLater(this::updateProductCurrentRowCategory);
+        }).start();
     }
 
     private void updateProductCurrentRowCategory() {

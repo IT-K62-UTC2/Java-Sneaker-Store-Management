@@ -104,6 +104,7 @@ public class StaffRepo {
                 position.setId(rs.getInt("position.id"));
                 staff.setId(rs.getInt("id"));
                 staff.setPosition(position);
+                staff.setPathAvatar(rs.getString("avatar"));
                 staff.setUsername(rs.getString("username"));
                 staff.setPassword(rs.getString("password"));
                 staff.setFullName(rs.getString("fullname"));

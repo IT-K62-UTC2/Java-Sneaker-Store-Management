@@ -7,16 +7,16 @@ import utc2.itk62.store.util.HashedPassword;
 public class LoginService {
     private static final StaffRepo staffRepo = new StaffRepo();
 
-    public boolean CheckLogin(String username, String password) {
+    public Staff CheckLogin(String username, String password) {
         Staff staff = staffRepo.getStaffByUsername(username);
         if (staff == null) {
-            return false;
+            return null;
         }
 
         if (!HashedPassword.checkPassword(password, staff.getPassword())){
-            return false;
+            return null;
         }
 
-        return true;
+        return staff;
     }
 }

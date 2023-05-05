@@ -1,14 +1,18 @@
 package utc2.itk62.store.controllers;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.embed.swing.SwingNode;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.swing.JRViewer;
 import net.sf.jasperreports.view.JasperViewer;
@@ -23,6 +27,7 @@ import java.sql.Timestamp;
 public class HistoryInvoiceController {
     private static final InvoiceService invoicesService = new InvoiceService();
     private static final InvoiceDetailsService invoicesDetailsService = new InvoiceDetailsService();
+    private PauseTransition pause = new PauseTransition(Duration.seconds(0.5)); // throttle thời gian tạm dừng là 1 giây
 
 
     public TextField valueSearch;
@@ -51,8 +56,15 @@ public class HistoryInvoiceController {
     public Button btnExportExcel;
 
     private ObservableList<Invoice> listInvoice;
+    private ObservableList<String> listKetSearch = FXCollections.observableArrayList(
+            "ID","Staff", "Customer", "Delivery Address", "Delivery PhoneNumber");
+
 
     public void initialize() {
+        // keysearch
+        keySearch.setItems(listKetSearch);
+        keySearch.setValue("ID");
+        setupSearch();
         setupExportExcel();
         reloadTableView();
         setUpTableListInvoice();
@@ -61,8 +73,8 @@ public class HistoryInvoiceController {
 
     private void reloadTableView() {
         listInvoice = FXCollections.observableArrayList(invoicesService.getAllInvoice());
-        for (Invoice item : listInvoice) {
-            item.setListInvoiceDetails(invoicesDetailsService.getInvoiceDetailByIdInvoice(item.getId()));
+        if(listInvoice.size() == 0) {
+            return;
         }
         colCustomerInvoice.setCellValueFactory(new PropertyValueFactory<>("customer"));
         colStaffInvoice.setCellValueFactory(new PropertyValueFactory<>("staff"));
@@ -86,9 +98,16 @@ public class HistoryInvoiceController {
         colIdInvoice.setCellValueFactory(new PropertyValueFactory<>("id"));
         tableListInvoice.setItems(listInvoice);
         tableListInvoice.getSelectionModel().selectFirst();
-        // update table invoice details
-        updateInvoiceDetailsCurrentRowInvoice();
-        loadInvoice();
+        new Thread(()-> {
+            for (Invoice item : listInvoice) {
+                item.setListInvoiceDetails(invoicesDetailsService.getInvoiceDetailByIdInvoice(item.getId()));
+            }
+            Platform.runLater(()->{
+                // update table invoice details
+                updateInvoiceDetailsCurrentRowInvoice();
+                loadInvoice();
+            });
+        }).start();
     }
 
     private void setupExportExcel() {
@@ -97,7 +116,44 @@ public class HistoryInvoiceController {
         });
     }
 
+    private void setupSearch() {
+        valueSearch.setOnKeyReleased(keyEvent -> {
+            // Khởi tạo FilteredList và gán nó với danh sách positionList
+            FilteredList<Invoice> filteredList = new FilteredList<>(listInvoice, p -> true);
+
+            // Gán FilteredList làm nguồn dữ liệu cho TableView
+            tableListInvoice.setItems(filteredList);
+            String searchText = valueSearch.getText().toLowerCase();
+            filteredList.setPredicate(p -> {
+                if (searchText.isEmpty()) {
+                    return true;
+                }
+                if ("ID".equals(keySearch.getValue())) {
+                    return String.valueOf(p.getId()).toLowerCase().contains(searchText);
+                }
+                if("Staff".equals(keySearch.getValue())) {
+                    return p.getStaff().toString().toLowerCase().contains(searchText);
+                }
+                if ("Customer".equals(keySearch.getValue())) {
+                    return p.getCustomer().toString().toLowerCase().contains(searchText);
+                }
+                if ("Delivery Address".equals(keySearch.getValue())) {
+                    return p.getDeliveryAddress().toLowerCase().contains(searchText);
+                }
+
+                return p.getDeliveryPhoneNumber().toLowerCase().contains(searchText);
+            });
+            tableListInvoice.getSelectionModel().selectFirst();
+            loadInvoice();
+            updateInvoiceDetailsCurrentRowInvoice();
+        });
+    }
+
     private void updateInvoiceDetailsCurrentRowInvoice() {
+        Invoice currentInvoice = tableListInvoice.getSelectionModel().getSelectedItem();
+        if(currentInvoice == null) {
+            return;
+        }
         tableListInvoiceDetail.getItems().clear();
         colProductInvoiceDetail.setCellValueFactory(new PropertyValueFactory<>("product"));
         colQuantityInvoiceDetail.setCellValueFactory(new PropertyValueFactory<>("productQuantity"));
@@ -121,16 +177,18 @@ public class HistoryInvoiceController {
                 return new SimpleStringProperty(FormatDouble.toString(invoiceDetail.getProduct().getPrice()));
             }
         });
-        tableListInvoiceDetail.setItems(FXCollections.observableArrayList(tableListInvoice.getSelectionModel().getSelectedItem().getListInvoiceDetails()));
+        tableListInvoiceDetail.setItems(FXCollections.observableArrayList(currentInvoice.getListInvoiceDetails()));
     }
 
     private void setUpTableListInvoice() {
         tableListInvoice.setOnMouseClicked(mouseEvent -> {
-            loadInvoice();
+            pause.setOnFinished(event -> loadInvoice());
+            pause.playFromStart();
             updateInvoiceDetailsCurrentRowInvoice();
         });
         tableListInvoice.setOnKeyPressed(keyEvent -> {
-            loadInvoice();
+            pause.setOnFinished(event -> loadInvoice());
+            pause.playFromStart();
             updateInvoiceDetailsCurrentRowInvoice();
         });
     }
@@ -149,14 +207,27 @@ public class HistoryInvoiceController {
     }
 
     private void embedJasperReport(JasperPrint jasperPrint) {
-        JRViewer viewer = new JRViewer(jasperPrint);
-        viewer.setZoomRatio(.5F);
-        viewer.setFitPageZoomRatio();
-        viewer.setVisible(true);
-        SwingNode swingNode = new SwingNode();
-        swingNode.setContent(viewer);
-        viewInvoice.getChildren().add(swingNode);
-        viewInvoice.requestLayout();
+        if(jasperPrint == null) {
+            viewInvoice.getChildren().clear();
+            return;
+        }
+        new Thread(()->{
+            JRViewer viewer = new JRViewer(jasperPrint);
+            viewer.setZoomRatio(.5F);
+            viewer.setFitPageZoomRatio();
+            viewer.setVisible(true);
+            SwingNode swingNode = new SwingNode();
+            swingNode.setContent(viewer);
+            Platform.runLater(() -> {
+                if(viewInvoice.getChildren().isEmpty()) {
+                    viewInvoice.getChildren().add(0, swingNode);
+                    viewInvoice.requestLayout();
+                    return;
+                }
+                viewInvoice.getChildren().set(0, swingNode);
+                viewInvoice.requestLayout();
+            });
+        }).start();
     }
 
     private void setupBtnExportInvoice() {

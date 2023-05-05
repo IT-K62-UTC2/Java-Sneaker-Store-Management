@@ -47,7 +47,7 @@ public class MailConfig {
                 MimeMessage message = new MimeMessage(session);
                 message.setFrom(new InternetAddress(APP_EMAIL));
                 message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipientEmail));
-                message.setSubject("Invoice UTC2 Store #"+invoice.getId());
+                message.setSubject("Invoice UTC2 Store #"+invoice.getId()+"-"+System.currentTimeMillis());
 
                 // Tạo đối tượng Multipart để chứa các phần của email
                 Multipart multipart = new MimeMultipart();

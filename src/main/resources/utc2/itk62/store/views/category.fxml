@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -10,10 +12,11 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.CategoryController">
    <children>
-      <GridPane layoutX="11.0" layoutY="7.0" prefHeight="700.0" prefWidth="1200.0">
+      <GridPane prefHeight="700.0" prefWidth="1198.0" style="-fx-background-color: #ead7d7;">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -21,8 +24,8 @@
             <RowConstraints maxHeight="325.6" minHeight="10.0" prefHeight="67.20000457763672" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="325.6" minHeight="10.0" prefHeight="188.79999542236328" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="331.0000061035156" minHeight="10.0" prefHeight="96.19999389648439" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="388.0000366210938" minHeight="10.0" prefHeight="117.80000610351561" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="388.0000366210938" minHeight="10.0" prefHeight="171.60002441406255" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="388.0000366210938" minHeight="10.0" prefHeight="66.20001831054685" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="388.0000366210938" minHeight="10.0" prefHeight="182.19998168945312" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="313.5999755859375" minHeight="0.0" prefHeight="54.79997558593743" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="313.5999755859375" minHeight="10.0" prefHeight="147.1999633789062" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -39,36 +42,66 @@
                   <TableColumn fx:id="colCreatedAtProduct" prefWidth="75.0" text="Created At" />
                   <TableColumn fx:id="colUpdatedAtProduct" prefWidth="75.0" text="Updated At" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <TableView fx:id="tableListCategory" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
               <columns>
-                <TableColumn fx:id="colSttCategory" prefWidth="75.0" text="STT" />
-                <TableColumn fx:id="colIdCategory" prefWidth="75.0" text="ID" />
-                  <TableColumn fx:id="colNameCategory" prefWidth="75.0" text="Name" />
-                  <TableColumn fx:id="colStatusCategory" prefWidth="75.0" text="Status" />
-                  <TableColumn fx:id="colCreatedAtCategory" prefWidth="75.0" text="Created At" />
-                  <TableColumn fx:id="colUpdatedAtCategory" prefWidth="75.0" text="Updated At" />
+                <TableColumn fx:id="colSttCategory" prefWidth="100.0" text="STT" />
+                <TableColumn fx:id="colIdCategory" prefWidth="100.0" text="ID" />
+                  <TableColumn fx:id="colNameCategory" prefWidth="300.0" text="Name" />
+                  <TableColumn fx:id="colStatusCategory" prefWidth="100.0" text="Status" />
+                  <TableColumn fx:id="colCreatedAtCategory" prefWidth="300.0" text="Created At" />
+                  <TableColumn fx:id="colUpdatedAtCategory" prefWidth="300.0" text="Updated At" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <GridPane GridPane.rowIndex="2">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="451.2" minWidth="10.0" prefWidth="375.40001220703124" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="555.2000244140625" minWidth="10.0" prefWidth="274.59998779296876" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="426.0" minWidth="10.0" prefWidth="163.19998779296884" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="377.20001220703125" minWidth="10.0" prefWidth="377.20001220703125" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Tim kiem" />
-                  <TextField fx:id="searchValue" GridPane.columnIndex="1" />
-                  <ComboBox fx:id="keySearch" prefWidth="150.0" GridPane.columnIndex="2" />
-                  <Button fx:id="btnExportExcel" mnemonicParsing="false" text="Export excel" GridPane.columnIndex="3" />
+                  <Label text="Tim kiem:">
+                     <GridPane.margin>
+                        <Insets left="290.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></Label>
+                  <TextField fx:id="searchValue" style="-fx-border-color: #077b34;" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin></TextField>
+                  <ComboBox id="bevel" fx:id="keySearch" prefWidth="150.0" stylesheets="@../css/stylesheet.css" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" right="30.0" />
+                     </GridPane.margin></ComboBox>
+                  <Button id="shiny_r" fx:id="btnExportExcel" mnemonicParsing="false" prefHeight="26.0" prefWidth="137.0" stylesheets="@../css/stylesheet.css" text="  Export excel" GridPane.columnIndex="3" />
+                  <FontAwesomeIconView fill="#10612b" glyphName="FILE_EXCEL_ALT" size="1EM" GridPane.columnIndex="3">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="3.0" />
+                     </GridPane.margin>
+                  </FontAwesomeIconView>
+                  <FontAwesomeIconView fill="#077b34" glyphName="SEARCH" size="18" GridPane.columnIndex="1" />
                </children>
             </GridPane>
             <Label text="Danh sách category" GridPane.rowIndex="3" />
-            <Label text="Danh sách product trong category" GridPane.rowIndex="5" />
+            <Label text="Danh sách product trong category" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font></Label>
             <GridPane GridPane.rowIndex="1">
                <rowConstraints>
                   <RowConstraints />
@@ -86,43 +119,105 @@
                       <RowConstraints maxHeight="145.60001220703126" minHeight="0.0" prefHeight="49.80000915527343" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <GridPane GridPane.rowIndex="1">
+                        <GridPane style="-fx-background-color: #ead7d7;" GridPane.rowIndex="1">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="404.79998168945315" minWidth="10.0" prefWidth="402.79998168945315" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.1999816894531" minWidth="10.0" prefWidth="140.4000183105469" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="553.6000122070313" minWidth="10.0" prefWidth="553.6000122070313" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="btnAddCategory" mnemonicParsing="false" text="Add" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                              <Button fx:id="btnUpdateCategory" mnemonicParsing="false" text="Update" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-                              <Button fx:id="btnDeleteCategory" mnemonicParsing="false" text="Delete" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                              <Button id="shiny_r" fx:id="btnAddCategory" mnemonicParsing="false" prefHeight="26.0" prefWidth="101.0" stylesheets="@../css/stylesheet.css" text="     Add" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                 <GridPane.margin>
+                                    <Insets left="270.0" />
+                                 </GridPane.margin></Button>
+                              <Button id="shiny_r" fx:id="btnUpdateCategory" mnemonicParsing="false" prefHeight="26.0" prefWidth="119.0" stylesheets="@../css/stylesheet.css" text="Update" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin></Button>
+                              <Button id="shiny_r" fx:id="btnDeleteCategory" mnemonicParsing="false" prefHeight="26.0" prefWidth="119.0" stylesheets="@../css/stylesheet.css" text="Delete" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                                 <GridPane.margin>
+                                    <Insets right="400.0" />
+                                 </GridPane.margin></Button>
+                              <FontAwesomeIconView fill="#125ac7" glyphName="UPLOAD" size="1EM" textAlignment="CENTER" wrappingWidth="40.0" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="13.0" />
+                                 </GridPane.margin>
+                              </FontAwesomeIconView>
+                              <FontAwesomeIconView fill="#ef1e0b" glyphName="TRASH_ALT" selectionFill="#0c0b75" size="1EM" textAlignment="CENTER" wrappingWidth="30.0" GridPane.columnIndex="3">
+                                 <font>
+                                    <Font size="33.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </FontAwesomeIconView>
+                              <FontAwesomeIconView fill="#0b7313" glyphName="PLUS_CIRCLE" selectionFill="#2028c1" size="1EM" textAlignment="CENTER" wrappingWidth="36.0" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font size="31.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="286.0" />
+                                 </GridPane.margin>
+                              </FontAwesomeIconView>
                            </children>
                         </GridPane>
-                        <GridPane prefHeight="61.0" prefWidth="1200.0">
+                        <GridPane prefHeight="61.0" prefWidth="1200.0" style="-fx-background-color: #ead7d7;">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.2000122070312" minWidth="10.0" prefWidth="470.39996337890625" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="729.6000366210938" minWidth="10.0" prefWidth="729.6000366210938" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints maxHeight="112.00000610351563" minHeight="10.0" prefHeight="44.799995803833006" vgrow="SOMETIMES" />
                             <RowConstraints maxHeight="185.5999969482422" minHeight="10.0" prefHeight="52.200004196166994" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Mã danh mục" GridPane.halignment="CENTER" />
-                              <Label text="Tên danh mục" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                              <TextField fx:id="idCategory" GridPane.columnIndex="1" />
-                              <TextField fx:id="nameCategory" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Mã danh mục:" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="300.0" />
+                                 </GridPane.margin></Label>
+                              <Label text="Tên danh mục:" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="290.0" />
+                                 </GridPane.margin></Label>
+                              <TextField fx:id="idCategory" GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets right="410.0" />
+                                 </GridPane.margin></TextField>
+                              <TextField fx:id="nameCategory" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets right="410.0" />
+                                 </GridPane.margin></TextField>
                            </children>
                         </GridPane>
                      </children>
                   </GridPane>
                </children>
             </GridPane>
-            <Label text="QUẢN LÍ DANH MỤC" GridPane.halignment="CENTER" />
+            <Label text="QUẢN LÍ DANH MỤC" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font></Label>
+            <FontAwesomeIconView fill="#0b6318" glyphName="LIST_ALT" size="1em">
+               <font>
+                  <Font size="28.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="460.0" />
+               </GridPane.margin>
+            </FontAwesomeIconView>
          </children>
       </GridPane>
    </children>

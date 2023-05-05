@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.SaleController">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.SellController">
    <children>
       <HBox layoutX="291.0" layoutY="236.0" prefHeight="700.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -74,9 +74,8 @@
                      <padding>
                         <Insets right="5.0" />
                      </padding></Label>
-                  <Button fx:id="btnPay" layoutX="69.0" layoutY="587.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="379.0" text="Pay" />
-                  <Button fx:id="btnRemove" layoutX="100.0" layoutY="641.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Remove" />
-                  <Button fx:id="btnReceipt" layoutX="266.0" layoutY="641.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Receipt" />
+                  <Button fx:id="btnPay" layoutX="279.0" layoutY="600.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Pay" />
+                  <Button fx:id="btnRemove" layoutX="24.0" layoutY="600.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Remove" />
                   <TextField fx:id="deliveryPhoneNumber" layoutX="71.0" layoutY="388.0" prefHeight="26.0" prefWidth="379.0" promptText="Delivery phone number" />
                   <TextArea fx:id="deliveryAddress" layoutX="71.0" layoutY="427.0" prefHeight="40.0" prefWidth="379.0" promptText="Delivery address" />
                   <Label layoutX="9.0" layoutY="312.0" text="Tổng" />

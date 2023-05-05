@@ -4,9 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import utc2.itk62.store.Main;
+import utc2.itk62.store.common.User;
 
 import java.io.IOException;
 
@@ -17,7 +19,8 @@ public class HomeController {
     public ImageView image;
 
     public void initialize() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/sale.fxml"));
+        image.setImage(new Image(User.staff.getPathAvatar()));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/dashboard.fxml"));
         Node node = loader.load();
         include.getChildren().add(0,node);
     }
@@ -36,7 +39,7 @@ public class HomeController {
 
     @FXML
     public void handleBtnHome(ActionEvent actionEvent)  {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/sale.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/dashboard.fxml"));
         Node node = null;
         try {
             node = loader.load();
@@ -109,6 +112,17 @@ public class HomeController {
 
     public void handleBtnSupplier(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/supplier.fxml"));
+        Node node = null;
+        try {
+            node = loader.load();
+            include.getChildren().set(0,node);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void handleBtnSell(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/sale.fxml"));
         Node node = null;
         try {
             node = loader.load();

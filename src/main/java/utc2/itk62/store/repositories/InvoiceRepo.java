@@ -179,7 +179,6 @@ public class InvoiceRepo {
             Invoice invoiceInDb = new Invoice();
             if (rs.next()) {
                 invoiceInDb.setId(rs.getInt(1));
-                System.out.println(invoiceInDb.getId());
             }
             conn.commit();
             return invoiceInDb;

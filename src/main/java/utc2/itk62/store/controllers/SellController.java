@@ -11,8 +11,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import utc2.itk62.store.Main;
-import utc2.itk62.store.models.*;
+import utc2.itk62.store.Validator.StaffValidator;
+import utc2.itk62.store.common.JasperReportConfig;
+import utc2.itk62.store.common.MailConfig;
+import utc2.itk62.store.common.User;
+import utc2.itk62.store.models.Customer;
+import utc2.itk62.store.models.Invoice;
+import utc2.itk62.store.models.InvoiceDetail;
+import utc2.itk62.store.models.Product;
 import utc2.itk62.store.services.CustomerService;
 import utc2.itk62.store.services.InvoiceDetailsService;
 import utc2.itk62.store.services.InvoiceService;
@@ -21,10 +30,12 @@ import utc2.itk62.store.util.CustomAlert;
 import utc2.itk62.store.util.FormatDouble;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class SaleController {
+public class SellController {
     private static final ProductService productService = new ProductService();
     private static final CustomerService customerService = new CustomerService();
     private static final InvoiceService invoiceService = new InvoiceService();
@@ -215,37 +226,57 @@ public class SaleController {
 
     private void setupBtnPay() {
         btnPay.setOnAction(actionEvent -> {
-            if(tableViewOrder.getItems().isEmpty()) {
+            if (tableViewOrder.getItems().isEmpty()) {
+                return;
+            }
+            if (!CustomAlert.showAlert(Alert.AlertType.CONFIRMATION, btnPay.getScene().getWindow(), "Thanh toán", "Xác nhận thanh toán?")) {
                 return;
             }
             Invoice invoice = new Invoice();
             // set stafff
-            Staff staff = new Staff();
-            staff.setId(2);
-            invoice.setStaff(staff);
-
+            invoice.setStaff(User.staff);
             invoice.setDeliveryPhoneNumber(deliveryPhoneNumber.getText());
             invoice.setDeliveryAddress(deliveryAddress.getText());
             invoice.setMoneyTotal(FormatDouble.toDouble(total.getText()));
             invoice.setCustomer(customer.getValue());
             invoice.setTotalQuantity(Integer.parseInt(totalQuantityView.getText()));
+            invoice.setCreatedAt(new Timestamp(new Date().getTime()));
             Invoice invoiceInDb = invoiceService.createInvoice(invoice);
             if (invoiceInDb == null) {
                 CustomAlert.showAlert(Alert.AlertType.ERROR, tableViewOrder.getScene().getWindow(), "Error!", "Sometimes the invoice service is not available");
                 return;
             }
+            List<InvoiceDetail> exportInvoiceDetails = new ArrayList<>();
             for (int i = 0; i < listOrders.size(); i++) {
                 InvoiceDetail invoiceDetail = listOrders.get(i);
                 invoiceDetail.setInvoice(invoiceInDb);
                 invoiceDetailsService.createInvoiceDetail(invoiceDetail);
                 productService.updateQuantityProduct(-invoiceDetail.getProductQuantity(), invoiceDetail.getProduct().getId());
                 invoiceDetail.getProduct().setQuantity(invoiceDetail.getProduct().getQuantity() - invoiceDetail.getProductQuantity());
+                exportInvoiceDetails.add(invoiceDetail);
             }
-            CustomAlert.showAlert(Alert.AlertType.INFORMATION, tableViewOrder.getScene().getWindow(), "Success","Pay successfully");
+            invoice.setListInvoiceDetails(exportInvoiceDetails);
+            invoice.setId(invoiceInDb.getId());
+            CustomAlert.showAlert(Alert.AlertType.INFORMATION, tableViewOrder.getScene().getWindow(), "Success", "Pay successfully");
             tableViewOrder.getItems().clear();
+
+
+            JasperPrint jasperPrint = JasperReportConfig.createJasperPrintInvoice(invoice);
+            if (!invoice.getCustomer().getEmail().equals("") && StaffValidator.validateEmail(invoice.getCustomer().getEmail())) {
+                MailConfig.sendInvoiceToCustomer(invoice.getCustomer().getEmail(), jasperPrint, invoice);
+            }
+            showJasperReport(jasperPrint);
         });
+    }
 
-
+    private void showJasperReport(JasperPrint jasperPrint) {
+        JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+        jasperViewer.setTitle("Invoice");
+        jasperViewer.setZoomRatio(0.5F);
+        jasperViewer.setFitPageZoomRatio();
+        jasperViewer.setSize(600, 800);
+        jasperViewer.setLocationRelativeTo(null);
+        jasperViewer.setVisible(true);
     }
 
     private void updatePrice() {
