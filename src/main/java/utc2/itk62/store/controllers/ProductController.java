@@ -140,6 +140,9 @@ public class ProductController {
 
     private void setupBtnUpdateProduct() {
         btnUpdate.setOnAction(actionEvent -> {
+            if(id.getText().equals("")) {
+                return;
+            }
             Product product = getProductCurrentForm();
             if (!validateFormProduct()) {
                 return;

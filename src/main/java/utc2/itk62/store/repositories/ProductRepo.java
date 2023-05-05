@@ -47,7 +47,7 @@ public class ProductRepo {
         String query = "SELECT product.*, category.name, category.id, supplier.name, supplier.id FROM product " +
                 " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
                 " LEFT JOIN category ON category.id = product.id_category" +
-                " WHERE product.status = 1 LIMIT ? OFFSET ? ";
+                " WHERE product.status = 1 ORDER BY product.created_at DESC LIMIT ? OFFSET ? ";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1,paging.getLimit());

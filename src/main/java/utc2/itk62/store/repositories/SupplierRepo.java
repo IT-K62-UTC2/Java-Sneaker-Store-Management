@@ -14,7 +14,7 @@ import java.util.List;
 public class SupplierRepo {
     public List<Supplier> getAllSupplier(Paging paging) {
         List<Supplier> supplierList = new ArrayList<Supplier>();
-        String query = "SELECT * FROM supplier WHERE status = 1 LIMIT ? OFFSET ?";
+        String query = "SELECT * FROM supplier WHERE status = 1 ORDER BY created_at DESC LIMIT ? OFFSET ?";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1, paging.getLimit());

@@ -117,6 +117,9 @@ public class CategoryController {
 
     private void setUpUpdateCategory() {
         btnUpdateCategory.setOnAction(actionEvent ->{
+            if(idCategory.getText().equals("")) {
+                return;
+            }
             Category category = new Category();
             if(nameCategory.getText().equals("")) {
                 CustomAlert.showAlert(Alert.AlertType.ERROR, idCategory.getScene().getWindow(), "Form Error!","Invalid category name");
@@ -248,6 +251,7 @@ public class CategoryController {
     private void cleanForm() {
         idCategory.setText("");
         nameCategory.setText("");
+        tableListCategory.getSelectionModel().clearSelection();
     }
 };
 

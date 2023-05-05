@@ -18,7 +18,7 @@ public class CustomerRepo {
     public List<Customer> getAllCustomer(Paging paging) {
         paging.checkPageLimit();
         List<Customer> customerList = new ArrayList<Customer>();
-        String query = "SELECT * FROM customer WHERE status = 1 LIMIT ? OFFSET ? ";
+        String query = "SELECT * FROM customer WHERE status = 1 ORDER BY created_at DESC LIMIT ? OFFSET ? ";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1, paging.getLimit());

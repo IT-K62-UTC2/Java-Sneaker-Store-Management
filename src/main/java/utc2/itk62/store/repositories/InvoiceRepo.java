@@ -20,7 +20,7 @@ public class InvoiceRepo {
         String query = "SELECT invoice.*, customer.fullname, staff.fullname FROM invoice " +
                 " LEFT JOIN customer ON customer.id = invoice.id_customer" +
                 " LEFT JOIN staff ON staff.id = invoice.id_staff" +
-                " WHERE invoice.status = 1 LIMIT ? OFFSET ? ";
+                " WHERE invoice.status = 1 ORDER BY invoice.created_at DESC LIMIT ? OFFSET ? ";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1,paging.getLimit());
