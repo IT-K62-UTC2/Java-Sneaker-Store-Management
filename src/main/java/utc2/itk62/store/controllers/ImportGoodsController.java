@@ -3,24 +3,22 @@ package utc2.itk62.store.controllers;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import utc2.itk62.store.models.ImportGoods;
 import utc2.itk62.store.models.ImportGoodsDetail;
 import utc2.itk62.store.models.Product;
 import utc2.itk62.store.services.ImportGoodsService;
 import utc2.itk62.store.services.ProductService;
+import utc2.itk62.store.util.CustomAlert;
 import utc2.itk62.store.util.FormatDouble;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ImportGoodsController {
     private static final ProductService productService = new ProductService();
@@ -31,7 +29,7 @@ public class ImportGoodsController {
     public TableView<Product> tableListProduct;
     public ComboBox<String> keySearch;
     public ImageView imageProduct;
-    public Button deleteAll;
+    public Button btnDeleteAll;
     public Label quantityImportGoods;
     public Label moneyImportGoods;
     public TableColumn<Product, Integer> colSttProduct;
@@ -40,7 +38,7 @@ public class ImportGoodsController {
     public TableColumn<Product, String> colPriceProduct;
     public TableColumn<Product, Integer> colQuantityProduct;
     public TableView<ImportGoodsDetail> tableListImportDetail;
-    public TableColumn colActionImportGoodsDetail;
+    public TableColumn<ImportGoodsDetail, String> colActionImportGoodsDetail;
     public TableColumn<ImportGoodsDetail, Integer> colSttImportDetail;
     public TableColumn<ImportGoodsDetail, String> colIdProductImportDetail;
     public TableColumn<ImportGoodsDetail, Product> colProductImportDetail;
@@ -85,7 +83,7 @@ public class ImportGoodsController {
         // Import
         setupBtnAdd();
         reloadTableViewImport();
-
+        setupBtnDeleteAll();
         // Import details
         reloadTableViewImportDetails();
 
@@ -116,7 +114,7 @@ public class ImportGoodsController {
         colNameProduct.setCellValueFactory(new PropertyValueFactory<>("name"));
         colPriceProduct.setCellValueFactory(param -> {
             Product product = param.getValue();
-            return new SimpleStringProperty(FormatDouble.toString(product.getPrice()));
+            return new SimpleStringProperty(FormatDouble.toString(product.getImportPrice()));
         });
         colQuantityProduct.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         tableListProduct.setItems(productList);
@@ -150,6 +148,7 @@ public class ImportGoodsController {
                                 } else {
                                     btn.setOnAction(action -> {
                                         getTableView().getItems().remove(getIndex());
+                                        updateQuantityAndAmount();
                                     });
                                     setGraphic(btn);
                                     setText(null);
@@ -159,119 +158,78 @@ public class ImportGoodsController {
                         return cell;
                     }
                 };
-//        colActionImportGoodsDetail.setCellFactory(cellFactory);
-//        colUnitPriceImportDetail.setCellValueFactory(param -> new SimpleStringProperty(FormatDouble.toString(param.getValue().getUnitPrice())));
-//        colQuantityImportDetail.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-//        colAmountDetail.setCellValueFactory(param -> new SimpleStringProperty(FormatDouble.toString(param.getValue().getMoneyTotal())));
-//        tableListImportDetail.setItems(importGoodsDetailList);
+        colActionImportGoodsDetail.setCellFactory(cellFactory);
+        colUnitPriceImportDetail.setCellValueFactory(param -> new SimpleStringProperty(FormatDouble.toString(param.getValue().getProduct().getImportPrice())));
+        colQuantityImportDetail.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colAmountDetail.setCellValueFactory(param -> new SimpleStringProperty(FormatDouble.toString(param.getValue().getMoneyTotal())));
+        tableListImportDetail.setItems(importGoodsDetailList);
     }
 
+    private void updateQuantityAndAmount() {
+        int totalQuantity = 0;
+        double amount = 0;
+        for(ImportGoodsDetail item: importGoodsDetailList) {
+            totalQuantity+=item.getQuantity();
+            amount+=item.getMoneyTotal();
+        }
+        quantityImportGoods.setText(String.valueOf(totalQuantity));
+        moneyImportGoods.setText(FormatDouble.toString(amount));
+    }
+
+    private void setupBtnDeleteAll() {
+       btnDeleteAll.setOnAction(actionEvent -> {
+           if(!importGoodsDetailList.isEmpty()){
+               importGoodsDetailList.clear();
+               updateQuantityAndAmount();
+           }
+       });
+    }
     private void setupBtnAdd() {
         btnAddProduct.setOnAction(actionEvent -> {
-            showProductImport(tableListProduct.getSelectionModel().getSelectedItem());
+            Product product = tableListProduct.getSelectionModel().getSelectedItem();
+            if(product == null) {
+                CustomAlert.showAlert(Alert.AlertType.ERROR, anchorPane.getScene().getWindow(), "Error!", "Please select a product");
+                return;
+            }
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Enter Quantity");
+            dialog.setHeaderText(null);
+            dialog.setContentText("Please enter the quantity:");
+            dialog.initOwner(anchorPane.getScene().getWindow());
+            dialog.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue.matches("\\d*")) {
+                    dialog.getEditor().setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            });
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()) {
+                try {
+                    int quantity = Integer.parseInt(result.get());
+                    for(ImportGoodsDetail item : importGoodsDetailList) {
+                        if(item.getProduct().getId() == product.getId()) {
+                            item.setQuantity(item.getQuantity()+quantity);
+                            item.setMoneyTotal(item.getQuantity() * product.getImportPrice());
+                            tableListImportDetail.refresh();
+                            System.out.println("Exiting");
+                            updateQuantityAndAmount();
+                            return;
+                        }
+                    }
+
+                    ImportGoodsDetail importGoodsDetail = new ImportGoodsDetail();
+                    importGoodsDetail.setQuantity(quantity);
+                    importGoodsDetail.setQuantity(quantity);
+                    importGoodsDetail.setMoneyTotal(quantity * product.getImportPrice());
+                    importGoodsDetail.setProduct(product);
+                    importGoodsDetailList.add(importGoodsDetail);
+                    updateQuantityAndAmount();
+                } catch (NumberFormatException e) {
+                    CustomAlert.showAlert(Alert.AlertType.ERROR, anchorPane.getScene().getWindow(), "Error!", "Quantity always > 0");
+                    btnAddProduct.fire();
+                }
+            }
         });
     }
 
 
-    // Start card product import
-    private void showProductImport(Product product) {
-        VBox vbox = new VBox();
-        vbox.fillWidthProperty();
-        vbox.alignmentProperty();
-
-        // Tạo các thành phần giao diện
-        Label idProductLabel = new Label("ID Product:");
-        Label idProdcut = new Label(Integer.toString(product.getId()));
-        HBox hbox1 = new HBox();
-        hbox1.getChildren().add(idProductLabel);
-        hbox1.getChildren().add(idProdcut);
-
-        Label nameProductLabel = new Label("Name Product:");
-        Label nameProdcut = new Label(product.getName());
-        HBox hbox2 = new HBox();
-        hbox2.getChildren().add(nameProductLabel);
-        hbox2.getChildren().add(nameProdcut);
-
-
-        HBox hbox3 = new HBox();
-        Label priceProductLabel = new Label("Price:");
-        Label priceProduct = new Label(FormatDouble.toString(product.getPrice()));
-        hbox3.getChildren().add(priceProductLabel);
-        hbox3.getChildren().add(priceProduct);
-
-        HBox hbox4 = new HBox();
-        Label priceImportLabel = new Label("Price import:");
-        TextField priceImport = new TextField();
-        priceImport.textProperty().addListener((observable, oldValue, newValue) -> {
-            // kiểm tra xem chuỗi mới nhập vào có thể định dạng thành số không
-            try {
-                String valueAmount = FormatDouble.toString(FormatDouble.toDouble(newValue));
-                priceImport.setText(valueAmount);
-            } catch (NumberFormatException e) {
-                // nếu không thể định dạng thành số, bỏ qua và giữ nguyên chuỗi nhập vào
-            }
-        });
-        hbox4.getChildren().add(priceImportLabel);
-        hbox4.getChildren().add(priceImport);
-
-        HBox hbox5 = new HBox();
-        Label quantityImportLabel = new Label("Quantity:");
-        TextField quantityImport = new TextField();
-        quantityImport.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.isEmpty()) {
-                quantityImport.setText("");
-            } else if (!newValue.matches("\\d*")) {
-                quantityImport.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        hbox5.getChildren().add(quantityImportLabel);
-        hbox5.getChildren().add(quantityImport);
-
-        HBox hbox6 = new HBox();
-        Button ok = new Button("OK");
-        Button cancel = new Button("Cancel");
-        hbox6.getChildren().add(ok);
-        hbox6.getChildren().add(cancel);
-
-        vbox.getChildren().add(hbox1);
-        vbox.getChildren().add(hbox2);
-        vbox.getChildren().add(hbox3);
-        vbox.getChildren().add(hbox4);
-        vbox.getChildren().add(hbox5);
-        vbox.getChildren().add(hbox6);
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(vbox);
-        stage.initOwner(anchorPane.getScene().getWindow());
-        stage.setScene(scene);
-        stage.show();
-
-        ok.setOnAction(actionEvent -> {
-////            Stage stageClose = (Stage) ok.getScene().getWindow();
-////            for (ImportGoodsDetail item : importGoodsDetailList) {
-////                if (item.getProduct().getId() == product.getId()) {
-////                    item.setQuantity(item.getQuantity() + Integer.parseInt(quantityImport.getText()));
-////                    item.setUnitPrice(FormatDouble.toDouble(priceImport.getText()));
-////                    item.setMoneyTotal(FormatDouble.toDouble(priceImport.getText()) * item.getQuantity());
-////                    tableListImportDetail.refresh();
-////                    stageClose.close();
-////                    return;
-////                }
-////            }
-////
-////            ImportGoodsDetail importGoodsDetail = new ImportGoodsDetail();
-////            importGoodsDetail.setProduct(product);
-////            importGoodsDetail.setQuantity(Integer.parseInt(quantityImport.getText()));
-////            importGoodsDetail.setUnitPrice(FormatDouble.toDouble(priceImport.getText()));
-////            importGoodsDetail.setMoneyTotal(Integer.parseInt(quantityImport.getText()) * importGoodsDetail.getUnitPrice());
-////            importGoodsDetailList.add(importGoodsDetail);
-//            stageClose.close();
-        });
-
-        cancel.setOnAction(actionEvent -> {
-            Stage stageClose = (Stage) cancel.getScene().getWindow();
-            stageClose.close();
-        });
-
-    }
 }

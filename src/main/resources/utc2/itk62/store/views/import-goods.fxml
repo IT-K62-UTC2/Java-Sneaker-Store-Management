@@ -58,7 +58,7 @@
                                     <Label text="Chi tiết nhập hàng" />
                                     <HBox prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Button fx:id="deleteAll" mnemonicParsing="false" text="Xoá tất cả" />
+                                          <Button fx:id="btnDeleteAll" mnemonicParsing="false" text="Xoá tất cả" />
                                        </children>
                                     </HBox>
                                     <TableView fx:id="tableListImportDetail" prefHeight="350.0" prefWidth="550.0">
