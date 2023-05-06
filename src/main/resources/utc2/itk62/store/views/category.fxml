@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -20,14 +19,17 @@
    <children>
       <VBox alignment="CENTER" layoutX="-5.0" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: DADCE7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="76.0" prefWidth="1150.0" style="-fx-background-color: #B3BCB4;">
                <children>
-                  <FontAwesomeIconView fill="#0b6318" glyphName="LIST_ALT" size="1em" text="">
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                  </FontAwesomeIconView>
-                  <Label text="Category Mannager">
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/categories.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label text="Category Management">
                      <font>
                         <Font name="Arial Bold" size="20.0" />
                      </font>
@@ -37,14 +39,17 @@
                   <Insets bottom="20.0" top="20.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="1199.0">
+            <HBox alignment="CENTER" prefHeight="69.0" prefWidth="1150.0">
                <children>
                   <Label prefHeight="26.0" prefWidth="175.0" text="Category ID:">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField id="lable" fx:id="idCategory" prefHeight="26.0" prefWidth="450.0" stylesheets="@../css/stylesheet.css" />
+                  <TextField id="label" fx:id="idCategory" prefHeight="26.0" prefWidth="450.0" stylesheets="@../css/stylesheet.css">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font></TextField>
                </children>
                <padding>
                   <Insets bottom="10.0" top="10.0" />
@@ -57,7 +62,10 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField id="lable" fx:id="nameCategory" prefHeight="26.0" prefWidth="450.0" stylesheets="@../css/stylesheet.css" />
+                  <TextField id="label" fx:id="nameCategory" prefHeight="26.0" prefWidth="450.0" stylesheets="@../css/stylesheet.css">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font></TextField>
                </children>
                <VBox.margin>
                   <Insets />
@@ -123,7 +131,7 @@
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="61.0" prefWidth="1150.0">
                <children>
                   <Label text="Search:">
                      <font>
@@ -134,6 +142,9 @@
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
                   </TextField>
                   <ComboBox id="bevel" fx:id="keySearch" prefWidth="150.0" stylesheets="@../css/stylesheet.css">
                      <HBox.margin>
@@ -197,9 +208,15 @@
                </columnResizePolicy>
             </TableView>
          </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
       </VBox>
    </children>
    <padding>
       <Insets left="30.0" />
    </padding>
+   <opaqueInsets>
+      <Insets left="10.0" right="10.0" />
+   </opaqueInsets>
 </AnchorPane>

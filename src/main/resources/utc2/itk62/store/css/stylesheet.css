@@ -516,6 +516,6 @@
 /*    -fx-text-fill: #2596be;*/
 /*}*/
 
-#lable{
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.9), 5,0,0,0);
+#label{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.9), 4,0,0,0);
 }
