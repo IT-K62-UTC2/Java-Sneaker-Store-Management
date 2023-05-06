@@ -7,7 +7,7 @@ public class ImportGoods {
     private int id;
     private Staff staff;
     private int quantity;
-    private int moneyTotal;
+    private double moneyTotal;
     private int status;
     private List<ImportGoodsDetail> importGoodsDetailList;
     private Timestamp createdAt;
@@ -44,7 +44,7 @@ public class ImportGoods {
         this.quantity = quantity;
     }
 
-    public void setMoneyTotal(int moneyTotal) {
+    public void setMoneyTotal(double moneyTotal) {
         this.moneyTotal = moneyTotal;
     }
 
@@ -76,7 +76,7 @@ public class ImportGoods {
         return quantity;
     }
 
-    public int getMoneyTotal() {
+    public double getMoneyTotal() {
         return moneyTotal;
     }
 

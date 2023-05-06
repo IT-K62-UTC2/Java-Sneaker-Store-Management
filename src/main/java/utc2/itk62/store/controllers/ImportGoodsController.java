@@ -1,16 +1,20 @@
 package utc2.itk62.store.controllers;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
+import utc2.itk62.store.common.User;
 import utc2.itk62.store.models.ImportGoods;
 import utc2.itk62.store.models.ImportGoodsDetail;
 import utc2.itk62.store.models.Product;
+import utc2.itk62.store.services.ImportGoodsDetailService;
 import utc2.itk62.store.services.ImportGoodsService;
 import utc2.itk62.store.services.ProductService;
 import utc2.itk62.store.util.CustomAlert;
@@ -23,6 +27,7 @@ import java.util.Optional;
 public class ImportGoodsController {
     private static final ProductService productService = new ProductService();
     private static final ImportGoodsService importGoodsService = new ImportGoodsService();
+    private static final ImportGoodsDetailService importGoodsDetailService = new ImportGoodsDetailService();
 
 
     public TextField valueSearch;
@@ -73,21 +78,30 @@ public class ImportGoodsController {
 
 
     private ObservableList<Product> productList;
-    private ObservableList<ImportGoods> importGoodsList;
-    private ObservableList<ImportGoodsDetail> importGoodsDetailList = FXCollections.observableArrayList(new ArrayList<>());
+    private final ObservableList<ImportGoodsDetail> importGoodsDetailList = FXCollections.observableArrayList(new ArrayList<>());
+    private ObservableList<String> listKetSearch = FXCollections.observableArrayList("ID", "Name");
+
+    // History
+    private ObservableList<ImportGoods> listImportGoodsHtr = FXCollections.observableArrayList(new ArrayList<>());
 
     public void initialize() {
         setupTabPane();
         tabPane.getSelectionModel().select(tabImport);
 
         // Import
+        // Import details
+        setupTableListProduct();
+        keySearch.setItems(listKetSearch);
+        keySearch.setValue("ID");
+        setupSearch();
         setupBtnAdd();
         reloadTableViewImport();
-        setupBtnDeleteAll();
-        // Import details
         reloadTableViewImportDetails();
+        setupBtnImport();
+        setupBtnDeleteAll();
 
         // History
+        setupTableHtrImportGoods();
     }
 
     private void setupTabPane() {
@@ -98,9 +112,68 @@ public class ImportGoodsController {
             }
 
             if (newTab == tabHistory) {
-                System.out.println("Tab clicked: " + newTab.getText());
+                reloadTableViewImportGoodsHtr();
             }
-            // Handle the event when a tab is clicked
+        });
+    }
+
+    // Start Import
+    private void setupSearch() {
+        valueSearch.setOnKeyTyped(keyEvent -> {
+            // Khởi tạo FilteredList và gán nó với danh sách positionList
+            FilteredList<Product> filteredList = new FilteredList<>(productList, p -> true);
+
+            // Gán FilteredList làm nguồn dữ liệu cho TableView
+            tableListProduct.setItems(filteredList);
+            filteredList.setPredicate(p -> {
+                if (valueSearch.getText().isEmpty()) {
+                    return true;
+                }
+                if (keySearch.getValue().equals("Name")) {
+                    return p.getName().toLowerCase().contains(valueSearch.getText());
+                }
+                return p.getId() == Integer.parseInt(valueSearch.getText());
+            });
+            if (tableListProduct.getSelectionModel() != null) {
+                tableListProduct.getSelectionModel().selectFirst();
+            }
+        });
+    }
+
+    private void setupTableListProduct() {
+        tableListProduct.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getClickCount() == 2) { // kiểm tra số lần click chuột để xác định double click
+                Product product = tableListProduct.getSelectionModel().getSelectedItem(); // lấy item được chọn
+                if (product != null) {
+                    btnAddProduct.fire();
+                }
+            }
+        });
+    }
+
+
+    private void setupBtnImport() {
+        btnImport.setOnAction(actionEvent -> {
+            if (importGoodsDetailList.isEmpty()) {
+                return;
+            }
+            if (!CustomAlert.showAlert(Alert.AlertType.CONFIRMATION, btnImport.getScene().getWindow(), "Confirm Import goods", "Are you sure you want to import")) {
+                return;
+            }
+            ImportGoods importGoods = new ImportGoods();
+            System.out.println("Id staff" + User.staff.getId());
+            importGoods.setStaff(User.staff);
+            importGoods.setQuantity(Integer.parseInt(quantityImportGoods.getText()));
+            importGoods.setMoneyTotal(FormatDouble.toDouble(moneyImportGoods.getText()));
+            ImportGoods importGoodsResult = importGoodsService.createImportGoods(importGoods);
+            if (importGoodsResult != null) {
+                for (ImportGoodsDetail item : importGoodsDetailList) {
+                    item.setImportGoods(importGoodsResult);
+                    importGoodsDetailService.createImportGoodsDetail(item);
+                }
+            }
+            reloadTableViewImport();
+            tableListImportDetail.getItems().clear();
         });
     }
 
@@ -130,8 +203,7 @@ public class ImportGoodsController {
         colIdProductImportDetail.setCellValueFactory(param -> {
             return new SimpleStringProperty(String.valueOf(param.getValue().getProduct().getId()));
         });
-        Callback<TableColumn<ImportGoodsDetail, String>, TableCell<ImportGoodsDetail, String>> cellFactory
-                = //
+        Callback<TableColumn<ImportGoodsDetail, String>, TableCell<ImportGoodsDetail, String>> cellFactory = //
                 new Callback<>() {
                     @Override
                     public TableCell call(final TableColumn<ImportGoodsDetail, String> param) {
@@ -168,26 +240,27 @@ public class ImportGoodsController {
     private void updateQuantityAndAmount() {
         int totalQuantity = 0;
         double amount = 0;
-        for(ImportGoodsDetail item: importGoodsDetailList) {
-            totalQuantity+=item.getQuantity();
-            amount+=item.getMoneyTotal();
+        for (ImportGoodsDetail item : importGoodsDetailList) {
+            totalQuantity += item.getQuantity();
+            amount += item.getMoneyTotal();
         }
         quantityImportGoods.setText(String.valueOf(totalQuantity));
         moneyImportGoods.setText(FormatDouble.toString(amount));
     }
 
     private void setupBtnDeleteAll() {
-       btnDeleteAll.setOnAction(actionEvent -> {
-           if(!importGoodsDetailList.isEmpty()){
-               importGoodsDetailList.clear();
-               updateQuantityAndAmount();
-           }
-       });
+        btnDeleteAll.setOnAction(actionEvent -> {
+            if (!importGoodsDetailList.isEmpty()) {
+                importGoodsDetailList.clear();
+                updateQuantityAndAmount();
+            }
+        });
     }
+
     private void setupBtnAdd() {
         btnAddProduct.setOnAction(actionEvent -> {
             Product product = tableListProduct.getSelectionModel().getSelectedItem();
-            if(product == null) {
+            if (product == null) {
                 CustomAlert.showAlert(Alert.AlertType.ERROR, anchorPane.getScene().getWindow(), "Error!", "Please select a product");
                 return;
             }
@@ -205,9 +278,9 @@ public class ImportGoodsController {
             if (result.isPresent()) {
                 try {
                     int quantity = Integer.parseInt(result.get());
-                    for(ImportGoodsDetail item : importGoodsDetailList) {
-                        if(item.getProduct().getId() == product.getId()) {
-                            item.setQuantity(item.getQuantity()+quantity);
+                    for (ImportGoodsDetail item : importGoodsDetailList) {
+                        if (item.getProduct().getId() == product.getId()) {
+                            item.setQuantity(item.getQuantity() + quantity);
                             item.setMoneyTotal(item.getQuantity() * product.getImportPrice());
                             tableListImportDetail.refresh();
                             System.out.println("Exiting");
@@ -230,6 +303,51 @@ public class ImportGoodsController {
             }
         });
     }
+    // End import
 
+    // Start history
+    private void reloadTableViewImportGoodsHtr() {
+        if (!tbHtrImport.getItems().isEmpty()) {
+            tbHtrImport.getItems().clear();
+        }
+        listImportGoodsHtr = FXCollections.observableArrayList(importGoodsService.getAllImportGoods());
+        colIdHtrImport.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colQtyHtrImport.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colMoneyHtrImport.setCellValueFactory(param -> new SimpleStringProperty(FormatDouble.toString(param.getValue().getMoneyTotal())));
+        colCreateAtHtrImport.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        tbHtrImport.setItems(listImportGoodsHtr);
+        tbHtrImport.getSelectionModel().selectFirst();
+        new Thread(() -> {
+            for (ImportGoods item : listImportGoodsHtr) {
+                item.setImportGoodsDetailList(importGoodsDetailService.getImportDetailByIdImport(item.getId()));
+            }
+            // update table invoice details
+            Platform.runLater(this::updateImportGoodsCurrentRowToDetail);
+        }).start();
+    }
 
+    private void updateImportGoodsCurrentRowToDetail() {
+        ImportGoods importGoods = tbHtrImport.getSelectionModel().getSelectedItem();
+        if (importGoods == null) {
+            return;
+        }
+        tbHtrImportDetail.getItems().clear();
+        colProductHtrImportDetail.setCellValueFactory(new PropertyValueFactory<>("product"));
+        colQtyHtrImportDetail.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colPriceHtrImportDetail.setCellValueFactory(param -> new SimpleStringProperty(FormatDouble.toString(param.getValue().getProduct().getImportPrice())));
+        colMoneyHtrImportDetail.setCellValueFactory(param -> new SimpleStringProperty(FormatDouble.toString(param.getValue().getMoneyTotal())));
+        tbHtrImportDetail.setItems(FXCollections.observableArrayList(importGoods.getImportGoodsDetailList()));
+
+    }
+
+    private void setupTableHtrImportGoods() {
+        tbHtrImport.setOnKeyPressed(keyEvent -> {
+            updateImportGoodsCurrentRowToDetail();
+        });
+
+        tbHtrImport.setOnMouseClicked(mouseEvent -> {
+            updateImportGoodsCurrentRowToDetail();
+        });
+    }
+    // End history
 }
