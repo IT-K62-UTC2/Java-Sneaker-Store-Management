@@ -62,6 +62,7 @@ public class ProductRepo {
                 supplier.setId(rs.getInt("supplier.id"));
                 Product product = new Product();
                 product.setCategory(category);
+                product.setImportPrice(rs.getDouble("product.import_price"));
                 product.setSupplier(supplier);
                 product.setQuantity(rs.getInt("product.quantity"));
                 product.setId(rs.getInt("id"));
@@ -99,6 +100,7 @@ public class ProductRepo {
 //                product.setIdCategory(rs.getInt("id_category"));
                 product.setName(rs.getString("name"));
                 product.setDescription(rs.getString("desc"));
+                product.setImportPrice(rs.getDouble("product.import_price"));
                 product.setPrice(rs.getDouble("price"));
                 product.setAvatar(rs.getString("avatar"));
                 product.setStatus(rs.getInt("status"));
@@ -126,8 +128,8 @@ public class ProductRepo {
     }
 
     public int createProduct(Product product) {
-        String query = "INSERT INTO product(id_supplier, id_category, `name`, `desc`, price, avatar)" +
-                " VALUES(?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO product(id_supplier, id_category, `name`, `desc`, price, avatar, import_price)" +
+                " VALUES(?, ?, ?, ?, ?, ?, ?)";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
@@ -140,6 +142,7 @@ public class ProductRepo {
             ptmt.setString(4, product.getDescription());
             ptmt.setDouble(5, product.getPrice());
             ptmt.setString(6, product.getAvatar());
+            ptmt.setDouble(7, product.getImportPrice());
             System.out.println(query);
             result = ptmt.executeUpdate();
             conn.commit();
@@ -159,7 +162,8 @@ public class ProductRepo {
                 "`desc` = ?, " +
                 "price = ?, " +
                 "avatar = ?, " +
-                "quantity = ? " +
+                "quantity = ?, " +
+                "import_price = ?" +
                 "WHERE id = ?";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
@@ -173,7 +177,8 @@ public class ProductRepo {
             ptmt.setDouble(5, product.getPrice());
             ptmt.setString(6, product.getAvatar());
             ptmt.setInt(7, product.getQuantity());
-            ptmt.setInt(8, product.getId());
+            ptmt.setDouble(8, product.getImportPrice());;
+            ptmt.setInt(9, product.getId());
             result = ptmt.executeUpdate();
             conn.commit();
         }catch (SQLException e){
@@ -229,6 +234,7 @@ public class ProductRepo {
                 product.setName(rs.getString("name"));
                 product.setDescription(rs.getString("desc"));
                 product.setPrice(rs.getDouble("price"));
+                product.setImportPrice(rs.getDouble("import_price"));
                 product.setAvatar(rs.getString("avatar"));
                 product.setStatus(rs.getInt("status"));
                 product.setQuantity(rs.getInt("quantity"));

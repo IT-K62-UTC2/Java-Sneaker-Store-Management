@@ -1,7 +1,6 @@
 package utc2.itk62.store.controllers;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -10,10 +9,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.util.Callback;
 import utc2.itk62.store.Validator.ProductValidator;
 import utc2.itk62.store.models.Category;
-import utc2.itk62.store.models.Customer;
 import utc2.itk62.store.models.Product;
 import utc2.itk62.store.models.Supplier;
 import utc2.itk62.store.services.CategoryService;
@@ -60,6 +57,8 @@ public class ProductController {
     public Button btnUpdate;
     public Button btnDelete;
     public Button btnExportExcel;
+    public TextField importPrice;
+    public TableColumn<Product, String> colImportPrice;
 
 
     private ObservableList<Product> productList;
@@ -162,6 +161,7 @@ public class ProductController {
             return null;
         }
         product.setId(Integer.parseInt(id.getText()));
+        product.setImportPrice(FormatDouble.toDouble(importPrice.getText()));
         product.setSupplier(supplier.getValue());
         product.setCategory(category.getValue());
         product.setName(name.getText());
@@ -189,6 +189,7 @@ public class ProductController {
             product.setDescription(desc.getText());
             product.setName(name.getText());
             product.setPrice(FormatDouble.toDouble(price.getText()));
+            product.setImportPrice(FormatDouble.toDouble(importPrice.getText()));
             product.setSupplier(supplier.getValue());
             product.setQuantity(Integer.parseInt(quantity.getText()));
             if (!productService.createProduct(product)) {
@@ -216,6 +217,12 @@ public class ProductController {
             return false;
         }
 
+        if (!ProductValidator.validatePrice(FormatDouble.toDouble(importPrice.getText()))) {
+            CustomAlert.showAlert(Alert.AlertType.ERROR, price.getScene().getWindow(), "Form Error!", "Import price always > 0");
+            importPrice.requestFocus();
+            return false;
+        }
+
         // Validate price
         if (!ProductValidator.validatePrice(FormatDouble.toDouble(price.getText()))) {
             CustomAlert.showAlert(Alert.AlertType.ERROR, price.getScene().getWindow(), "Form Error!", "Price always > 0");
@@ -240,6 +247,7 @@ public class ProductController {
         name.setText("");
         quantity.setText("");
         desc.setText("");
+        importPrice.setText("");
         price.setText("");
     }
 
@@ -295,6 +303,11 @@ public class ProductController {
             Product product = param.getValue();
             return new SimpleStringProperty(FormatDouble.toString(product.getPrice()));
         });
+        colImportPrice.setCellValueFactory(new PropertyValueFactory<Product, String>("importPrice"));
+        colImportPrice.setCellValueFactory(param -> {
+            Product product = param.getValue();
+            return new SimpleStringProperty(FormatDouble.toString(product.getImportPrice()));
+        });
         colQuantity.setCellValueFactory(new PropertyValueFactory<Product, Integer>("quantity"));
         colDesc.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));
         colName.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
@@ -313,6 +326,15 @@ public class ProductController {
             try {
                 String valueAmount = FormatDouble.toString(FormatDouble.toDouble(newValue));
                 price.setText(valueAmount);
+            } catch (NumberFormatException e) {
+                // nếu không thể định dạng thành số, bỏ qua và giữ nguyên chuỗi nhập vào
+            }
+        });
+        importPrice.textProperty().addListener((observable, oldValue, newValue) -> {
+            // kiểm tra xem chuỗi mới nhập vào có thể định dạng thành số không
+            try {
+                String valueAmount = FormatDouble.toString(FormatDouble.toDouble(newValue));
+                importPrice.setText(valueAmount);
             } catch (NumberFormatException e) {
                 // nếu không thể định dạng thành số, bỏ qua và giữ nguyên chuỗi nhập vào
             }
@@ -338,6 +360,7 @@ public class ProductController {
         }
         id.setText(String.valueOf(product.getId()));
         supplier.setValue(product.getSupplier());
+        importPrice.setText(String.valueOf(product.getImportPrice()));
         category.setValue(product.getCategory());
         name.setText(product.getName());
         quantity.setText(String.valueOf(product.getQuantity()));

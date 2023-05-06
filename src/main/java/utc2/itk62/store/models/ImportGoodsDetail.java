@@ -5,9 +5,8 @@ import java.sql.Timestamp;
 public class ImportGoodsDetail {
     private int id;
     private ImportGoods importGoods;
-    private int idProduct;
+    private Product product;
     private int quantity;
-    private double unitPrice;
     private double moneyTotal;
     private int status;
     private Timestamp createdAt;
@@ -16,30 +15,30 @@ public class ImportGoodsDetail {
     public ImportGoodsDetail() {
     }
 
-    public ImportGoodsDetail(ImportGoods importGoods, int idProduct, int quantity, double unitPrice, double moneyTotal) {
+    public ImportGoodsDetail(int id, ImportGoods importGoods, Product product, int quantity, double moneyTotal, int status, Timestamp createdAt, Timestamp updatedAt) {
+        this.id = id;
         this.importGoods = importGoods;
-        this.idProduct = idProduct;
+        this.product = product;
         this.quantity = quantity;
-        this.unitPrice = unitPrice;
         this.moneyTotal = moneyTotal;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
+
+
 
     public void setId(int id) {
         this.id = id;
     }
 
 
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
-    }
+
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
 
     public void setMoneyTotal(double moneyTotal) {
         this.moneyTotal = moneyTotal;
@@ -69,17 +68,19 @@ public class ImportGoodsDetail {
         this.importGoods = importGoods;
     }
 
-    public int getIdProduct() {
-        return idProduct;
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public double getUnitPrice() {
-        return unitPrice;
-    }
+
 
     public double getMoneyTotal() {
         return moneyTotal;

@@ -170,12 +170,9 @@ public class HistoryInvoiceController {
             }
         });
 
-        colPriceInvoiceDetail.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<InvoiceDetail, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<InvoiceDetail, String> param) {
-                InvoiceDetail invoiceDetail = param.getValue();
-                return new SimpleStringProperty(FormatDouble.toString(invoiceDetail.getProduct().getPrice()));
-            }
+        colPriceInvoiceDetail.setCellValueFactory(param -> {
+            InvoiceDetail invoiceDetail = param.getValue();
+            return new SimpleStringProperty(FormatDouble.toString(invoiceDetail.getProduct().getPrice()));
         });
         tableListInvoiceDetail.setItems(FXCollections.observableArrayList(currentInvoice.getListInvoiceDetails()));
     }

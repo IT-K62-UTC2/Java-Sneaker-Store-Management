@@ -12,6 +12,7 @@ public class Product {
     private String description;
     private int quantity;
     private double price;
+    private double importPrice;
     private String avatar;
     private int status;
     private Timestamp createdAt;
@@ -22,15 +23,32 @@ public class Product {
     public Product() {
     }
 
-    public Product(Supplier supplier, Category category, String name, String description, int quantity, double price, String avatar) {
+    public Product(int id, Supplier supplier, Category category, String name, String description, int quantity, double price, double importPrice, String avatar, int status, Timestamp createdAt, Timestamp updatedAt, String strPrice) {
+        this.id = id;
         this.supplier = supplier;
         this.category = category;
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.price = price;
+        this.importPrice = importPrice;
         this.avatar = avatar;
-        strPrice = FormatDouble.toString(this.price);
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.strPrice = strPrice;
+    }
+
+    public double getImportPrice() {
+        return importPrice;
+    }
+
+    public void setImportPrice(double importPrice) {
+        this.importPrice = importPrice;
+    }
+
+    public void setStrPrice(String strPrice) {
+        this.strPrice = strPrice;
     }
 
     public int getQuantity() {

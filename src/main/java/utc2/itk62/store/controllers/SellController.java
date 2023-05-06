@@ -118,10 +118,10 @@ public class SellController {
         colNameProd.setCellValueFactory(new PropertyValueFactory<>("product"));
         Callback<TableColumn<InvoiceDetail, String>, TableCell<InvoiceDetail, String>> cellFactory
                 = //
-                new Callback<TableColumn<InvoiceDetail, String>, TableCell<InvoiceDetail, String>>() {
+                new Callback<>() {
                     @Override
                     public TableCell call(final TableColumn<InvoiceDetail, String> param) {
-                        final TableCell<InvoiceDetail, String> cell = new TableCell<InvoiceDetail, String>() {
+                        final TableCell<InvoiceDetail, String> cell = new TableCell<>() {
 
                             final Button btn = new Button("Delete");
 
@@ -156,21 +156,15 @@ public class SellController {
                     }
                 };
         colAction.setCellFactory(cellFactory);
-        colPriceProd.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<InvoiceDetail, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<InvoiceDetail, String> param) {
-                InvoiceDetail invoiceDetail = param.getValue();
-                return new SimpleStringProperty(FormatDouble.toString(invoiceDetail.getProduct().getPrice()));
+        colPriceProd.setCellValueFactory(param -> {
+            InvoiceDetail invoiceDetail = param.getValue();
+            return new SimpleStringProperty(FormatDouble.toString(invoiceDetail.getProduct().getPrice()));
 
-            }
         });
-        colTotal.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<InvoiceDetail, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<InvoiceDetail, String> param) {
-                InvoiceDetail invoiceDetail = param.getValue();
-                double total = invoiceDetail.getMoneyTotal();
-                return new SimpleStringProperty(FormatDouble.toString(total));
-            }
+        colTotal.setCellValueFactory(param -> {
+            InvoiceDetail invoiceDetail = param.getValue();
+            double total = invoiceDetail.getMoneyTotal();
+            return new SimpleStringProperty(FormatDouble.toString(total));
         });
 
     }

@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
 <AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.ImportGoodsController">
    <children>
       <TabPane fx:id="tabPane" prefHeight="700.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE">
@@ -56,7 +68,8 @@
                                           <TableColumn fx:id="colProductImportDetail" prefWidth="75.0" text="Product" />
                                         <TableColumn fx:id="colUnitPriceImportDetail" prefWidth="75.0" text="Unit Price" />
                                           <TableColumn fx:id="colQuantityImportDetail" prefWidth="75.0" text="Quantity" />
-                                          <TableColumn fx:id="colAmount" prefWidth="75.0" text="Amount" />
+                                          <TableColumn fx:id="colAmountDetail" prefWidth="75.0" text="Amount" />
+                                          <TableColumn fx:id="colActionImportGoodsDetail" prefWidth="75.0" text="Action" />
                                       </columns>
                                     </TableView>
                                     <HBox prefHeight="16.0" prefWidth="550.0">

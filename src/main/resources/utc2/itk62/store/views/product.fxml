@@ -53,6 +53,12 @@
                         </HBox>
                         <HBox>
                            <children>
+                              <Label text="Import Price" />
+                              <TextField fx:id="importPrice"  />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
                                       <Label text="Price" />
                                       <TextField fx:id="price" />
                            </children>
@@ -115,6 +121,7 @@
                   <TableColumn fx:id="colCategory" prefWidth="75.0" text="Thể loại " />
                   <TableColumn fx:id="colName" prefWidth="75.0" text="Tên " />
                   <TableColumn fx:id="colQuantity" prefWidth="75.0" text="Số lượng" />
+                  <TableColumn fx:id="colImportPrice" prefWidth="75.0" text="Giá Nhập" />
                   <TableColumn fx:id="colPrice" prefWidth="75.0" text="Giá" />
                   <TableColumn fx:id="colDesc" prefWidth="75.0" text="Mô tả" />
                   <TableColumn fx:id="colStatus" prefWidth="75.0" text="Trạng thái" />
