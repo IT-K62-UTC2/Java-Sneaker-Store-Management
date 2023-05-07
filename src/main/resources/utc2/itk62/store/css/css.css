@@ -14,3 +14,10 @@
 .background-empty {
     -fx-background-color: rgba(0, 0, 0, 0);
 }
+
+.axis {
+    -fx-stroke: #fff;
+    -fx-fill: #fff;
+    -fx-font-size: 24;
+    -fx-tick-label-fill: #fff;
+}

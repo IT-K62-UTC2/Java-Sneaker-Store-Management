@@ -8,8 +8,7 @@ public class FromAndToDate {
     private LocalDateTime toDate;
 
     public FromAndToDate(LocalDate fromDate, LocalDate toDate) {
-
-        this.fromDate = fromDate.withDayOfMonth(1).atStartOfDay();
+        this.fromDate = fromDate.atStartOfDay();
         this.toDate = toDate.atTime(23, 59, 59);
     }
 
