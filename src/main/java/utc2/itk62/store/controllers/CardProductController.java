@@ -32,7 +32,11 @@ public class CardProductController {
         descProduct.setText(product.getDescription());
         priceProduct.setText(FormatDouble.toString(product.getPrice()));
         nameProduct.setText(String.valueOf(product.getName()));
-        imageProduct.setImage(new Image(product.getAvatar()));
+        try {
+            imageProduct.setImage(new Image(product.getAvatar()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         quantity.setText(String.valueOf(product.getQuantity()));
         cashQuantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, product.getQuantity(), 0));
     }

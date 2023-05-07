@@ -366,7 +366,11 @@ public class ProductController {
         quantity.setText(String.valueOf(product.getQuantity()));
         desc.setText(product.getDescription());
         price.setText(String.valueOf(product.getPrice()));
-        image.setImage(new Image(product.getAvatar()));
+        try {
+            image.setImage(new Image(product.getAvatar()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setUpTableView() {

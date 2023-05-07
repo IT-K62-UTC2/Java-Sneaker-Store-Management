@@ -45,7 +45,13 @@ public class ChangePasswordController {
         address.setText(staff.getAddress());
         phoneNumber.setText(staff.getPhoneNumber());
         cccd.setText(staff.getCccd());
-        imageAvatar.setImage(new Image(staff.getPathAvatar()));
+        try {
+            Image image = new Image(staff.getPathAvatar());
+            imageAvatar.setImage(image);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         toggleGenderGroup.selectToggle(staff.getGender().equals(maleBtn.getText()) ? maleBtn : femaleBtn);
     }
 

@@ -154,7 +154,11 @@ public class StaffController {
         address.setText(selectedStaff.getAddress());
         phoneNumber.setText(selectedStaff.getPhoneNumber());
         cccd.setText(selectedStaff.getCccd());
-        imageAvatar.setImage(new Image(selectedStaff.getPathAvatar()));
+        try {
+            imageAvatar.setImage(new Image(selectedStaff.getPathAvatar()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         toggleGenderGroup.selectToggle(selectedStaff.getGender().equals(maleBtn.getText()) ? maleBtn : femaleBtn);
         return selectedStaff;
     }
