@@ -10,12 +10,15 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import utc2.itk62.store.Main;
 import utc2.itk62.store.common.User;
+import utc2.itk62.store.models.Auth;
+import utc2.itk62.store.repositories.AuthRepo;
 import utc2.itk62.store.services.LoginService;
 
 import java.io.IOException;
 
 public class LoginController {
     private static final LoginService loginService = new LoginService();
+    private static final AuthRepo authRepo = new AuthRepo();
 
     @FXML
     public TextField usernameField;
@@ -27,9 +30,10 @@ public class LoginController {
     @FXML
     public void handleBtnLogin(ActionEvent actionEvent) throws IOException {
         User.staff = loginService.CheckLogin(usernameField.getText(), passwordField.getText());
-        if(User.staff  == null) {
+        if (User.staff == null) {
             statusLabel.setText("Failed");
         } else {
+            User.staff.getPosition().setAuthList(authRepo.getAllAuthByPosition(User.staff.getPosition()));
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/home.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = (Stage) usernameField.getScene().getWindow();

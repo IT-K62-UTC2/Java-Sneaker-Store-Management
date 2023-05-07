@@ -50,6 +50,17 @@ public class StaffService {
         return true;
     }
 
+    public boolean updatePasswordStaff(Staff staff, String password) {
+        password = HashedPassword.hashPassword(password);
+        if(staffRepo.updatePasswordStaff(staff.getId(), password) <= 0) {
+            return false;
+        }
+        staff.setPassword(password);
+        return true;
+    }
+
+
+
     public Staff getStaffByUserName(String username) {
         Staff staff = staffRepo.getStaffByUsername(username);
         if (staff != null) {

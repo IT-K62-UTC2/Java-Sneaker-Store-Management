@@ -11,65 +11,19 @@
    <children>
       <HBox>
          <children>
-            <VBox prefHeight="700.0" prefWidth="200.0">
-               <children>
-                  <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button mnemonicParsing="false" onAction="#handleBtnHome" prefHeight="26.0" prefWidth="222.0" text="Home">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#handleBtnSell" prefHeight="26.0" prefWidth="211.0" text="Sell">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                   <Button mnemonicParsing="false" onAction="#handleHistory" prefHeight="26.0" prefWidth="234.0" text="History">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                   <Button mnemonicParsing="false" onAction="#handleBtnProduct" prefHeight="26.0" prefWidth="260.0" text="Product">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                   <Button mnemonicParsing="false" onAction="#handleBtnCategory" prefHeight="26.0" prefWidth="210.0" text="Category">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                   <Button mnemonicParsing="false" onAction="#handleBtnStaff" prefHeight="26.0" prefWidth="224.0" text="Staff">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                   <Button mnemonicParsing="false" onAction="#handleBtnCustomer" prefHeight="26.0" prefWidth="263.0" text="Customers">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                   <Button mnemonicParsing="false" onAction="#handleBtnSupplier" prefHeight="26.0" prefWidth="215.0" text="Supplier">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-                   <Button mnemonicParsing="false" onAction="#handleImportGoods" prefHeight="26.0" prefWidth="216.0" text="Import goods">
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
+            <VBox>
                <HBox.margin>
                   <Insets />
                </HBox.margin>
-               <padding>
-                  <Insets left="30.0" right="30.0" />
-               </padding>
+               <children>
+                  <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox fx:id="vbox" prefHeight="523.0" prefWidth="200.0">
+                     <padding>
+                        <Insets left="30.0" right="30.0" />
+                     </padding>
+                  </VBox>
+                  <Button fx:id="btnLogout" mnemonicParsing="false" prefHeight="26.0" prefWidth="200.0" text="Logout" />
+               </children>
             </VBox>
              <AnchorPane fx:id="include" prefHeight="700.0" prefWidth="1200.0" />
          </children>

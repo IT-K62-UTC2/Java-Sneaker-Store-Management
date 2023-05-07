@@ -169,6 +169,32 @@ public class StaffRepo {
         return result;
     }
 
+    public int updatePasswordStaff(int idStaff, String password){
+        String query = "UPDATE staff SET" +
+                " password = ?"+
+                " WHERE id = ?";
+        int result = 0;
+        Connection conn = ConnectionUtil.getConnection();
+        try{
+            conn.setAutoCommit(false);
+            PreparedStatement ptmt = conn.prepareStatement(query);
+            ptmt.setString(1, password);
+            ptmt.setInt(2,idStaff);
+            result = ptmt.executeUpdate();
+            conn.commit();
+        }catch (SQLException e){
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            e.printStackTrace();
+        } finally{
+            ConnectionUtil.closeConnection();
+        }
+        return result;
+    }
+
     public int createStaff(Staff staff) {
         String query = "INSERT INTO staff(" +
                 "id_position," +

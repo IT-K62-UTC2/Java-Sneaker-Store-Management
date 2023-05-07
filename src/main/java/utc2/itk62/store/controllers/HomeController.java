@@ -1,134 +1,81 @@
 package utc2.itk62.store.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import utc2.itk62.store.Main;
 import utc2.itk62.store.common.User;
+import utc2.itk62.store.models.Auth;
+import utc2.itk62.store.models.Menu;
 
 import java.io.IOException;
+import java.util.List;
 
 public class HomeController {
     @FXML
     public AnchorPane include;
     @FXML
     public ImageView image;
+    public VBox vbox;
+    public Button btnLogout;
 
     public void initialize() throws IOException {
-        image.setImage(new Image(User.staff.getPathAvatar()));
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/dashboard.fxml"));
-        Node node = loader.load();
-        include.getChildren().add(0,node);
-    }
-
-    @FXML
-    public void handleBtnStaff(ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/staff.fxml"));
-        Node node = null;
-        try {
-            node = loader.load();
-            include.getChildren().set(0,node);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    public void handleBtnHome(ActionEvent actionEvent)  {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/dashboard.fxml"));
         Node node = null;
         try {
             node = loader.load();
-            include.getChildren().set(0,node);
+            include.getChildren().add(node);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        setupBtnLogout();
+        loadMenu();
     }
 
-    @FXML
-    public void handleBtnCategory(ActionEvent actionEvent){
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/category.fxml"));
-        Node node = null;
-        try {
-            node = loader.load();
-            include.getChildren().set(0,node);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private void setupBtnLogout() throws IOException {
+        btnLogout.setOnAction((actionEvent) -> {
+            Stage closeStage = (Stage) btnLogout.getScene().getWindow();
+            closeStage.close();
+            User.staff = null;
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/login.fxml"));
+            Scene scene = null;
+            try {
+                Stage stage = new Stage();
+                scene = new Scene(fxmlLoader.load(), 1400, 700);
+                stage.setTitle("Hello!");
+                stage.setScene(scene);
+                stage.getIcons().add(new Image(getClass().getResourceAsStream("/utc2/itk62/store/images/iconTile.png")));
+                stage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
-    @FXML
-    public void handleBtnCustomer(ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/customer.fxml"));
-        System.out.println(Main.class.getResource("views/customer.fxml"));
-        Node node = null;
-        try {
-            node = loader.load();
-            include.getChildren().set(0,node);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    public void handleBtnProduct(ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/product.fxml"));
-        System.out.println(Main.class.getResource("views/customer.fxml"));
-        Node node = null;
-        try {
-            node = loader.load();
-            include.getChildren().set(0,node);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void handleImportGoods(ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/import-goods.fxml"));
-        System.out.println(Main.class.getResource("views/import-goods.fxml"));
-        Node node = null;
-        try {
-            node = loader.load();
-            include.getChildren().set(0,node);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void handleHistory(ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/history-invoice.fxml"));
-        Node node = null;
-        try {
-            node = loader.load();
-            include.getChildren().set(0,node);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void handleBtnSupplier(ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/supplier.fxml"));
-        Node node = null;
-        try {
-            node = loader.load();
-            include.getChildren().set(0,node);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void handleBtnSell(ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/sell.fxml"));
-        Node node = null;
-        try {
-            node = loader.load();
-            include.getChildren().set(0,node);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    private void loadMenu() {
+        vbox.getChildren().clear();
+        List<Auth> listAuth = User.staff.getPosition().getAuthList();
+        for (int i = 0; i < listAuth.size(); i++) {
+            Menu menu = listAuth.get(i).getMenu();
+            Button button = new Button(menu.getName());
+            button.setOnAction(actionEvent -> {
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource(menu.getPath()));
+                Node node = null;
+                try {
+                    node = loader.load();
+                    include.getChildren().set(0, node);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            vbox.getChildren().add(button);
         }
     }
 }

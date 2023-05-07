@@ -8,15 +8,25 @@ public class Position {
     private String name;
     private int status;
     private List<Staff> staffList;
+    private List<Auth> authList;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
     public Position() {
     }
 
-    public Position(String name, List<Staff> staffList) {
+    public Position(String name, List<Staff> staffList, List<Auth> authList) {
         this.name = name;
         this.staffList = staffList;
+        this.authList = authList;
+    }
+
+    public List<Auth> getAuthList() {
+        return authList;
+    }
+
+    public void setAuthList(List<Auth> authList) {
+        this.authList = authList;
     }
 
     public List<Staff> getStaffList() {
