@@ -105,6 +105,8 @@ public class HistoryInvoiceController {
         listInvoice = FXCollections.observableArrayList(invoicesService.getAllInvoice(fromAndToDate));
         tableListInvoice.setItems(listInvoice);
         if (listInvoice.size() == 0) {
+            updateInvoiceDetailsCurrentRowInvoice();
+            viewInvoice.getChildren().clear();
             return;
         }
         colCustomerInvoice.setCellValueFactory(new PropertyValueFactory<>("customer"));
@@ -142,6 +144,9 @@ public class HistoryInvoiceController {
 
     private void setupExportExcel() {
         btnExportExcel.setOnAction(actionEvent -> {
+            if(listInvoice.isEmpty()) {
+                return;
+            }
             invoicesService.exportExcel(listInvoice, keySearch.getScene().getWindow());
         });
     }
@@ -186,9 +191,9 @@ public class HistoryInvoiceController {
     private void updateInvoiceDetailsCurrentRowInvoice() {
         Invoice currentInvoice = tableListInvoice.getSelectionModel().getSelectedItem();
         if (currentInvoice == null) {
+            tableListInvoiceDetail.getItems().clear();
             return;
         }
-        tableListInvoiceDetail.getItems().clear();
         colProductInvoiceDetail.setCellValueFactory(new PropertyValueFactory<>("product"));
         colQuantityInvoiceDetail.setCellValueFactory(new PropertyValueFactory<>("productQuantity"));
         colTotalMoneyInvoiceDetail.setCellValueFactory(new PropertyValueFactory<>("moneyTotal"));
@@ -226,6 +231,9 @@ public class HistoryInvoiceController {
 
     public void exportInvoice() {
         Invoice invoice = tableListInvoice.getSelectionModel().getSelectedItem();
+        if(invoice == null) {
+            return;
+        }
         JasperPrint jasperPrint = JasperReportConfig.createJasperPrintInvoice(invoice);
         embedJasperReport(jasperPrint);
         showJasperReport(jasperPrint);
@@ -233,6 +241,10 @@ public class HistoryInvoiceController {
 
     public void loadInvoice() {
         Invoice invoice = tableListInvoice.getSelectionModel().getSelectedItem();
+        if(invoice == null) {
+            viewInvoice.getChildren().clear();
+            return;
+        }
         JasperPrint jasperPrint = JasperReportConfig.createJasperPrintInvoice(invoice);
         embedJasperReport(jasperPrint);
     }

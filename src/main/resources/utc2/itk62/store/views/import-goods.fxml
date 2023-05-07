@@ -110,6 +110,7 @@
                               <DatePicker fx:id="fromDateHistory" />
                               <Label text="To" />
                               <DatePicker fx:id="toDateHistory" />
+                              <Button fx:id="btnSearchDate" mnemonicParsing="false" text="Search" />
                            </children>
                         </HBox>
                         <TableView fx:id="tbHtrImport" prefHeight="200.0" prefWidth="200.0">

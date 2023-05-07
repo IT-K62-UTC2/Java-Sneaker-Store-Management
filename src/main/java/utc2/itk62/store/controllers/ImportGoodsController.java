@@ -10,6 +10,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
+import utc2.itk62.store.common.FromAndToDate;
 import utc2.itk62.store.common.User;
 import utc2.itk62.store.models.ImportGoods;
 import utc2.itk62.store.models.ImportGoodsDetail;
@@ -21,6 +23,8 @@ import utc2.itk62.store.util.CustomAlert;
 import utc2.itk62.store.util.FormatDouble;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -75,6 +79,7 @@ public class ImportGoodsController {
     public TableColumn<ImportGoodsDetail, Integer> colQtyHtrImportDetail;
     public TableColumn<ImportGoodsDetail, String> colPriceHtrImportDetail;
     public TableColumn<ImportGoodsDetail, String> colMoneyHtrImportDetail;
+    public Button btnSearchDate;
 
 
     private ObservableList<Product> productList;
@@ -102,6 +107,8 @@ public class ImportGoodsController {
 
         // History
         setupTableHtrImportGoods();
+        setupBtnSearchDate();
+        setupDatePicker();
     }
 
     private void setupTabPane() {
@@ -112,7 +119,7 @@ public class ImportGoodsController {
             }
 
             if (newTab == tabHistory) {
-                reloadTableViewImportGoodsHtr();
+                reloadTableViewImportGoodsHtr(new FromAndToDate());
             }
         });
     }
@@ -306,16 +313,50 @@ public class ImportGoodsController {
     // End import
 
     // Start history
-    private void reloadTableViewImportGoodsHtr() {
+    private void setupDatePicker() {
+        StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        };
+        fromDateHistory.setConverter(converter);
+        toDateHistory.setConverter(converter);
+        toDateHistory.setValue(LocalDate.now());
+        fromDateHistory.setValue(toDateHistory.getValue().withDayOfMonth(1));
+        toDateHistory.setEditable(false);
+        fromDateHistory.setEditable(false);
+    }
+
+    private void reloadTableViewImportGoodsHtr(FromAndToDate fromAndToDate) {
         if (!tbHtrImport.getItems().isEmpty()) {
             tbHtrImport.getItems().clear();
         }
-        listImportGoodsHtr = FXCollections.observableArrayList(importGoodsService.getAllImportGoods());
+        listImportGoodsHtr = FXCollections.observableArrayList(importGoodsService.getAllImportGoods(fromAndToDate));
+        tbHtrImport.setItems(listImportGoodsHtr);
+        if(listImportGoodsHtr.size() == 0) {
+            updateImportGoodsCurrentRowToDetail();
+            return;
+        }
         colIdHtrImport.setCellValueFactory(new PropertyValueFactory<>("id"));
         colQtyHtrImport.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colMoneyHtrImport.setCellValueFactory(param -> new SimpleStringProperty(FormatDouble.toString(param.getValue().getMoneyTotal())));
         colCreateAtHtrImport.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
-        tbHtrImport.setItems(listImportGoodsHtr);
         tbHtrImport.getSelectionModel().selectFirst();
         new Thread(() -> {
             for (ImportGoods item : listImportGoodsHtr) {
@@ -328,16 +369,22 @@ public class ImportGoodsController {
 
     private void updateImportGoodsCurrentRowToDetail() {
         ImportGoods importGoods = tbHtrImport.getSelectionModel().getSelectedItem();
+        tbHtrImportDetail.getItems().clear();
         if (importGoods == null) {
             return;
         }
-        tbHtrImportDetail.getItems().clear();
         colProductHtrImportDetail.setCellValueFactory(new PropertyValueFactory<>("product"));
         colQtyHtrImportDetail.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colPriceHtrImportDetail.setCellValueFactory(param -> new SimpleStringProperty(FormatDouble.toString(param.getValue().getProduct().getImportPrice())));
         colMoneyHtrImportDetail.setCellValueFactory(param -> new SimpleStringProperty(FormatDouble.toString(param.getValue().getMoneyTotal())));
         tbHtrImportDetail.setItems(FXCollections.observableArrayList(importGoods.getImportGoodsDetailList()));
 
+    }
+
+    private void setupBtnSearchDate() {
+        btnSearchDate.setOnAction(actionEvent -> {
+            reloadTableViewImportGoodsHtr(new FromAndToDate(fromDateHistory.getValue(), toDateHistory.getValue()));
+        });
     }
 
     private void setupTableHtrImportGoods() {

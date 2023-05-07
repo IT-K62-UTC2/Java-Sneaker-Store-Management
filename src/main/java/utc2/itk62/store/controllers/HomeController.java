@@ -122,7 +122,7 @@ public class HomeController {
     }
 
     public void handleBtnSell(ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/sale.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/sell.fxml"));
         Node node = null;
         try {
             node = loader.load();
