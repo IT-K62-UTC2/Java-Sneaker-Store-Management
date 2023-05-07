@@ -37,6 +37,7 @@
                                           <DatePicker fx:id="fromDate" />
                                           <Label text="To" />
                                           <DatePicker fx:id="toDate" />
+                                          <Button fx:id="btnSearch" mnemonicParsing="false" text="Search" />
                                        </children>
                                     </HBox>
                                     <TableView fx:id="tableListInvoice" prefHeight="370.0" prefWidth="750.0">

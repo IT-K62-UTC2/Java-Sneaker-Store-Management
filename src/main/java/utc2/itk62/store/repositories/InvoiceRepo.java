@@ -1,5 +1,6 @@
 package utc2.itk62.store.repositories;
 
+import utc2.itk62.store.common.FromAndToDate;
 import utc2.itk62.store.common.Paging;
 import utc2.itk62.store.connection.ConnectionUtil;
 import utc2.itk62.store.models.Customer;
@@ -8,23 +9,25 @@ import utc2.itk62.store.models.Staff;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class InvoiceRepo {
     public InvoiceRepo() {
     }
 
-    public List<Invoice> getAllInvoices(Paging paging) {
-        paging.checkPageLimit();
+    public List<Invoice> getAllInvoices(FromAndToDate fromAndToDate) {
         List<Invoice> invoiceList = new ArrayList<Invoice>();
         String query = "SELECT invoice.*, customer.fullname, staff.fullname FROM invoice " +
                 " LEFT JOIN customer ON customer.id = invoice.id_customer" +
                 " LEFT JOIN staff ON staff.id = invoice.id_staff" +
-                " WHERE invoice.status = 1 ORDER BY invoice.created_at DESC LIMIT ? OFFSET ? ";
+                " WHERE invoice.status = 1 AND invoice.created_at >= ? AND invoice.created_at <= ? ORDER BY invoice.created_at DESC";
         try {
+            System.out.println(fromAndToDate.getFromDate().toString());
+            System.out.println(fromAndToDate.getToDate().toString());
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
-            ptmt.setInt(1,paging.getLimit());
-            ptmt.setInt(2,paging.getOffset());
+            ptmt.setObject(1,fromAndToDate.getFromDate());
+            ptmt.setObject(2, fromAndToDate.getToDate());
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 Invoice invoice = new Invoice();

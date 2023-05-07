@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import utc2.itk62.store.common.FromAndToDate;
 import utc2.itk62.store.common.Paging;
 import utc2.itk62.store.models.Invoice;
 import utc2.itk62.store.models.InvoiceDetail;
@@ -27,8 +28,8 @@ public class InvoiceService {
         return invoiceRepo.createInvoice(invoice);
     }
 
-    public List<Invoice> getAllInvoice() {
-        return invoiceRepo.getAllInvoices(new Paging(0, 0));
+    public List<Invoice> getAllInvoice(FromAndToDate fromAndToDate) {
+        return invoiceRepo.getAllInvoices( fromAndToDate);
     }
 
     public void exportExcel(ObservableList<Invoice> invoiceList, Window window) {

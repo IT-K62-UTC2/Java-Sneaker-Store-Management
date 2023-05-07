@@ -3,7 +3,6 @@ package utc2.itk62.store.controllers;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -11,11 +10,12 @@ import javafx.embed.swing.SwingNode;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Callback;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.swing.JRViewer;
 import net.sf.jasperreports.view.JasperViewer;
+import utc2.itk62.store.common.FromAndToDate;
 import utc2.itk62.store.common.JasperReportConfig;
 import utc2.itk62.store.models.*;
 import utc2.itk62.store.services.InvoiceDetailsService;
@@ -23,13 +23,13 @@ import utc2.itk62.store.services.InvoiceService;
 import utc2.itk62.store.util.FormatDouble;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class HistoryInvoiceController {
     private static final InvoiceService invoicesService = new InvoiceService();
     private static final InvoiceDetailsService invoicesDetailsService = new InvoiceDetailsService();
-    private PauseTransition pause = new PauseTransition(Duration.seconds(0.5)); // throttle thời gian tạm dừng là 1 giây
-
-
+    public Button btnSearch;
     public TextField valueSearch;
     public ComboBox<String> keySearch;
     public DatePicker fromDate;
@@ -44,7 +44,6 @@ public class HistoryInvoiceController {
     public TableColumn<Invoice, String> colDeliveryPhoneNumberInvoice;
     public TableColumn<Invoice, Timestamp> colCreatedAtInvoice;
     public TableView<Invoice> tableListInvoice;
-
     public TableColumn<Integer, Integer> colSttInvoiceDetail;
     public TableColumn<InvoiceDetail, Product> colProductInvoiceDetail;
     public TableColumn<InvoiceDetail, String> colPriceInvoiceDetail;
@@ -54,26 +53,58 @@ public class HistoryInvoiceController {
     public AnchorPane viewInvoice;
     public Button btnExportInvoice;
     public Button btnExportExcel;
-
+    private PauseTransition pause = new PauseTransition(Duration.seconds(0.5)); // throttle thời gian tạm dừng là 1 giây
     private ObservableList<Invoice> listInvoice;
     private ObservableList<String> listKetSearch = FXCollections.observableArrayList(
-            "ID","Staff", "Customer", "Delivery Address", "Delivery PhoneNumber");
+            "ID", "Staff", "Customer", "Delivery Address", "Delivery PhoneNumber");
 
 
     public void initialize() {
+        setupDatePicker();
         // keysearch
         keySearch.setItems(listKetSearch);
         keySearch.setValue("ID");
         setupSearch();
         setupExportExcel();
-        reloadTableView();
+        reloadTableView(new FromAndToDate());
         setUpTableListInvoice();
         setupBtnExportInvoice();
     }
 
-    private void reloadTableView() {
-        listInvoice = FXCollections.observableArrayList(invoicesService.getAllInvoice());
-        if(listInvoice.size() == 0) {
+    private void setupDatePicker() {
+        StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        };
+        fromDate.setConverter(converter);
+        toDate.setConverter(converter);
+        toDate.setValue(LocalDate.now());
+        fromDate.setValue(toDate.getValue().withDayOfMonth(1));
+        toDate.setEditable(false);
+        fromDate.setEditable(false);
+    }
+
+    private void reloadTableView(FromAndToDate fromAndToDate) {
+        listInvoice = FXCollections.observableArrayList(invoicesService.getAllInvoice(fromAndToDate));
+        tableListInvoice.setItems(listInvoice);
+        if (listInvoice.size() == 0) {
             return;
         }
         colCustomerInvoice.setCellValueFactory(new PropertyValueFactory<>("customer"));
@@ -96,13 +127,12 @@ public class HistoryInvoiceController {
         colDeliveryPhoneNumberInvoice.setCellValueFactory(new PropertyValueFactory<>("deliveryPhoneNumber"));
         colCreatedAtInvoice.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
         colIdInvoice.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tableListInvoice.setItems(listInvoice);
         tableListInvoice.getSelectionModel().selectFirst();
-        new Thread(()-> {
+        new Thread(() -> {
             for (Invoice item : listInvoice) {
                 item.setListInvoiceDetails(invoicesDetailsService.getInvoiceDetailByIdInvoice(item.getId()));
             }
-            Platform.runLater(()->{
+            Platform.runLater(() -> {
                 // update table invoice details
                 updateInvoiceDetailsCurrentRowInvoice();
                 loadInvoice();
@@ -131,7 +161,7 @@ public class HistoryInvoiceController {
                 if ("ID".equals(keySearch.getValue())) {
                     return String.valueOf(p.getId()).toLowerCase().contains(searchText);
                 }
-                if("Staff".equals(keySearch.getValue())) {
+                if ("Staff".equals(keySearch.getValue())) {
                     return p.getStaff().toString().toLowerCase().contains(searchText);
                 }
                 if ("Customer".equals(keySearch.getValue())) {
@@ -147,11 +177,15 @@ public class HistoryInvoiceController {
             loadInvoice();
             updateInvoiceDetailsCurrentRowInvoice();
         });
+
+        btnSearch.setOnAction(actionEvent -> {
+            reloadTableView(new FromAndToDate(fromDate.getValue(), toDate.getValue()));
+        });
     }
 
     private void updateInvoiceDetailsCurrentRowInvoice() {
         Invoice currentInvoice = tableListInvoice.getSelectionModel().getSelectedItem();
-        if(currentInvoice == null) {
+        if (currentInvoice == null) {
             return;
         }
         tableListInvoiceDetail.getItems().clear();
@@ -204,11 +238,11 @@ public class HistoryInvoiceController {
     }
 
     private void embedJasperReport(JasperPrint jasperPrint) {
-        if(jasperPrint == null) {
+        if (jasperPrint == null) {
             viewInvoice.getChildren().clear();
             return;
         }
-        new Thread(()->{
+        new Thread(() -> {
             JRViewer viewer = new JRViewer(jasperPrint);
             viewer.setZoomRatio(.5F);
             viewer.setFitPageZoomRatio();
@@ -216,7 +250,7 @@ public class HistoryInvoiceController {
             SwingNode swingNode = new SwingNode();
             swingNode.setContent(viewer);
             Platform.runLater(() -> {
-                if(viewInvoice.getChildren().isEmpty()) {
+                if (viewInvoice.getChildren().isEmpty()) {
                     viewInvoice.getChildren().add(0, swingNode);
                     viewInvoice.requestLayout();
                     return;

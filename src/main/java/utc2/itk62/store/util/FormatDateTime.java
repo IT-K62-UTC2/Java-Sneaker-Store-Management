@@ -38,23 +38,4 @@ public class FormatDateTime {
         return dateFormat.format(date);
     }
 
-
-
-    public static String DateToString(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return dateFormat.format(date);
-    }
-
-    public static String timeToString(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        return dateFormat.format(date);
-    }
-
-    public static Date stringDatePickerToDate(String strDate, SimpleDateFormat format) {
-        try {
-            return format.parse(strDate);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
