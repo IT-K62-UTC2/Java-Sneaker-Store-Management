@@ -48,7 +48,7 @@ public class HomeController {
             Scene scene = null;
             try {
                 Stage stage = new Stage();
-                scene = new Scene(fxmlLoader.load(), 1400, 700);
+                scene = new Scene(fxmlLoader.load());
                 stage.setTitle("Hello!");
                 stage.setScene(scene);
                 stage.getIcons().add(new Image(getClass().getResourceAsStream("/utc2/itk62/store/images/iconTile.png")));

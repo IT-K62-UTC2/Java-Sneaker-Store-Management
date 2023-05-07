@@ -20,7 +20,7 @@
    <children>
       <HBox layoutX="291.0" layoutY="236.0" prefHeight="700.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="700.0" prefWidth="700.0">
+            <AnchorPane prefHeight="700.0" prefWidth="900.0">
                <children>
                   <VBox layoutX="55.0" layoutY="95.0" prefHeight="700.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -52,7 +52,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="700.0" prefWidth="500.0">
                <children>
-                  <TableView fx:id="tableViewOrder" layoutX="9.0" layoutY="14.0" prefHeight="298.0" prefWidth="482.0">
+                  <TableView fx:id="tableViewOrder" layoutX="5.0" layoutY="14.0" prefHeight="298.0" prefWidth="482.0">
                     <columns>
                       <TableColumn fx:id="colNameProd" prefWidth="75.0" text="Name product" />
                         <TableColumn fx:id="colQuantityProd" prefWidth="75.0" text="Quantity" />

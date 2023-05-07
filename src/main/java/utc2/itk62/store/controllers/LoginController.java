@@ -37,8 +37,10 @@ public class LoginController {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("views/home.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setTitle("Home");
+            stage.close();
+            stage = new Stage();
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
         }
     }

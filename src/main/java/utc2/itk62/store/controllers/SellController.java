@@ -6,8 +6,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
@@ -180,6 +182,7 @@ public class SellController {
             try {
                 FXMLLoader load = new FXMLLoader(Main.class.getResource("views/card-product.fxml"));
                 Pane pane = load.load();
+                pane.setStyle("-fx-border-style: solid; -fx-border-width: 1px; -fx-border-color: black;");
                 CardProductController cardProductController = load.getController();
                 cardProductController.setProduct(listProducts.get(i));
                 cardProductController.setBtnAdd(this);

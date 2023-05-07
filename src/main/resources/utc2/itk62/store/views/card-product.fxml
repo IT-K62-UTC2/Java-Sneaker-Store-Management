@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.CardProductController">
    <children>
-      <VBox layoutX="92.0" prefHeight="200.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="92.0" prefHeight="400.0" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox prefHeight="22.0" prefWidth="230.0">
                <children>
@@ -23,14 +23,14 @@
                <children>
                   <Label fx:id="nameProduct" text="Nike AF1 Vip pro">
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
                </children>
             </HBox>
             <AnchorPane prefHeight="230.0" prefWidth="400.0">
                <children>
-                  <ImageView fx:id="imageProduct" fitHeight="210.0" fitWidth="210.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imageProduct" fitHeight="210.0" fitWidth="210.0" layoutX="5.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
             <HBox>
@@ -86,4 +86,7 @@
          </children>
       </VBox>
    </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
 </AnchorPane>
