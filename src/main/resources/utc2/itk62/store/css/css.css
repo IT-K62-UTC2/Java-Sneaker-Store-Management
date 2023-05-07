@@ -10,3 +10,7 @@
     -fx-background-color: rgba(255, 255, 255, .2);
     -fx-background-radius: 10;
 }
+
+.background-empty {
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
