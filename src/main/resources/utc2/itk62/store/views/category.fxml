@@ -17,9 +17,9 @@
 
 <AnchorPane prefHeight="664.0" prefWidth="1148.8" styleClass="container" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.CategoryController">
    <children>
-      <VBox alignment="CENTER" layoutX="-5.0" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: DADCE7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="-5.0" prefHeight="700.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="76.0" prefWidth="1150.0" style="-fx-background-color: #B3BCB4;">
+            <HBox alignment="CENTER" prefHeight="76.0" prefWidth="1150.0">
                <children>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -159,7 +159,7 @@
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </HBox>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="1272.0" style="-fx-background-color: #D3F3D7;" text="Category List">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="1272.0" text="Category List">
                <font>
                   <Font name="Arial Bold" size="18.0" />
                </font>
@@ -183,7 +183,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Label alignment="CENTER" prefHeight="30.0" prefWidth="1231.0" style="-fx-background-color: #D3F3D7;" text="Product List By Category">
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="1231.0" text="Product List By Category">
                <font>
                   <Font name="Arial Bold" size="18.0" />
                </font>
