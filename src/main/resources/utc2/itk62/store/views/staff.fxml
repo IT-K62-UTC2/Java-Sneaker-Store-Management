@@ -17,9 +17,9 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.StaffController">
    <children>
-      <VBox layoutX="1.0" layoutY="1.0" prefHeight="1123.4" prefWidth="1201.0" style="-fx-background-color: DADCE7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="1.0" layoutY="1.0" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: DADCE7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="80.0" prefWidth="1170.0" style="-fx-background-color: #B3BCB4;">
+            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="1200.0" style="-fx-background-color: #B3BCB4;">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                      <image>
@@ -39,20 +39,14 @@
                   <Insets bottom="20.0" top="20.0" />
                </padding>
             </HBox>
-            <HBox>
+            <HBox prefHeight="232.0" prefWidth="1200.0">
                <children>
-                  <VBox>
+                  <VBox prefHeight="0.0" prefWidth="705.0">
                      <children>
                         <HBox>
                            <children>
-                              <Label prefHeight="36.8" prefWidth="150.0" text="ID">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <TextField id="label" fx:id="idStaff" editable="false" prefWidth="600.0" stylesheets="@../css/stylesheet.css">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></TextField>
+                              <Label text="ID" />
+                              <TextField id="label" fx:id="idStaff" editable="false" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -60,11 +54,8 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="36.8" prefWidth="150.0" text="Position">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <ComboBox id="bevel" fx:id="position" prefHeight="26.0" prefWidth="200.0" stylesheets="@../css/stylesheet.css" />
+                              <Label text="Position" />
+                              <ComboBox id="bevel" fx:id="position" prefWidth="200.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -72,14 +63,8 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="36.8" prefWidth="150.0" text="Username">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <TextField id="label" fx:id="username" prefWidth="600.0" stylesheets="@../css/stylesheet.css">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></TextField>
+                              <Label text="Username" />
+                              <TextField id="label" fx:id="username" prefWidth="567.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -87,14 +72,8 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="36.8" prefWidth="150.0" text="Full name">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <TextField id="label" fx:id="fullname" prefWidth="600.0" stylesheets="@../css/stylesheet.css">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></TextField>
+                              <Label text="Full name" />
+                              <TextField id="label" fx:id="fullname" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -102,14 +81,8 @@
                         </HBox>
                         <HBox prefWidth="800.0">
                            <children>
-                              <Label prefHeight="36.8" prefWidth="150.0" text="Address">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <TextField id="label" fx:id="address" prefWidth="600.0" stylesheets="@../css/stylesheet.css">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></TextField>
+                              <Label text="Address" />
+                              <TextField id="label" fx:id="address" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -117,14 +90,8 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="36.8" prefWidth="150.0" text="Phone number">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <TextField id="label" fx:id="phoneNumber" prefWidth="600.0" stylesheets="@../css/stylesheet.css">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></TextField>
+                              <Label text="Phone number" />
+                              <TextField id="label" fx:id="phoneNumber" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -132,14 +99,8 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="36.8" prefWidth="150.0" text="CCCD">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <TextField id="label" fx:id="cccd" prefWidth="600.0" stylesheets="@../css/stylesheet.css">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></TextField>
+                              <Label text="CCCD" />
+                              <TextField id="label" fx:id="cccd" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -147,14 +108,8 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="36.8" prefWidth="150.0" text="Email">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <TextField id="label" fx:id="email" prefWidth="600.0" stylesheets="@../css/stylesheet.css">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></TextField>
+                              <Label text="Email" />
+                              <TextField id="label" fx:id="email" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -162,18 +117,9 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="36.8" prefWidth="150.0" text="Gender">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <RadioButton fx:id="maleBtn" mnemonicParsing="false" prefWidth="200.0" text="Male">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></RadioButton>
-                              <RadioButton fx:id="femaleBtn" mnemonicParsing="false" text="Female">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></RadioButton>
+                              <Label text="Gender" />
+                              <RadioButton fx:id="maleBtn" mnemonicParsing="false" prefWidth="200.0" text="Male" />
+                              <RadioButton fx:id="femaleBtn" mnemonicParsing="false" text="Female" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -187,11 +133,11 @@
                         <Insets right="20.0" />
                      </padding>
                   </VBox>
-                  <VBox alignment="CENTER" prefWidth="600.0">
+                  <VBox alignment="CENTER" prefHeight="23.0" prefWidth="542.0">
                      <children>
                         <Label text="AVARTAR" />
-                        <ImageView fx:id="imageAvatar" fitHeight="200.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button id="sale" fx:id="btnAddImage" mnemonicParsing="false" onAction="#btnAddImage" prefHeight="70.0" prefWidth="360.0" stylesheets="@../css/stylesheet.css" text="Add image">
+                        <ImageView fx:id="imageAvatar" fitHeight="216.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true" />
+                        <Button id="sale" fx:id="btnAddImage" mnemonicParsing="false" onAction="#btnAddImage" prefHeight="39.0" prefWidth="264.0" stylesheets="@../css/stylesheet.css" text="Add image">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -199,7 +145,7 @@
                               <Insets />
                            </VBox.margin>
                            <graphic>
-                              <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                              <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                  <image>
                                     <Image url="@../images/add_img.png" />
                                  </image>
@@ -207,7 +153,7 @@
                            </graphic></Button>
                         <HBox alignment="CENTER">
                            <children>
-                              <Button id="sale" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddStaff" prefHeight="50.0" prefWidth="120.0" stylesheets="@../css/stylesheet.css" text="Add">
+                              <Button id="sale" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleAddStaff" prefHeight="30.0" prefWidth="150.0" stylesheets="@../css/stylesheet.css" text="Add">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -215,13 +161,13 @@
                                     <Insets right="5.0" />
                                  </HBox.margin>
                                  <graphic>
-                                    <ImageView fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="-13.0">
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-13.0">
                                        <image>
                                           <Image url="@../images/add_icon.png" />
                                        </image>
                                     </ImageView>
                                  </graphic></Button>
-                              <Button id="sale" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleUpdateStaff" prefHeight="50.0" prefWidth="140.0" stylesheets="@../css/stylesheet.css" text="Update">
+                              <Button id="sale" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleUpdateStaff" prefHeight="30.0" prefWidth="150.0" stylesheets="@../css/stylesheet.css" text="Update">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -229,13 +175,13 @@
                                     <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                                  <graphic>
-                                    <ImageView fitHeight="150.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-13.0">
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-13.0">
                                        <image>
                                           <Image url="@../images/arrow.png" />
                                        </image>
                                     </ImageView>
                                  </graphic></Button>
-                              <Button id="sale" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleDeleteStaff" prefHeight="50.0" prefWidth="130.0" stylesheets="@../css/stylesheet.css" text="Delete">
+                              <Button id="sale" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleDeleteStaff" prefHeight="30.0" prefWidth="150.0" stylesheets="@../css/stylesheet.css" text="Delete">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -243,26 +189,26 @@
                                     <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                                  <graphic>
-                                    <ImageView fitHeight="150.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0">
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0">
                                        <image>
                                           <Image url="@../images/delete.png" />
                                        </image>
                                     </ImageView>
                                  </graphic></Button>
-                              <Button id="sale" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleBtnExportExcel" prefHeight="50.0" prefWidth="170.0" stylesheets="@../css/stylesheet.css" text="Export excel">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
+                              <Button id="sale" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleBtnExportExcel" prefHeight="30.0" prefWidth="150.0" stylesheets="@../css/stylesheet.css" text="Export excel">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
                                  <graphic>
-                                    <ImageView fitHeight="150.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                        <image>
                                           <Image url="@../images/excel.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
                               </Button>
                            </children>
                            <VBox.margin>
@@ -276,34 +222,31 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox prefHeight="72.0" prefWidth="1200.0">
+            <HBox prefHeight="0.0" prefWidth="1200.0">
                <children>
-                  <Label text="Search">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
-                  <TextField id="bevel" fx:id="valueSearch" onKeyReleased="#handleChangeSearchValue" prefWidth="195.0" stylesheets="@../css/stylesheet.css">
+                  <Label text="Search" />
+                  <TextField id="bevel" fx:id="valueSearch" onKeyReleased="#handleChangeSearchValue" stylesheets="@../css/stylesheet.css">
                      <HBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="Arial" size="16.0" />
+                        <Font name="Arial" size="12.0" />
                      </font></TextField>
-                  <ComboBox id="bevel" fx:id="keySearch" prefHeight="28.0" prefWidth="200.0" stylesheets="@../css/stylesheet.css" />
+                  <ComboBox id="bevel" fx:id="keySearch" stylesheets="@../css/stylesheet.css" />
                </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </HBox>
-            <TableView fx:id="tableListStaff" maxWidth="1200.0" onKeyPressed="#handleOnKeyPresedTableView" onMouseClicked="#handleClickedTableView" prefHeight="184.0" prefWidth="1200.0">
+            <TableView fx:id="tableListStaff" maxWidth="1200.0" onKeyPressed="#handleOnKeyPresedTableView" onMouseClicked="#handleClickedTableView" prefHeight="299.0" prefWidth="1200.0">
               <columns>
                 <TableColumn fx:id="colStt" prefWidth="75.0" text="STT" />
                   <TableColumn fx:id="colIdStaff" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="colPosition" prefWidth="75.0" text="Vị trí" />
                   <TableColumn fx:id="colUsername" prefWidth="75.0" text="Tên đăng nhập" />
                   <TableColumn fx:id="colFullname" prefWidth="75.0" text="Họ và tên" />
-                  <TableColumn fx:id="colAddress" prefWidth="75.0" text="Địa chỉ" />
-                  <TableColumn fx:id="colEmail" prefWidth="75.0" text="Email" />
+                  <TableColumn fx:id="colAddress" prefWidth="112.80001831054688" text="Địa chỉ" />
+                  <TableColumn fx:id="colEmail" prefWidth="87.199951171875" text="Email" />
                   <TableColumn fx:id="colPhoneNumber" prefWidth="75.0" text="Số điện thoại" />
                   <TableColumn fx:id="colCccd" prefWidth="75.0" text="CCCD" />
                   <TableColumn fx:id="colGender" prefWidth="75.0" text="Giới tính" />
@@ -315,9 +258,6 @@
                </columnResizePolicy>
             </TableView>
          </children>
-         <padding>
-            <Insets left="20.0" right="10.0" />
-         </padding>
       </VBox>
    </children>
 </AnchorPane>

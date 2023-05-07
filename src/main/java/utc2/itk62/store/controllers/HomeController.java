@@ -65,6 +65,7 @@ public class HomeController {
         for (int i = 0; i < listAuth.size(); i++) {
             Menu menu = listAuth.get(i).getMenu();
             Button button = new Button(menu.getName());
+            button.setPrefWidth(200);
             button.setOnAction(actionEvent -> {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource(menu.getPath()));
                 Node node = null;
