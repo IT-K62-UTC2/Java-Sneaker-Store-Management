@@ -16,7 +16,7 @@
     <top>
         <HBox alignment="CENTER" prefHeight="65.0" prefWidth="1400.0" spacing="20.0" BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="CENTER" prefHeight="66.0" prefWidth="300.0" text="ADMIN DASHBOARD" textFill="WHITE">
+                <Label fx:id="curentMenu" alignment="CENTER" prefHeight="66.0" prefWidth="300.0" text="ADMIN DASHBOARD" textFill="WHITE">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -44,30 +44,33 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </BorderPane.margin>
             <children>
-                <HBox alignment="CENTER" prefHeight="168.0" prefWidth="200.0">
+                <HBox alignment="CENTER" prefHeight="150.0" prefWidth="200.0" spacing="5.0">
                     <children>
-                        <ImageView fx:id="image" fitHeight="60.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imageUser" fitHeight="60.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../images/consultant.png" />
                             </image>
                         </ImageView>
                         <VBox alignment="CENTER" prefHeight="167.0" prefWidth="122.0">
                             <children>
-                                <Label prefHeight="0.0" prefWidth="141.0" text="Nguyen Dang Quy" textFill="#ffd6dc">
+                                <Label fx:id="nameUser" prefHeight="0.0" prefWidth="141.0" text="Nguyen Dang Quy" textFill="#ffd6dc">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <Label prefHeight="0.0" prefWidth="141.0" text="Software Engineer" textFill="#f3abb5" />
+                                <Label fx:id="positionUser" prefHeight="0.0" prefWidth="141.0" text="Software Engineer" textFill="#f3abb5" />
                             </children>
                         </VBox>
                     </children>
                 </HBox>
                 <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1.0" prefWidth="180.0" styleClass="line-color" stylesheets="@../css/css.css" />
-                <VBox fx:id="vbox" prefHeight="454.0" prefWidth="200.0" />
+                <VBox fx:id="vbox" alignment="TOP_CENTER" prefHeight="450.0" prefWidth="200.0" spacing="20.0">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin></VBox>
                 <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="20.0">
                     <children>
-                        <Button fx:id="btnLogout" mnemonicParsing="false" prefHeight="43.0" prefWidth="170.0" styleClass="container" stylesheets="@../css/css.css" text="Logout">
+                        <Button fx:id="btnLogout" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="container" stylesheets="@../css/css.css" text="Logout">
                             <graphic>
                                 <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                     <image>

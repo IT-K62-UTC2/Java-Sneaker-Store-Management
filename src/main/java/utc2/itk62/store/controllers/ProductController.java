@@ -34,13 +34,11 @@ public class ProductController {
     public TextField quantity;
     public ComboBox<Supplier> supplier;
     public TextField price;
-    public TextArea desc;
+    public TextField desc;
     public ComboBox<Category> category;
     public Button btnAddImage;
     public ComboBox<String> keySearch;
     public TextField valueSearch;
-    public DatePicker toDate;
-    public DatePicker fromDate;
     public TableColumn<Integer, Integer> stt;
     public TableColumn<Product, Integer> colId;
     public TableColumn<Product, Supplier> colSupplier;

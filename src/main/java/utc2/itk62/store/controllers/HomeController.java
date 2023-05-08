@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -22,11 +23,21 @@ public class HomeController {
     @FXML
     public AnchorPane include;
     @FXML
-    public ImageView image;
     public VBox vbox;
     public Button btnLogout;
+    public Label curentMenu;
+    public Label nameUser;
+    public Label positionUser;
+    public ImageView imageUser;
 
     public void initialize() throws IOException {
+        nameUser.setText(User.staff.getFullName());
+        positionUser.setText(User.staff.getPosition().getName());
+        try {
+            imageUser.setImage(new Image(User.staff.getPathAvatar()));
+        } catch (Exception e) {
+            e.getMessage();
+        }
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/dashboard.fxml"));
         Node node = null;
         try {
@@ -65,10 +76,12 @@ public class HomeController {
         for (int i = 0; i < listAuth.size(); i++) {
             Menu menu = listAuth.get(i).getMenu();
             Button button = new Button(menu.getName());
-            button.setPrefWidth(200);
+            button.setPrefWidth(170);
+            button.setPrefHeight(40);
             button.setOnAction(actionEvent -> {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource(menu.getPath()));
                 Node node = null;
+                curentMenu.setText(menu.getName());
                 try {
                     node = loader.load();
                     include.getChildren().set(0, node);
