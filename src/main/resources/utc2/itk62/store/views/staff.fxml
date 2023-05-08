@@ -15,13 +15,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="664.0" prefWidth="1148.8" styleClass="container" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.StaffController">
+<AnchorPane prefHeight="664.0" prefWidth="1148.8" styleClass="gradient-background" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.StaffController">
    <children>
       <VBox layoutX="1.0" layoutY="1.0" prefHeight="700.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER" prefHeight="30.0" prefWidth="1200.0">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                  <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                      <image>
                         <Image url="@../images/consultant.png" />
                      </image>
@@ -36,17 +36,20 @@
                   <Insets />
                </VBox.margin>
                <padding>
-                  <Insets bottom="20.0" top="20.0" />
+                  <Insets bottom="20.0" />
                </padding>
             </HBox>
             <HBox prefHeight="232.0" prefWidth="1200.0">
                <children>
                   <VBox prefHeight="0.0" prefWidth="705.0">
                      <children>
-                        <HBox prefHeight="0.0" prefWidth="631.0">
+                        <HBox prefHeight="25.6" prefWidth="631.0">
                            <children>
-                              <Label prefWidth="150.0" text="ID" />
-                              <TextField id="label" fx:id="idStaff" editable="false" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
+                              <Label prefHeight="25.6" prefWidth="174.0" styleClass="container" stylesheets="@../css/css.css" text="ID" textFill="#ffd6dc" />
+                              <TextField fx:id="idStaff" disable="true" editable="false" opacity="0.25" prefWidth="600.0" styleClass="container" stylesheets="@../css/css.css">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin></TextField>
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -54,8 +57,11 @@
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="631.0">
                            <children>
-                              <Label prefWidth="150.0" text="Position" />
-                              <ComboBox id="bevel" fx:id="position" prefWidth="200.0" stylesheets="@../css/stylesheet.css" />
+                              <Label prefHeight="25.6" prefWidth="85.0" styleClass="container" stylesheets="@../css/css.css" text="Position" textFill="#ffd6dc" />
+                              <ComboBox fx:id="position" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin></ComboBox>
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -63,8 +69,11 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="18.0" prefWidth="116.0" text="Username" />
-                              <TextField id="label" fx:id="username" prefWidth="567.0" stylesheets="@../css/stylesheet.css" />
+                              <Label prefHeight="25.6" prefWidth="143.0" styleClass="container" stylesheets="@../css/css.css" text="Username" textFill="#ffd6dc" />
+                              <TextField fx:id="username" prefWidth="567.0" styleClass="container" stylesheets="@../css/css.css">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin></TextField>
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -72,8 +81,11 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefWidth="150.0" text="Full name" />
-                              <TextField id="label" fx:id="fullname" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
+                              <Label prefHeight="26.0" prefWidth="180.0" styleClass="container" stylesheets="@../css/css.css" text="Full name" textFill="#ffd6dc" />
+                              <TextField fx:id="fullname" prefWidth="600.0" styleClass="container" stylesheets="@../css/css.css">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin></TextField>
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -81,8 +93,11 @@
                         </HBox>
                         <HBox prefWidth="800.0">
                            <children>
-                              <Label prefWidth="150.0" text="Address" />
-                              <TextField id="label" fx:id="address" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
+                              <Label prefHeight="25.6" prefWidth="180.0" styleClass="container" stylesheets="@../css/css.css" text="Address" textFill="#ffd6dc" />
+                              <TextField fx:id="address" prefWidth="600.0" styleClass="container" stylesheets="@../css/css.css">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin></TextField>
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -90,8 +105,11 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefWidth="150.0" text="Phone number" />
-                              <TextField id="label" fx:id="phoneNumber" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
+                              <Label prefHeight="26.0" prefWidth="180.0" styleClass="container" stylesheets="@../css/css.css" text="Phone number" textFill="#ffd6dc" />
+                              <TextField fx:id="phoneNumber" prefWidth="600.0" styleClass="container" stylesheets="@../css/css.css">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin></TextField>
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -99,8 +117,11 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefWidth="150.0" text="CCCD" />
-                              <TextField id="label" fx:id="cccd" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
+                              <Label prefHeight="25.6" prefWidth="180.0" styleClass="container" stylesheets="@../css/css.css" text="CCCD" textFill="#ffd6dc" />
+                              <TextField fx:id="cccd" prefWidth="600.0" styleClass="container" stylesheets="@../css/css.css">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin></TextField>
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -108,8 +129,11 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefWidth="150.0" text="Email" />
-                              <TextField id="label" fx:id="email" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
+                              <Label prefHeight="25.6" prefWidth="180.0" styleClass="container" stylesheets="@../css/css.css" text="Email" textFill="#ffd6dc" />
+                              <TextField fx:id="email" prefWidth="600.0" styleClass="container" stylesheets="@../css/css.css">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin></TextField>
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -117,9 +141,12 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefWidth="150.0" text="Gender" />
-                              <RadioButton fx:id="maleBtn" mnemonicParsing="false" prefWidth="200.0" text="Male" />
-                              <RadioButton fx:id="femaleBtn" mnemonicParsing="false" text="Female" />
+                              <Label prefHeight="25.6" prefWidth="87.0" styleClass="container" stylesheets="@../css/css.css" text="Gender" textFill="#ffd6dc" />
+                              <RadioButton fx:id="maleBtn" mnemonicParsing="false" prefHeight="25.6" prefWidth="62.0" styleClass="container" stylesheets="@../css/css.css" text="Male" textFill="#ffd6dc">
+                                 <HBox.margin>
+                                    <Insets left="20.0" right="50.0" />
+                                 </HBox.margin></RadioButton>
+                              <RadioButton fx:id="femaleBtn" mnemonicParsing="false" prefHeight="25.6" styleClass="container" stylesheets="@../css/css.css" text="Female" textFill="#ffd6dc" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="10.0" />
@@ -135,7 +162,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="23.0" prefWidth="542.0">
                      <children>
-                        <Label text="AVARTAR" />
+                        <Label text="AVARTAR" textFill="#ffd6dc" />
                         <ImageView fx:id="imageAvatar" fitHeight="216.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true" />
                         <Button id="sale" fx:id="btnAddImage" mnemonicParsing="false" onAction="#btnAddImage" prefHeight="39.0" prefWidth="264.0" stylesheets="@../css/stylesheet.css" text="Add image">
                            <font>
@@ -195,7 +222,7 @@
                                        </image>
                                     </ImageView>
                                  </graphic></Button>
-                              <Button id="sale" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleBtnExportExcel" prefHeight="30.0" prefWidth="150.0" stylesheets="@../css/stylesheet.css" text="Export excel">
+                              <Button id="sale" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleBtnExportExcel" prefHeight="30.0" prefWidth="170.0" stylesheets="@../css/stylesheet.css" text="Export excel">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
@@ -224,18 +251,23 @@
             </HBox>
             <HBox prefHeight="0.0" prefWidth="1200.0">
                <children>
-                  <Label text="Search" />
-                  <TextField id="bevel" fx:id="valueSearch" onKeyReleased="#handleChangeSearchValue" stylesheets="@../css/stylesheet.css">
+                  <Label prefHeight="25.6" styleClass="container" stylesheets="@../css/css.css" text="Search" textFill="#ffd6dc" />
+                  <ImageView fitHeight="150.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="40.0">
+                     <image>
+                        <Image url="@../images/icons8-search-50.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="valueSearch" onKeyReleased="#handleChangeSearchValue" prefHeight="25.6" styleClass="container" stylesheets="@../css/css.css">
                      <HBox.margin>
-                        <Insets left="20.0" right="20.0" />
+                        <Insets left="40.0" right="20.0" />
                      </HBox.margin>
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></TextField>
-                  <ComboBox id="bevel" fx:id="keySearch" stylesheets="@../css/stylesheet.css" />
+                  <ComboBox fx:id="keySearch" styleClass="container" stylesheets="@../css/css.css" />
                </children>
                <VBox.margin>
-                  <Insets />
+                  <Insets bottom="5.0" />
                </VBox.margin>
             </HBox>
             <TableView fx:id="tableListStaff" maxWidth="1200.0" onKeyPressed="#handleOnKeyPresedTableView" onMouseClicked="#handleClickedTableView" prefHeight="299.0" prefWidth="1200.0">

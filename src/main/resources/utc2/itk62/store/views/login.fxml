@@ -42,7 +42,7 @@
          <children>
             <Label fx:id="statusLabel" alignment="CENTER" text=" LOGIN">
                <VBox.margin>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="10.0" top="21.0" />
                </VBox.margin>
                <padding>
                   <Insets top="30.0" />

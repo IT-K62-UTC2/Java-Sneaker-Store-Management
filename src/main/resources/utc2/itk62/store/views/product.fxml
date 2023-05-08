@@ -19,6 +19,23 @@
     <children>
       <VBox alignment="CENTER" layoutX="1.0" layoutY="1.0" prefHeight="664.0" prefWidth="1148.8" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="-8.0">
+                     <image>
+                        <Image url="@../images/inspection.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Product Management">
+                     <font>
+                        <Font name="Arial Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+            </HBox>
             <HBox alignment="CENTER" prefWidth="765.6">
                <children>
                   <VBox prefHeight="316.0" prefWidth="840.0" spacing="10.0">
@@ -30,7 +47,7 @@
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="id" editable="false" prefHeight="26.0" prefWidth="516.0" styleClass="container" stylesheets="@../css/css.css" />
+                              <TextField fx:id="id" disable="true" editable="false" opacity="0.25" prefHeight="26.0" prefWidth="516.0" styleClass="container" stylesheets="@../css/css.css" />
                            </children>
                         </HBox>
                         <HBox spacing="30.0">
@@ -105,38 +122,38 @@
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Button fx:id="btnAdd" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="Add" textFill="#ffd6dc">
+                              <Button id="sale" fx:id="btnAdd" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" stylesheets="@../css/stylesheet.css" text="Add" textFill="#ffd6dc">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                        <image>
-                                          <Image url="@../images/icons8-add-50.png" />
+                                          <Image url="@../images/add_icon.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnUpdate" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="Update" textFill="#ffd6dc">
+                              <Button id="sale" fx:id="btnUpdate" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" stylesheets="@../css/stylesheet.css" text="Update" textFill="#ffd6dc">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                        <image>
-                                          <Image url="@../images/icons8-restart-50.png" />
+                                          <Image url="@../images/arrow.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnDelete" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="Delete" textFill="#ffd6dc">
+                              <Button id="sale" fx:id="btnDelete" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" stylesheets="@../css/stylesheet.css" text="Delete" textFill="#ffd6dc">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                        <image>
-                                          <Image url="@../images/icons8-remove-50.png" />
+                                          <Image url="@../images/delete.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnExportExcel" graphicTextGap="0.0" mnemonicParsing="false"  prefHeight="30.0" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="Export excel" textFill="#ffd6dc">
+                              <Button id="sale" fx:id="btnExportExcel" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" stylesheets="@../css/stylesheet.css" text="Export excel" textFill="#ffd6dc">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                        <image>
-                                          <Image url="@../images/icons8-microsoft-excel-50.png" />
+                                          <Image url="@../images/excel.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -157,7 +174,7 @@
                               <ImageView fx:id="image" fitHeight="200.0" fitWidth="200.0" layoutX="56.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </Pane>
-                        <Button fx:id="btnAddImage" mnemonicParsing="false"  prefHeight="39.0" prefWidth="264.0" styleClass="container" stylesheets="@../css/css.css" text="Add image">
+                        <Button id="sale" fx:id="btnAddImage" mnemonicParsing="false" prefHeight="39.0" prefWidth="264.0" stylesheets="@../css/stylesheet.css" text="Add image">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -214,8 +231,14 @@
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
          </children>
       </VBox>
     </children>
+   <padding>
+      <Insets left="10.0" right="10.0" />
+   </padding>
 </AnchorPane>
