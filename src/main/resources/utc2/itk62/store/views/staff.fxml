@@ -45,7 +45,7 @@
                      <children>
                         <HBox prefHeight="0.0" prefWidth="631.0">
                            <children>
-                              <Label text="ID" />
+                              <Label prefWidth="150.0" text="ID" />
                               <TextField id="label" fx:id="idStaff" editable="false" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
@@ -54,7 +54,7 @@
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="631.0">
                            <children>
-                              <Label text="Position" />
+                              <Label prefWidth="150.0" text="Position" />
                               <ComboBox id="bevel" fx:id="position" prefWidth="200.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
@@ -63,7 +63,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label text="Username" />
+                              <Label prefHeight="18.0" prefWidth="116.0" text="Username" />
                               <TextField id="label" fx:id="username" prefWidth="567.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
@@ -72,7 +72,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label text="Full name" />
+                              <Label prefWidth="150.0" text="Full name" />
                               <TextField id="label" fx:id="fullname" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
@@ -81,7 +81,7 @@
                         </HBox>
                         <HBox prefWidth="800.0">
                            <children>
-                              <Label text="Address" />
+                              <Label prefWidth="150.0" text="Address" />
                               <TextField id="label" fx:id="address" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
@@ -90,7 +90,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label text="Phone number" />
+                              <Label prefWidth="150.0" text="Phone number" />
                               <TextField id="label" fx:id="phoneNumber" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
@@ -99,7 +99,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label text="CCCD" />
+                              <Label prefWidth="150.0" text="CCCD" />
                               <TextField id="label" fx:id="cccd" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
@@ -108,7 +108,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label text="Email" />
+                              <Label prefWidth="150.0" text="Email" />
                               <TextField id="label" fx:id="email" prefWidth="600.0" stylesheets="@../css/stylesheet.css" />
                            </children>
                            <VBox.margin>
@@ -117,7 +117,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label text="Gender" />
+                              <Label prefWidth="150.0" text="Gender" />
                               <RadioButton fx:id="maleBtn" mnemonicParsing="false" prefWidth="200.0" text="Male" />
                               <RadioButton fx:id="femaleBtn" mnemonicParsing="false" text="Female" />
                            </children>
@@ -163,7 +163,7 @@
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-13.0">
                                        <image>
-                                          <Image url="@../images/icons8-add-50.png" />
+                                          <Image url="@../images/add_icon.png" />
                                        </image>
                                     </ImageView>
                                  </graphic></Button>
@@ -258,6 +258,9 @@
                </columnResizePolicy>
             </TableView>
          </children>
+         <padding>
+            <Insets left="20.0" right="10.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>

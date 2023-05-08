@@ -21,3 +21,7 @@
     -fx-font-size: 24;
     -fx-tick-label-fill: #fff;
 }
+.test{
+    -fx-border-radius: 0 50px 50px 0;
+    -fx-background-color: rgba(151, 255, 255, .2);
+}

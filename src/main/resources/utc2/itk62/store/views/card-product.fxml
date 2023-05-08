@@ -15,7 +15,7 @@
          <children>
             <HBox prefHeight="22.0" prefWidth="230.0">
                <children>
-                  <Label text="Mã sản phẩm:" />
+                  <Label prefHeight="18.0" prefWidth="103.0" text="Mã sản phẩm:" />
                   <Label fx:id="idProduct" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="156.0" text="0001" />
                </children>
             </HBox>
@@ -42,7 +42,7 @@
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></Label>
-                  <Label fx:id="priceProduct" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="125.0" text="5,600,000">
+                  <Label fx:id="priceProduct" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="125.0" text="5,600,000">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -57,7 +57,7 @@
             <HBox prefHeight="14.0" prefWidth="250.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="45.0" text="Desc" />
-                  <Label fx:id="descProduct" text="Đây là mô tả sản phẩm" />
+                  <Label fx:id="descProduct" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="170.0" text="Đây là mô tả sản phẩm" textAlignment="CENTER" />
                </children>
                <VBox.margin>
                   <Insets />
