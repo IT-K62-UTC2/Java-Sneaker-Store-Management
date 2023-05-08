@@ -96,6 +96,7 @@ public class StaffController {
             "ID","Username", "Name", "Address", "PhoneNumber", "CCCD");
 
     public void initialize() throws SQLException {
+        tableListStaff.setStyle("-fx-background-color: rgba(255, 255, 255, .2);-fx-background-radius: 10;");
         // Gender
         maleBtn.setToggleGroup(toggleGenderGroup);
         femaleBtn.setToggleGroup(toggleGenderGroup);

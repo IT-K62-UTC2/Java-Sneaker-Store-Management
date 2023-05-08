@@ -26,7 +26,7 @@
                 </Label>
                 <HBox alignment="CENTER" prefHeight="175.0" prefWidth="1149.0" spacing="20.0">
                     <children>
-                        <VBox alignment="CENTER" prefWidth="300.0">
+                        <VBox alignment="CENTER" prefHeight="0.0" prefWidth="250.0">
                             <children>
                                 <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -38,7 +38,7 @@
                                         <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Sản phẩm bán được" textFill="#ffd6dc">
+                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Sản phẩm tháng" textFill="#ffd6dc">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
@@ -46,7 +46,7 @@
                             </children>
                         </VBox>
                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="1.0" styleClass="line-color" stylesheets="@../css/css.css" />
-                        <VBox alignment="CENTER" prefWidth="300.0">
+                        <VBox alignment="CENTER" prefHeight="0.0" prefWidth="250.0">
                             <children>
                                 <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -58,7 +58,7 @@
                                         <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Doanh thu Sản Phẩm" textFill="#ffd6dc">
+                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Doanh thu tháng" textFill="#ffd6dc">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
@@ -66,25 +66,45 @@
                             </children>
                         </VBox>
                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="1.0" styleClass="line-color" stylesheets="@../css/css.css" />
-                        <VBox alignment="CENTER" prefWidth="300.0">
+                        <VBox alignment="CENTER" prefHeight="0.0" prefWidth="250.0">
                             <children>
                                 <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../images/iconTile.png" />
                                     </image>
                                 </ImageView>
-                                <Label fx:id="profit" alignment="CENTER" prefHeight="0.0" prefWidth="141.0" text="1,000,000" textFill="#ffd6dc">
+                                <Label fx:id="qtyProductToday" alignment="CENTER" prefHeight="0.0" prefWidth="141.0" text="1,000,000" textFill="#ffd6dc">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Lợi nhuận từ sản phẩm" textFill="#ffd6dc">
+                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Sản phẩm ngày" textFill="#ffd6dc">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
                                 </Label>
                             </children>
                         </VBox>
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="1.0" styleClass="line-color" stylesheets="@../css/css.css" />
+                  <VBox alignment="CENTER" prefHeight="0.0" prefWidth="250.0">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/iconTile.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="incomeToday" alignment="CENTER" prefHeight="0.0" prefWidth="141.0" text="1,000,000" textFill="#ffd6dc">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Doanh thu ngày" textFill="#ffd6dc">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                     </children>
                 </HBox>
             </children>

@@ -1,110 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="664.0" prefWidth="1148.8" styleClass="container" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.ProductController">
+<AnchorPane prefHeight="664.0" prefWidth="1148.8" styleClass="gradient-background" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.ProductController">
     <children>
-      <VBox alignment="CENTER" layoutX="1.0" layoutY="1.0" prefHeight="1181.0" prefWidth="1201.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="1.0" layoutY="1.0" prefHeight="664.0" prefWidth="1148.8" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Product">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" prefWidth="765.6">
                <children>
-                  <VBox prefHeight="396.0" prefWidth="600.0">
+                  <VBox prefHeight="316.0" prefWidth="840.0" spacing="10.0">
                      <children>
-                        <HBox>
+                        <HBox spacing="30.0">
                            <children>
-                                      <Label text="ID" />
-                                      <TextField fx:id="id" editable="false" />
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="ID" textFill="#ffd6dc">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="id" editable="false" prefHeight="26.0" prefWidth="516.0" styleClass="container" stylesheets="@../css/css.css" />
                            </children>
                         </HBox>
-                        <HBox>
+                        <HBox spacing="30.0">
                            <children>
-                                      <Label text="Supplier" />
-                                      <ComboBox fx:id="supplier" prefHeight="26.0" prefWidth="146.0" />
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Supplier" textFill="#ffd6dc">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <ComboBox fx:id="supplier" prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" visibleRowCount="0" />
                            </children>
                         </HBox>
-                        <HBox>
+                        <HBox spacing="30.0">
                            <children>
-                                      <Label text="Category" />
-                                      <ComboBox fx:id="category" prefWidth="150.0" />
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Category" textFill="#ffd6dc">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <ComboBox fx:id="category" prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" visibleRowCount="0" />
                            </children>
                         </HBox>
-                        <HBox>
+                        <HBox spacing="30.0">
                            <children>
-                                      <Label text="Name" />
-                                      <TextField fx:id="name" />
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Name" textFill="#ffd6dc">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="name" prefHeight="26.0" prefWidth="516.0" styleClass="container" stylesheets="@../css/css.css" />
                            </children>
                         </HBox>
-                        <HBox>
+                        <HBox spacing="30.0">
                            <children>
-                              <Label text="Import Price" />
-                              <TextField fx:id="importPrice" />
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Import Price" textFill="#ffd6dc">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="importPrice" prefHeight="26.0" prefWidth="516.0" styleClass="container" stylesheets="@../css/css.css" />
                            </children>
                         </HBox>
-                        <HBox>
+                        <HBox spacing="30.0">
                            <children>
-                                      <Label text="Price" />
-                                      <TextField fx:id="price" />
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Price" textFill="#ffd6dc">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="price" prefHeight="26.0" prefWidth="516.0" styleClass="container" stylesheets="@../css/css.css" />
                            </children>
                         </HBox>
-                        <HBox>
+                        <HBox spacing="30.0">
                            <children>
-                                      <Label text="Quantity" />
-                                      <TextField fx:id="quantity" />
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Quantity" textFill="#ffd6dc">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="quantity" prefHeight="26.0" prefWidth="516.0" styleClass="container" stylesheets="@../css/css.css" />
                            </children>
                         </HBox>
-                        <HBox>
+                        <HBox spacing="30.0">
                            <children>
-                                      <Label text="Desc" />
-                                      <TextArea fx:id="desc" prefHeight="200.0" prefWidth="200.0" />
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Description" textFill="#ffd6dc">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="desc" prefHeight="26.0" prefWidth="516.0" styleClass="container" stylesheets="@../css/css.css" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="30.0">
+                           <children>
+                              <Button fx:id="btnAdd" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="Add" textFill="#ffd6dc">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                                       <image>
+                                          <Image url="@../images/icons8-add-50.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="btnUpdate" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="Update" textFill="#ffd6dc">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                                       <image>
+                                          <Image url="@../images/icons8-restart-50.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="btnDelete" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="Delete" textFill="#ffd6dc">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                                       <image>
+                                          <Image url="@../images/icons8-remove-50.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="btnExportExcel" graphicTextGap="0.0" mnemonicParsing="false"  prefHeight="30.0" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="Export excel" textFill="#ffd6dc">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                                       <image>
+                                          <Image url="@../images/icons8-microsoft-excel-50.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox prefWidth="600.0">
+                  <VBox alignment="CENTER" prefHeight="316.0" prefWidth="316.0" spacing="10.0">
                      <children>
-                                <Label text="AVARTAR" />
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <Label alignment="CENTER" prefWidth="106.0" styleClass="container" stylesheets="@../css/css.css" text="AVARTAR" textFill="#ffd6dc">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="222.0" prefWidth="354.0" styleClass="container" stylesheets="@../css/css.css">
                            <children>
-                              <ImageView fx:id="image" fitHeight="250.0" fitWidth="250.0" layoutX="55.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="image" fitHeight="200.0" fitWidth="200.0" layoutX="56.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
-                        </AnchorPane>
-                                <Button fx:id="btnAddImage" mnemonicParsing="false" prefHeight="70.0" prefWidth="360.0" text="Add image" />
-                        <HBox>
-                           <children>
-                                        <Button fx:id="btnAdd" mnemonicParsing="false" prefHeight="50.0" prefWidth="90.0" text="Add" />
-                                        <Button fx:id="btnUpdate" mnemonicParsing="false" prefHeight="50.0" prefWidth="90.0" text="Update" />
-                                        <Button fx:id="btnDelete" mnemonicParsing="false" prefHeight="50.0" prefWidth="90.0" text="Delete" />
-                                        <Button fx:id="btnExportExcel" mnemonicParsing="false" prefHeight="50.0" prefWidth="90.0" text="Export excel" />
-                           </children>
-                        </HBox>
+                        </Pane>
+                        <Button fx:id="btnAddImage" mnemonicParsing="false"  prefHeight="39.0" prefWidth="264.0" styleClass="container" stylesheets="@../css/css.css" text="Add image">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                                 <image>
+                                    <Image url="@../images/add_img.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <HBox />
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <HBox>
+            <HBox spacing="30.0">
                <children>
-                        <Label text="Search" />
-                        <TextField fx:id="valueSearch" prefWidth="195.0" />
-                        <ComboBox fx:id="keySearch" prefHeight="28.0" prefWidth="200.0" />
+                  <Label prefHeight="26.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/css.css" text="Search" textFill="#ffd6dc">
+                     <graphic>
+                        <ImageView fitHeight="25.6" fitWidth="25.6" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8-search-50.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+                  <TextField id="bevel" fx:id="valueSearch" prefHeight="0.0" prefWidth="350.0" styleClass="container" stylesheets="@../css">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </TextField>
+                  <ComboBox id="bevel" fx:id="keySearch" prefHeight="30.0" prefWidth="180.0" styleClass="container" stylesheets="@../css/css.css" />
                </children>
             </HBox>
-                <TableView fx:id="tableListProduct" maxWidth="1200.0" prefHeight="700.0" prefWidth="1200.0">
+                <TableView fx:id="tableListProduct" maxWidth="1200.0" prefHeight="407.0" prefWidth="1139.0">
                <columns>
                   <TableColumn fx:id="stt" prefWidth="75.0" text="STT" />
                   <TableColumn fx:id="colId" prefWidth="75.0" text="Mã sản phẩm" />
@@ -119,6 +211,9 @@
                   <TableColumn fx:id="colCreatedAt" prefWidth="75.0" text="Ngày tạo" />
                   <TableColumn fx:id="colUpdatedAt" prefWidth="75.0" text="Ngày cập nhật" />
                </columns>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
             </TableView>
          </children>
       </VBox>
