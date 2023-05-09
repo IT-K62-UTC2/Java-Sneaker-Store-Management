@@ -9,9 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
@@ -178,6 +176,9 @@ public class SellController {
         menuProduct.getRowConstraints().clear();
         menuProduct.getColumnConstraints().clear();
         menuProduct.getChildren().clear();
+        HBox hbox = new HBox();
+        VBox vbox = new VBox();
+        hbox.setSpacing(10); // Set spacing between nodes
         for (int i = 0; i < listProducts.size(); i++) {
             try {
                 FXMLLoader load = new FXMLLoader(Main.class.getResource("views/card-product.fxml"));
@@ -187,16 +188,18 @@ public class SellController {
                 cardProductController.setProduct(listProducts.get(i));
                 cardProductController.setBtnAdd(this);
                 listCardControllers.add(cardProductController);
-                if (col == 3) {
-                    col = 0;
-                    row += 1;
+                hbox.getChildren().add(pane);
+                if ((i + 1) % 3 == 0 || i == listProducts.size() - 1) {
+                    vbox.getChildren().add(hbox);
+                    hbox = new HBox();
+                    hbox.setSpacing(10);
                 }
-                menuProduct.add(pane, col++, row);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
         }
+        menuProduct.getChildren().add(vbox);
+
     }
 
     private void setupTableViewOrder() {
