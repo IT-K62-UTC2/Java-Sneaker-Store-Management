@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="664.0" prefWidth="1148.8" styleClass="gradient-background" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.SellController">
+<AnchorPane prefHeight="664.0" prefWidth="1148.8" style="-fx-background-color: #FFFFE0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.SellController">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1149.0">
          <children>
@@ -49,7 +49,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label prefHeight="25.6" prefWidth="50.0" styleClass="container" stylesheets="@../css/css.css" text="Search" textFill="#ffd6dc">
+                              <Label alignment="CENTER" prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="Search">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin></Label>
@@ -99,15 +99,15 @@
                      </columnResizePolicy>
                   </TableView>
                   <ComboBox fx:id="customer" layoutX="69.0" layoutY="350.0" prefHeight="26.0" prefWidth="379.0" promptText="Select customer" styleClass="container" stylesheets="@../css/css.css" />
-                  <Label layoutX="157.0" layoutY="483.0" prefHeight="18.0" prefWidth="46.0" styleClass="container" stylesheets="@../css/css.css" text="Total:" textFill="#ffd6dc" />
-                  <Label fx:id="total" alignment="CENTER_RIGHT" layoutX="237.0" layoutY="479.0" prefHeight="26.4" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="0" textFill="#ffd6dc">
+                  <Label alignment="CENTER" layoutX="154.0" layoutY="483.0" prefHeight="26.4" prefWidth="60.0" styleClass="container" stylesheets="@../css/css.css" text="Total:" />
+                  <Label fx:id="total" alignment="CENTER_RIGHT" layoutX="237.0" layoutY="479.0" prefHeight="26.4" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="0">
                      <padding>
                         <Insets right="5.0" />
                      </padding></Label>
-                  <Label layoutX="154.0" layoutY="518.0" styleClass="container" stylesheets="@../css/css.css" text="Amount:" textFill="#ffd6dc" />
+                  <Label alignment="CENTER" layoutX="154.0" layoutY="518.0" prefHeight="26.4" prefWidth="60.0" styleClass="container" stylesheets="@../css/css.css" text="Amount:" />
                   <TextField fx:id="amount" alignment="CENTER_RIGHT" layoutX="237.0" layoutY="514.0" prefHeight="26.0" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="0" />
-                  <Label layoutX="155.0" layoutY="551.0" styleClass="container" stylesheets="@../css/css.css" text="Change:" textFill="#ffd6dc" />
-                  <Label fx:id="change" alignment="CENTER_RIGHT" layoutX="237.0" layoutY="547.0" prefHeight="26.4" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="0" textFill="#ffd6dc">
+                  <Label alignment="CENTER" layoutX="155.0" layoutY="551.0" prefHeight="26.4" prefWidth="60.0" styleClass="container" stylesheets="@../css/css.css" text="Change:" />
+                  <Label fx:id="change" alignment="CENTER_RIGHT" layoutX="237.0" layoutY="547.0" prefHeight="26.4" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="0">
                      <padding>
                         <Insets right="5.0" />
                      </padding></Label>
@@ -129,23 +129,23 @@
                      </graphic></Button>
                   <TextField fx:id="deliveryPhoneNumber" layoutX="71.0" layoutY="388.0" prefHeight="26.0" prefWidth="379.0" promptText="Delivery phone number" styleClass="container" stylesheets="@../css/css.css" />
                   <TextArea fx:id="deliveryAddress" layoutX="71.0" layoutY="427.0" prefHeight="40.0" prefWidth="379.0" promptText="Delivery address" styleClass="container" stylesheets="@../css/css.css" />
-                  <Label layoutX="9.0" layoutY="312.0" text="Tổng" textFill="#ffd6dc" />
-                  <Label layoutX="100.0" layoutY="312.0" text="Số lượng" textFill="#ffd6dc" />
-                  <Label fx:id="totalQuantityView" layoutX="164.0" layoutY="312.0" text="0" textFill="#ffd6dc" />
-                  <Label layoutX="268.0" layoutY="312.0" text="Tổng tiền" textFill="#ffd6dc" />
-                  <Label fx:id="totalMoneyView" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="343.0" layoutY="311.0" prefHeight="18.0" prefWidth="121.0" text="0" textAlignment="RIGHT" textFill="#ffd6dc" />
-                  <Label alignment="CENTER_RIGHT" layoutX="465.0" layoutY="311.0" prefHeight="18.0" prefWidth="27.0" text="vnđ" textAlignment="RIGHT" textFill="#ffd6dc" />
-                  <Label alignment="CENTER_RIGHT" layoutX="391.0" layoutY="483.0" prefHeight="18.0" prefWidth="36.0" styleClass="container" stylesheets="@../css/css.css" text="vnđ" textFill="#ffd6dc">
+                  <Label layoutX="9.0" layoutY="312.0" text="Tổng" />
+                  <Label layoutX="100.0" layoutY="312.0" text="Số lượng" />
+                  <Label fx:id="totalQuantityView" layoutX="164.0" layoutY="312.0" text="0" />
+                  <Label layoutX="268.0" layoutY="312.0" text="Tổng tiền" />
+                  <Label fx:id="totalMoneyView" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="343.0" layoutY="311.0" prefHeight="18.0" prefWidth="121.0" text="0" textAlignment="RIGHT" />
+                  <Label alignment="CENTER_RIGHT" layoutX="465.0" layoutY="311.0" prefHeight="18.0" prefWidth="27.0" text="vnđ" textAlignment="RIGHT" />
+                  <Label alignment="CENTER_RIGHT" layoutX="391.0" layoutY="483.0" prefHeight="26.4" prefWidth="40.0" styleClass="container" stylesheets="@../css/css.css" text="vnđ">
                      <padding>
                         <Insets right="5.0" />
                      </padding>
                   </Label>
-                  <Label alignment="CENTER_RIGHT" layoutX="391.0" layoutY="517.0" prefHeight="18.0" prefWidth="36.0" styleClass="container" stylesheets="@../css/css.css" text="vnđ" textFill="#ffd6dc">
+                  <Label alignment="CENTER_RIGHT" layoutX="391.0" layoutY="517.0" prefHeight="26.4" prefWidth="40.0" styleClass="container" stylesheets="@../css/css.css" text="vnđ">
                      <padding>
                         <Insets right="5.0" />
                      </padding>
                   </Label>
-                  <Label alignment="CENTER_RIGHT" layoutX="391.0" layoutY="551.0" prefHeight="18.0" prefWidth="36.0" styleClass="container" stylesheets="@../css/css.css" text="vnđ" textFill="#ffd6dc">
+                  <Label alignment="CENTER_RIGHT" layoutX="391.0" layoutY="551.0" prefHeight="26.4" prefWidth="40.0" styleClass="container" stylesheets="@../css/css.css" text="vnđ">
                      <padding>
                         <Insets right="5.0" />
                      </padding>

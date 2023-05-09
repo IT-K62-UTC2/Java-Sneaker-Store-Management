@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="664.0" prefWidth="1148.8" styleClass="gradient-background" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.HistoryInvoiceController">
+<AnchorPane prefHeight="664.0" prefWidth="1148.8" style="-fx-background-color: #FFFFE0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.HistoryInvoiceController">
    <children>
       <HBox layoutX="122.0" layoutY="120.0" prefHeight="700.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -47,7 +47,7 @@
                                           <Insets bottom="20.0" />
                                        </padding>
                                     </HBox>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="230.0" styleClass="container" stylesheets="@../css/css.css" text="Invoice List" textFill="#ffd6dc">
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="230.0" styleClass="container" stylesheets="@../css/css.css" text="Invoice List">
                                        <VBox.margin>
                                           <Insets bottom="10.0" />
                                        </VBox.margin>
@@ -57,7 +57,7 @@
                                     </Label>
                                     <HBox prefHeight="20.0" prefWidth="666.0">
                                        <children>
-                                          <Label prefHeight="25.6" prefWidth="60.0" styleClass="container" stylesheets="@../css/css.css" text="Search" textFill="#ffd6dc" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.6" prefWidth="90.0" styleClass="container" stylesheets="@../css/css.css" text="Search" />
                                           <ImageView fitHeight="150.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" translateX="20.0">
                                              <image>
                                                 <Image url="@../images/icons8-search-50.png" />
@@ -75,12 +75,12 @@
                                     </HBox>
                                     <HBox prefHeight="26.0" prefWidth="666.0">
                                        <children>
-                                          <Label prefHeight="38.4" prefWidth="60.0" styleClass="container" stylesheets="@../css/css.css" text="From" textFill="#ffd6dc" />
+                                          <Label alignment="CENTER" prefHeight="38.4" prefWidth="60.0" styleClass="container" stylesheets="@../css/css.css" text="From" />
                                           <DatePicker fx:id="fromDate" prefHeight="38.4" styleClass="container" stylesheets="@../css/css.css">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin></DatePicker>
-                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.4" prefWidth="30.0" styleClass="container" stylesheets="@../css/css.css" text="To" textFill="#ffd6dc">
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.4" prefWidth="60.0" styleClass="container" stylesheets="@../css/css.css" text="To">
                                              <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                              </HBox.margin></Label>

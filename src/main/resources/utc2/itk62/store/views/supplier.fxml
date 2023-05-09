@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="664.0" prefWidth="1148.8" styleClass="gradient-background" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.SupplierController">
+<AnchorPane prefHeight="664.0" prefWidth="1148.8" style="-fx-background-color: #FFFFE0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.SupplierController">
    <children>
       <VBox layoutX="192.0" layoutY="74.0" prefHeight="664.0" prefWidth="1148.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -41,7 +41,7 @@
                      <children>
                         <HBox>
                            <children>
-                              <Label prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="ID" textFill="#ffd6dc">
+                              <Label prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="ID">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -54,7 +54,7 @@
                         </HBox>
                         <HBox prefHeight="26.0" prefWidth="600.0">
                            <children>
-                              <Label prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="Name" textFill="#ffd6dc">
+                              <Label prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="Name">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -67,7 +67,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="Address" textFill="#ffd6dc">
+                              <Label prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="Address">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -84,7 +84,7 @@
                      <children>
                         <HBox>
                            <children>
-                              <Label prefHeight="25.6" prefWidth="90.0" styleClass="container" stylesheets="@../css/css.css" text="Email" textFill="#ffd6dc">
+                              <Label prefHeight="25.6" prefWidth="90.0" styleClass="container" stylesheets="@../css/css.css" text="Email">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -97,7 +97,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="25.6" prefWidth="90.0" styleClass="container" stylesheets="@../css/css.css" text="Phone number" textFill="#ffd6dc">
+                              <Label prefHeight="25.6" prefWidth="90.0" styleClass="container" stylesheets="@../css/css.css" text="Phone number">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -168,10 +168,15 @@
                <children>
                   <HBox>
                      <children>
-                        <Label prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="Search" textFill="#ffd6dc">
+                        <Label prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="Search">
                            <HBox.margin>
-                              <Insets right="10.0" />
+                              <Insets right="30.0" />
                            </HBox.margin></Label>
+                        <ImageView fitHeight="150.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="1.0">
+                           <image>
+                              <Image url="@../images/icons8-search-50.png" />
+                           </image>
+                        </ImageView>
                         <TextField fx:id="valueSearch" styleClass="container" stylesheets="@../css/css.css">
                            <HBox.margin>
                               <Insets right="10.0" />
@@ -183,7 +188,7 @@
             </HBox>
             <HBox alignment="CENTER">
                <children>
-                  <Label opacity="0.75" prefHeight="26.0" prefWidth="183.0" text="Danh sách nhà cung cấp">
+                  <Label prefHeight="26.0" prefWidth="183.0" text="Danh sách nhà cung cấp">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -208,7 +213,7 @@
             </TableView>
             <HBox alignment="CENTER">
                <children>
-                  <Label opacity="0.75" text="Sản phẩm của  nhà cung cấp">
+                  <Label text="Sản phẩm của  nhà cung cấp">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>

@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.CardProductController">
    <children>
-      <VBox layoutX="92.0" prefHeight="400.0" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="92.0" prefHeight="400.0" prefWidth="230.0" style="-fx-border-radius: 20px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox prefHeight="22.0" prefWidth="230.0" style="-fx-background-color: #97FFFF;">
                <children>

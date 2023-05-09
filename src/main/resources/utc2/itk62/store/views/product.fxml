@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="664.0" prefWidth="1148.8" styleClass="gradient-background" stylesheets="@../css/css.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.ProductController">
+<AnchorPane prefHeight="664.0" prefWidth="1148.8" style="-fx-background-color: #FFFFE0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utc2.itk62.store.controllers.ProductController">
     <children>
       <VBox alignment="CENTER" layoutX="1.0" layoutY="1.0" prefHeight="664.0" prefWidth="1148.8" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -42,17 +42,17 @@
                      <children>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="ID" textFill="#ffd6dc">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="ID">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="id" disable="true" editable="false" opacity="0.25" prefHeight="26.0" prefWidth="516.0" styleClass="container" stylesheets="@../css/css.css" />
+                              <TextField fx:id="id" disable="true" editable="false" prefHeight="26.0" prefWidth="516.0" styleClass="container" stylesheets="@../css/css.css" />
                            </children>
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Supplier" textFill="#ffd6dc">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Supplier">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -62,7 +62,7 @@
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Category" textFill="#ffd6dc">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Category">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -72,7 +72,7 @@
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Name" textFill="#ffd6dc">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Name">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -82,7 +82,7 @@
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Import Price" textFill="#ffd6dc">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Import Price">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -92,7 +92,7 @@
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Price" textFill="#ffd6dc">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Price">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -102,7 +102,7 @@
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Quantity" textFill="#ffd6dc">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Quantity">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -112,7 +112,7 @@
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Description" textFill="#ffd6dc">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Description">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -164,7 +164,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="316.0" prefWidth="316.0" spacing="10.0">
                      <children>
-                        <Label alignment="CENTER" prefWidth="106.0" styleClass="container" stylesheets="@../css/css.css" text="AVARTAR" textFill="#ffd6dc">
+                        <Label alignment="CENTER" prefWidth="106.0" styleClass="container" stylesheets="@../css/css.css" text="AVARTAR">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -193,7 +193,7 @@
             </HBox>
             <HBox spacing="30.0">
                <children>
-                  <Label prefHeight="26.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/css.css" text="Search" textFill="#ffd6dc">
+                  <Label prefHeight="26.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/css.css" text="Search">
                      <graphic>
                         <ImageView fitHeight="25.6" fitWidth="25.6" pickOnBounds="true" preserveRatio="true">
                            <image>

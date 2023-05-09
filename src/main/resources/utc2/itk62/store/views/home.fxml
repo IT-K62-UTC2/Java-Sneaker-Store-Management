@@ -39,7 +39,7 @@
         </HBox>
     </top>
     <left>
-        <VBox alignment="TOP_CENTER" prefHeight="764.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" BorderPane.alignment="CENTER">
+        <VBox alignment="TOP_CENTER" prefHeight="764.0" prefWidth="200.0" styleClass="gradient-background" stylesheets="@../css/css.css" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </BorderPane.margin>
@@ -85,7 +85,7 @@
         </VBox>
     </left>
     <center>
-        <AnchorPane fx:id="include" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="include" style="-fx-background-color: #FFFFE0;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
          </BorderPane.margin></AnchorPane>

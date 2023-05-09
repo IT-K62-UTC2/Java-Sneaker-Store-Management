@@ -43,7 +43,7 @@ public class DashboardController {
             Invoice invoice = invoiceList.get(i);
             totalIncome += invoice.getMoneyTotal();
             qtyProduct += invoice.getTotalQuantity();
-            int dayCreatedInvoice = invoice.getCreatedAt().toLocalDateTime().getDayOfMonth();
+            int dayCreatedInvoice = invoice.getCreatedAt().toLocalDateTime().getDayOfMonth();//1
             if(toady.getDayOfMonth() == dayCreatedInvoice) {
                 qtyToday += invoice.getTotalQuantity();
                 totalIncomeToday =invoice.getMoneyTotal();
