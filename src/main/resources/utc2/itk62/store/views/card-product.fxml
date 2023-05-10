@@ -16,7 +16,7 @@
          <children>
             <HBox prefHeight="22.0" prefWidth="230.0" style="-fx-background-color: #97FFFF;">
                <children>
-                  <Label prefHeight="18.0" prefWidth="119.0" text="Mã sản phẩm:" />
+                  <Label prefHeight="18.0" prefWidth="119.0" text="Product ID:" />
                   <Label fx:id="idProduct" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="156.0" text="0001" />
                </children>
             </HBox>

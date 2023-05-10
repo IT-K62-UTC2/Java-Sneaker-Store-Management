@@ -70,14 +70,17 @@
                </VBox.margin></VBox>
                 <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" spacing="20.0">
                     <children>
-                        <Button fx:id="btnLogout" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="container" stylesheets="@../css/css.css" text="Logout">
+                        <Button id="sale" fx:id="btnLogout" mnemonicParsing="false" prefHeight="32.0" prefWidth="157.0" stylesheets="@../css/stylesheet.css" text="Logout">
                             <graphic>
-                                <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" translateX="-7.0">
                                     <image>
-                                        <Image url="@../images/icons8-logout-50.png" />
+                                        <Image url="@../images/logout.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </HBox.margin>
                         </Button>
                     </children>
                 </HBox>

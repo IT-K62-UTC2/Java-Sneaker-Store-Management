@@ -62,7 +62,7 @@ public class HomeController {
                 scene = new Scene(fxmlLoader.load());
                 stage.setTitle("Hello!");
                 stage.setScene(scene);
-                stage.getIcons().add(new Image(getClass().getResourceAsStream("/utc2/itk62/store/images/iconTile.png")));
+                stage.getIcons().add(new Image(getClass().getResourceAsStream("/utc2/itk62/store/images/icons8-shop-100.png")));
                 stage.show();
             } catch (IOException e) {
                 throw new RuntimeException(e);

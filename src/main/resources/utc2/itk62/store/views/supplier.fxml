@@ -188,7 +188,7 @@
             </HBox>
             <HBox alignment="CENTER">
                <children>
-                  <Label prefHeight="26.0" prefWidth="183.0" text="Danh sách nhà cung cấp">
+                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="183.0" text="Supplier List">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -213,7 +213,7 @@
             </TableView>
             <HBox alignment="CENTER">
                <children>
-                  <Label text="Sản phẩm của  nhà cung cấp">
+                  <Label alignment="CENTER" prefHeight="26.0" prefWidth="201.0" text="Supplier of Product List">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
