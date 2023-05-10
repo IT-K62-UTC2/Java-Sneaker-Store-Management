@@ -77,7 +77,8 @@ public class HomeController {
             Menu menu = listAuth.get(i).getMenu();
             Button button = new Button(menu.getName());
             button.setPrefWidth(170);
-            button.setPrefHeight(40);
+            button.setPrefHeight(70);
+            button.getStyleClass().add("menu-button");
             button.setOnAction(actionEvent -> {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource(menu.getPath()));
                 Node node = null;
@@ -89,6 +90,7 @@ public class HomeController {
                     throw new RuntimeException(e);
                 }
             });
+
             vbox.getChildren().add(button);
         }
     }
