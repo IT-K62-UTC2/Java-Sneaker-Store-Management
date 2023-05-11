@@ -30,7 +30,7 @@
                             <children>
                                 <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/iconTile.png" />
+                                        <Image url="@../images/selling.png" />
                                     </image>
                                 </ImageView>
                                 <Label fx:id="totalProductSell" alignment="CENTER" prefHeight="0.0" prefWidth="141.0" text="150">
@@ -38,7 +38,7 @@
                                         <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Sản phẩm tháng">
+                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Product of The Month">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
@@ -50,7 +50,7 @@
                             <children>
                                 <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/iconTile.png" />
+                                        <Image url="@../images/revenue.png" />
                                     </image>
                                 </ImageView>
                                 <Label fx:id="income" alignment="CENTER" prefHeight="0.0" prefWidth="141.0" text="2,000,000">
@@ -58,7 +58,7 @@
                                         <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Doanh thu tháng">
+                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Revenue of The Month">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
@@ -70,7 +70,7 @@
                             <children>
                                 <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/iconTile.png" />
+                                        <Image url="@../images/selling.png" />
                                     </image>
                                 </ImageView>
                                 <Label fx:id="qtyProductToday" alignment="CENTER" prefHeight="0.0" prefWidth="141.0" text="1,000,000">
@@ -78,7 +78,7 @@
                                         <Font size="15.0" />
                                     </font>
                                 </Label>
-                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Sản phẩm ngày">
+                                <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Product of The Day">
                                     <font>
                                         <Font size="15.0" />
                                     </font>
@@ -90,7 +90,7 @@
                      <children>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/iconTile.png" />
+                              <Image url="@../images/revenue.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="incomeToday" alignment="CENTER" prefHeight="0.0" prefWidth="141.0" text="1,000,000">
@@ -98,7 +98,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Doanh thu ngày">
+                        <Label alignment="CENTER" prefHeight="22.0" prefWidth="186.0" text="Revenue of The Day">
                            <font>
                               <Font size="15.0" />
                            </font>
