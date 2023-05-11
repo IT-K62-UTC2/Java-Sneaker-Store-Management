@@ -40,9 +40,7 @@ public class SellController {
     private static final CustomerService customerService = new CustomerService();
     private static final InvoiceService invoiceService = new InvoiceService();
     private static final InvoiceDetailsService invoiceDetailsService = new InvoiceDetailsService();
-    private final List<CardProductController> listCardControllers = new ArrayList<>();
-    private final ObservableList<Product> listProducts = FXCollections.observableArrayList(productService.getAllProduct());
-    private final ObservableList<Customer> customerList = FXCollections.observableArrayList(customerService.getAllCustomer());
+
     public GridPane menuProduct;
     public ComboBox<Customer> customer;
     public TableView<InvoiceDetail> tableViewOrder;
@@ -60,28 +58,65 @@ public class SellController {
     public Label change;
     public Button btnPay;
     public Button btnRemove;
-    public Button btnReceipt;
-    public ObservableList<InvoiceDetail> listOrders = FXCollections.observableArrayList(new ArrayList<>());
+    public TextField valueSearch;
+    public ComboBox<String> keySearch;
+    public Button btnSearch;
+
+
+    private final List<CardProductController> listCardControllers = new ArrayList<>();
+    private ObservableList<Product> listProducts = FXCollections.observableArrayList(productService.getAllProduct());
+    private final ObservableList<Customer> customerList = FXCollections.observableArrayList(customerService.getAllCustomer());
+    public final ObservableList<InvoiceDetail> listOrders = FXCollections.observableArrayList(new ArrayList<>());
+    private final ObservableList<String> listKeySearch = FXCollections.observableArrayList("Name", "ID");
 
     public void initialize() {
+        keySearch.setItems(listKeySearch);
+        keySearch.setValue("Name");
         setupAmountTextField();
         menuDisplayProduct();
         setupListOrder();
         setupTableViewOrder();
         setupCustomer();
+        setupSearch();
         setUpChangeAmount();
         setupBtnPay();
         setupBtnRemove();
     }
 
     private void setupCustomer() {
+        customerList.add(0, new Customer());
+        Customer item = customerList.get(0);
         customer.setItems(customerList);
         customer.setOnAction(action -> {
             deliveryAddress.setText(customer.getValue().getAddress());
             deliveryPhoneNumber.setText(customer.getValue().getPhoneNumber());
         });
-        customer.setValue(customerList.get(0));
+        deliveryAddress.setText(item.getAddress());
+        deliveryPhoneNumber.setText(item.getPhoneNumber());
+        customer.setValue(item);
 
+    }
+
+    private void setupSearch() {
+        btnSearch.setOnAction(actionEvent -> {
+            listProducts.clear();
+            if(keySearch.getValue().equals("Name")) {
+                String name = valueSearch.getText().toLowerCase();
+                listProducts = FXCollections.observableArrayList(productService.getProductsByName(name));
+
+            } else {
+                int id = Integer.parseInt(valueSearch.getText());
+                listProducts = FXCollections.observableArrayList(productService.getProductById(id));
+            }
+            for(InvoiceDetail invoiceDetail : listOrders) {
+                for(Product product : listProducts){
+                    if(invoiceDetail.getProduct().getId() == product.getId()) {
+                        product.setQuantity(product.getQuantity() - invoiceDetail.getProductQuantity());
+                    }
+                }
+            }
+            menuDisplayProduct();
+        });
     }
 
     private void setupAmountTextField() {
@@ -174,8 +209,10 @@ public class SellController {
         int col = 0;
         int row = 0;
         menuProduct.getRowConstraints().clear();
+        listCardControllers.clear();
         menuProduct.getColumnConstraints().clear();
         menuProduct.getChildren().clear();
+        System.out.println(listProducts.size());
         HBox hbox = new HBox();
         VBox vbox = new VBox();
         hbox.setSpacing(10); // Set spacing between nodes

@@ -16,7 +16,7 @@
     <top>
         <HBox alignment="CENTER" prefHeight="65.0" prefWidth="1400.0" spacing="20.0" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="curentMenu" alignment="CENTER" prefHeight="66.0" prefWidth="300.0" text="ADMIN DASHBOARD" textFill="WHITE">
+                <Label fx:id="curentMenu" alignment="CENTER" prefHeight="66.0" prefWidth="300.0" text="UTC2 STORE" textFill="WHITE">
                     <font>
                         <Font size="18.0" />
                     </font>

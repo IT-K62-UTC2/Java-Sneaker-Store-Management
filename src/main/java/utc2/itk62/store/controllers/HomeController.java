@@ -82,7 +82,6 @@ public class HomeController {
             button.setOnAction(actionEvent -> {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource(menu.getPath()));
                 Node node = null;
-                curentMenu.setText(menu.getName());
                 try {
                     node = loader.load();
                     include.getChildren().set(0, node);

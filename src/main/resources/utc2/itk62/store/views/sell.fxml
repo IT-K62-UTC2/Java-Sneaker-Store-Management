@@ -58,11 +58,15 @@
                                     <Image url="@../images/icons8-search-50.png" />
                                  </image>
                               </ImageView>
-                              <TextField styleClass="container" stylesheets="@../css/css.css">
+                              <TextField fx:id="valueSearch" styleClass="container" stylesheets="@../css/css.css">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin></TextField>
-                              <ComboBox prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" />
+                              <ComboBox fx:id="keySearch" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin></ComboBox>
+                              <Button fx:id="btnSearch" mnemonicParsing="false" text="Ok" />
                            </children>
                         </HBox>
                         <ScrollPane prefHeight="634.0" prefWidth="700.0">

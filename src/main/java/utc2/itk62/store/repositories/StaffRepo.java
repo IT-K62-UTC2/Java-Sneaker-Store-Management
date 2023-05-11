@@ -20,7 +20,7 @@ public class StaffRepo {
         paging.checkPageLimit();
         List<Staff> staffList = new ArrayList<Staff>();
         String query = "SELECT * FROM staff LEFT JOIN position ON staff.id_position = position.id " +
-                "WHERE staff.status = 1 ORDER BY staff.created_at DESC LIMIT ? OFFSET ?";
+                "WHERE staff.status = 1 AND staff.id != 1 ORDER BY staff.created_at DESC LIMIT ? OFFSET ?";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1,paging.getLimit());
