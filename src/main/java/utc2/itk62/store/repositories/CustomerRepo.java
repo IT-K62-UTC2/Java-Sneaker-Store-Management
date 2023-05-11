@@ -134,7 +134,7 @@ public class CustomerRepo {
 
     public int updateCustomer(Customer customer) {
         String query = "UPDATE customer SET fullname = ?, address = ?, email = ?, phone_number = ?, gender = ?, cccd= ?" +
-                " WHERE id = ?";
+                " WHERE id = ? AND id != 1";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
@@ -166,7 +166,7 @@ public class CustomerRepo {
 
     public int deleteCustomer(int idCustomer) {
         String query = "UPDATE customer SET status = 0" +
-                " WHERE id = ?";
+                " WHERE id = ? AND id != 1";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 

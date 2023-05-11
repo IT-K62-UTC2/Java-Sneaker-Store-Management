@@ -87,7 +87,7 @@ public class CategoryRepo {
     }
 
     public int updateCategory(Category category){
-        String query = "UPDATE category SET name = ? WHERE id = ?";
+        String query = "UPDATE category SET name = ? WHERE id = ? AND id != 1";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
         try{
@@ -136,7 +136,7 @@ public class CategoryRepo {
     }
 
     public int deleteCategory(int categoryId) {
-        String query = "UPDATE category SET status = 0 WHERE id = ?";
+        String query = "UPDATE category SET status = 0 WHERE id = ? AND id != 1";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 

@@ -84,16 +84,20 @@ public class SellController {
     }
 
     private void setupCustomer() {
-        customerList.add(0, new Customer());
-        Customer item = customerList.get(0);
         customer.setItems(customerList);
+        for(Customer item : customerList) {
+            if(item.getId() == 1) {
+                deliveryAddress.setText(item.getAddress());
+                deliveryPhoneNumber.setText(item.getPhoneNumber());
+                customer.setValue(item);
+                break;
+            }
+        }
         customer.setOnAction(action -> {
             deliveryAddress.setText(customer.getValue().getAddress());
             deliveryPhoneNumber.setText(customer.getValue().getPhoneNumber());
         });
-        deliveryAddress.setText(item.getAddress());
-        deliveryPhoneNumber.setText(item.getPhoneNumber());
-        customer.setValue(item);
+
 
     }
 

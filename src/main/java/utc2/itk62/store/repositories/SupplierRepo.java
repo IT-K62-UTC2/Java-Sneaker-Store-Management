@@ -69,7 +69,7 @@ public class SupplierRepo {
                 " phone_number = ?," +
                 " `name` = ?," +
                 " `email` = ?" +
-                " WHERE id = ? AND status = 1";
+                " WHERE id = ? AND status = 1 AND id != 1";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
         try {
@@ -98,7 +98,7 @@ public class SupplierRepo {
     }
 
     public int deleteSupplier(int supplierId) {
-        String query = "UPDATE supplier SET status = 0 WHERE id = ?";
+        String query = "UPDATE supplier SET status = 0 WHERE id = ? AND id != 1";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
