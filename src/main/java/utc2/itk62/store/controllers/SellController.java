@@ -18,14 +18,8 @@ import utc2.itk62.store.Validator.StaffValidator;
 import utc2.itk62.store.common.JasperReportConfig;
 import utc2.itk62.store.common.MailConfig;
 import utc2.itk62.store.common.User;
-import utc2.itk62.store.models.Customer;
-import utc2.itk62.store.models.Invoice;
-import utc2.itk62.store.models.InvoiceDetail;
-import utc2.itk62.store.models.Product;
-import utc2.itk62.store.services.CustomerService;
-import utc2.itk62.store.services.InvoiceDetailsService;
-import utc2.itk62.store.services.InvoiceService;
-import utc2.itk62.store.services.ProductService;
+import utc2.itk62.store.models.*;
+import utc2.itk62.store.services.*;
 import utc2.itk62.store.util.CustomAlert;
 import utc2.itk62.store.util.FormatDouble;
 
@@ -39,6 +33,7 @@ public class SellController {
     private static final ProductService productService = new ProductService();
     private static final CustomerService customerService = new CustomerService();
     private static final InvoiceService invoiceService = new InvoiceService();
+    private static final CategoryService categoryService = new CategoryService();
     private static final InvoiceDetailsService invoiceDetailsService = new InvoiceDetailsService();
 
     public GridPane menuProduct;
@@ -64,12 +59,17 @@ public class SellController {
 
 
     private final List<CardProductController> listCardControllers = new ArrayList<>();
-    private ObservableList<Product> listProducts = FXCollections.observableArrayList(productService.getAllProduct());
+    public ComboBox<Category> category;
+    private ObservableList<Product> listProducts = FXCollections.observableArrayList();
     private final ObservableList<Customer> customerList = FXCollections.observableArrayList(customerService.getAllCustomer());
     public final ObservableList<InvoiceDetail> listOrders = FXCollections.observableArrayList(new ArrayList<>());
+    public final ObservableList<Category> listCategory = FXCollections.observableArrayList(categoryService.getAllCategory());
     private final ObservableList<String> listKeySearch = FXCollections.observableArrayList("Name", "ID");
 
     public void initialize() {
+        category.setItems(listCategory);
+        category.setValue(listCategory.get(0));
+        listProducts.addAll(productService.getProductsByNameAndCategory("", category.getValue().getId()));
         keySearch.setItems(listKeySearch);
         keySearch.setValue("Name");
         setupAmountTextField();
@@ -82,6 +82,8 @@ public class SellController {
         setupBtnPay();
         setupBtnRemove();
     }
+
+
 
     private void setupCustomer() {
         customer.setItems(customerList);
@@ -103,24 +105,33 @@ public class SellController {
 
     private void setupSearch() {
         btnSearch.setOnAction(actionEvent -> {
-            listProducts.clear();
-            if(keySearch.getValue().equals("Name")) {
-                String name = valueSearch.getText().toLowerCase();
-                listProducts = FXCollections.observableArrayList(productService.getProductsByName(name));
+            actionWhenSearch();
+        });
 
-            } else {
-                int id = Integer.parseInt(valueSearch.getText());
-                listProducts = FXCollections.observableArrayList(productService.getProductById(id));
-            }
-            for(InvoiceDetail invoiceDetail : listOrders) {
-                for(Product product : listProducts){
-                    if(invoiceDetail.getProduct().getId() == product.getId()) {
-                        product.setQuantity(product.getQuantity() - invoiceDetail.getProductQuantity());
-                    }
+        category.setOnAction(keyEvent -> {
+            actionWhenSearch();
+        });
+    }
+
+    private void actionWhenSearch() {
+        int idCurrentCategory = category.getValue().getId();
+        listProducts.clear();
+        if(keySearch.getValue().equals("Name")) {
+            String name = valueSearch.getText().toLowerCase();
+            listProducts = FXCollections.observableArrayList(productService.getProductsByNameAndCategory(name, idCurrentCategory));
+
+        } else {
+            int id = Integer.parseInt(valueSearch.getText());
+            listProducts = FXCollections.observableArrayList(productService.getProductByIdAndIdCategory(id, idCurrentCategory));
+        }
+        for(InvoiceDetail invoiceDetail : listOrders) {
+            for(Product product : listProducts){
+                if(invoiceDetail.getProduct().getId() == product.getId()) {
+                    product.setQuantity(product.getQuantity() - invoiceDetail.getProductQuantity());
                 }
             }
-            menuDisplayProduct();
-        });
+        }
+        menuDisplayProduct();
     }
 
     private void setupAmountTextField() {

@@ -53,7 +53,7 @@ public class HistoryInvoiceController {
     public AnchorPane viewInvoice;
     public Button btnExportInvoice;
     public Button btnExportExcel;
-    private PauseTransition pause = new PauseTransition(Duration.seconds(0.5)); // throttle thời gian tạm dừng là 1 giây
+//    private PauseTransition pause = new PauseTransition(Duration.seconds(0.5)); // throttle thời gian tạm dừng là 1 giây
     private ObservableList<Invoice> listInvoice;
     private ObservableList<String> listKetSearch = FXCollections.observableArrayList(
             "ID", "Staff", "Customer", "Delivery Address", "Delivery PhoneNumber");
@@ -67,8 +67,12 @@ public class HistoryInvoiceController {
         setupSearch();
         setupExportExcel();
         reloadTableView(new FromAndToDate());
-        setUpTableListInvoice();
+//        setUpTableListInvoice();
         setupBtnExportInvoice();
+    }
+
+    private void setupSearchCategory() {
+
     }
 
     private void setupDatePicker() {
@@ -137,7 +141,7 @@ public class HistoryInvoiceController {
             Platform.runLater(() -> {
                 // update table invoice details
                 updateInvoiceDetailsCurrentRowInvoice();
-                loadInvoice();
+//                loadInvoice();
             });
         }).start();
     }
@@ -179,7 +183,7 @@ public class HistoryInvoiceController {
                 return p.getDeliveryPhoneNumber().toLowerCase().contains(searchText);
             });
             tableListInvoice.getSelectionModel().selectFirst();
-            loadInvoice();
+//            loadInvoice();
             updateInvoiceDetailsCurrentRowInvoice();
         });
 
@@ -216,18 +220,18 @@ public class HistoryInvoiceController {
         tableListInvoiceDetail.setItems(FXCollections.observableArrayList(currentInvoice.getListInvoiceDetails()));
     }
 
-    private void setUpTableListInvoice() {
-        tableListInvoice.setOnMouseClicked(mouseEvent -> {
-            pause.setOnFinished(event -> loadInvoice());
-            pause.playFromStart();
-            updateInvoiceDetailsCurrentRowInvoice();
-        });
-        tableListInvoice.setOnKeyPressed(keyEvent -> {
-            pause.setOnFinished(event -> loadInvoice());
-            pause.playFromStart();
-            updateInvoiceDetailsCurrentRowInvoice();
-        });
-    }
+//    private void setUpTableListInvoice() {
+//        tableListInvoice.setOnMouseClicked(mouseEvent -> {
+//            pause.setOnFinished(event -> loadInvoice());
+//            pause.playFromStart();
+//            updateInvoiceDetailsCurrentRowInvoice();
+//        });
+//        tableListInvoice.setOnKeyPressed(keyEvent -> {
+//            pause.setOnFinished(event -> loadInvoice());
+//            pause.playFromStart();
+//            updateInvoiceDetailsCurrentRowInvoice();
+//        });
+//    }
 
     public void exportInvoice() {
         Invoice invoice = tableListInvoice.getSelectionModel().getSelectedItem();
@@ -235,43 +239,43 @@ public class HistoryInvoiceController {
             return;
         }
         JasperPrint jasperPrint = JasperReportConfig.createJasperPrintInvoice(invoice);
-        embedJasperReport(jasperPrint);
+//        embedJasperReport(jasperPrint);
         showJasperReport(jasperPrint);
     }
 
-    public void loadInvoice() {
-        Invoice invoice = tableListInvoice.getSelectionModel().getSelectedItem();
-        if(invoice == null) {
-            viewInvoice.getChildren().clear();
-            return;
-        }
-        JasperPrint jasperPrint = JasperReportConfig.createJasperPrintInvoice(invoice);
-        embedJasperReport(jasperPrint);
-    }
+//    public void loadInvoice() {
+//        Invoice invoice = tableListInvoice.getSelectionModel().getSelectedItem();
+//        if(invoice == null) {
+//            viewInvoice.getChildren().clear();
+//            return;
+//        }
+//        JasperPrint jasperPrint = JasperReportConfig.createJasperPrintInvoice(invoice);
+//        embedJasperReport(jasperPrint);
+//    }
 
-    private void embedJasperReport(JasperPrint jasperPrint) {
-        if (jasperPrint == null) {
-            viewInvoice.getChildren().clear();
-            return;
-        }
-        new Thread(() -> {
-            JRViewer viewer = new JRViewer(jasperPrint);
-            viewer.setZoomRatio(.5F);
-            viewer.setFitPageZoomRatio();
-            viewer.setVisible(true);
-            SwingNode swingNode = new SwingNode();
-            swingNode.setContent(viewer);
-            Platform.runLater(() -> {
-                if (viewInvoice.getChildren().isEmpty()) {
-                    viewInvoice.getChildren().add(0, swingNode);
-                    viewInvoice.requestLayout();
-                    return;
-                }
-                viewInvoice.getChildren().set(0, swingNode);
-                viewInvoice.requestLayout();
-            });
-        }).start();
-    }
+//    private void embedJasperReport(JasperPrint jasperPrint) {
+//        if (jasperPrint == null) {
+//            viewInvoice.getChildren().clear();
+//            return;
+//        }
+//        new Thread(() -> {
+//            JRViewer viewer = new JRViewer(jasperPrint);
+//            viewer.setZoomRatio(.5F);
+//            viewer.setFitPageZoomRatio();
+//            viewer.setVisible(true);
+//            SwingNode swingNode = new SwingNode();
+//            swingNode.setContent(viewer);
+//            Platform.runLater(() -> {
+//                if (viewInvoice.getChildren().isEmpty()) {
+//                    viewInvoice.getChildren().add(0, swingNode);
+//                    viewInvoice.requestLayout();
+//                    return;
+//                }
+//                viewInvoice.getChildren().set(0, swingNode);
+//                viewInvoice.requestLayout();
+//            });
+//        }).start();
+//    }
 
     private void setupBtnExportInvoice() {
         btnExportInvoice.setOnAction(actionEvent -> {

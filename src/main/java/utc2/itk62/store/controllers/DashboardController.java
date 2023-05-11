@@ -63,7 +63,7 @@ public class DashboardController {
         }
         lineChart.getData().addAll(series);
         lineChart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent");
-        series.getNode().setStyle("-fx-stroke: #FFD6DC");
+        series.getNode().setStyle("-fx-stroke: #000000");
 
         income.setText(FormatDouble.toString(totalIncome));
         totalProductSell.setText(String.valueOf(qtyProduct));

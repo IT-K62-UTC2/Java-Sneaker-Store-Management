@@ -41,7 +41,7 @@
                      <children>
                         <HBox>
                            <children>
-                              <Label prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="ID">
+                              <Label prefHeight="25.6" prefWidth="70.0" styleClass="background-empty" stylesheets="@../css/css.css" text="ID">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -54,7 +54,7 @@
                         </HBox>
                         <HBox prefHeight="26.0" prefWidth="600.0">
                            <children>
-                              <Label prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="Name">
+                              <Label prefHeight="25.6" prefWidth="70.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Name">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -67,7 +67,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="Address">
+                              <Label prefHeight="25.6" prefWidth="70.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Address">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -84,7 +84,7 @@
                      <children>
                         <HBox>
                            <children>
-                              <Label prefHeight="25.6" prefWidth="90.0" styleClass="container" stylesheets="@../css/css.css" text="Email">
+                              <Label prefHeight="25.6" prefWidth="90.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Email">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -97,7 +97,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="25.6" prefWidth="90.0" styleClass="container" stylesheets="@../css/css.css" text="Phone number">
+                              <Label prefHeight="25.6" prefWidth="90.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Phone number">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -168,7 +168,7 @@
                <children>
                   <HBox>
                      <children>
-                        <Label prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="Search">
+                        <Label prefHeight="25.6" prefWidth="70.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Search">
                            <HBox.margin>
                               <Insets right="30.0" />
                            </HBox.margin></Label>

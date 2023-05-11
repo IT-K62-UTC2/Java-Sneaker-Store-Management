@@ -39,7 +39,7 @@
             </HBox>
             <HBox alignment="CENTER" spacing="30.0">
                <children>
-                  <Label prefHeight="25.6" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="ID">
+                  <Label prefHeight="25.6" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="ID">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -51,7 +51,7 @@
             </HBox>
             <HBox alignment="CENTER" spacing="30.0">
                <children>
-                  <Label prefHeight="25.6" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Full Name">
+                  <Label prefHeight="25.6" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Full Name">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -63,7 +63,7 @@
             </HBox>
             <HBox alignment="CENTER" spacing="30.0">
                <children>
-                  <Label prefHeight="25.6" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Address">
+                  <Label prefHeight="25.6" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Address">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -75,7 +75,7 @@
             </HBox>
             <HBox alignment="CENTER" spacing="30.0">
                <children>
-                   <Label prefHeight="25.6" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Email">
+                   <Label prefHeight="25.6" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Email">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -87,7 +87,7 @@
             </HBox>
             <HBox alignment="CENTER" prefWidth="200.0" spacing="30.0">
                <children>
-                  <Label prefHeight="25.6" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Phone Number">
+                  <Label prefHeight="25.6" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Phone Number">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -99,7 +99,7 @@
             </HBox>
             <HBox alignment="CENTER" spacing="30.0">
                <children>
-                  <Label prefHeight="25.6" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="CCCD">
+                  <Label prefHeight="25.6" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="CCCD">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -111,7 +111,7 @@
             </HBox>
             <HBox alignment="CENTER" spacing="30.0">
                <children>
-                  <Label prefHeight="39.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Gender">
+                  <Label prefHeight="39.0" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Gender">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

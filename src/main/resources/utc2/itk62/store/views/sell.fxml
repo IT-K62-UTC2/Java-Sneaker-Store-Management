@@ -67,6 +67,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin></ComboBox>
                               <Button fx:id="btnSearch" mnemonicParsing="false" text="Ok" />
+                              <ComboBox fx:id="category" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" />
                            </children>
                         </HBox>
                         <ScrollPane prefHeight="634.0" prefWidth="700.0">
@@ -103,14 +104,14 @@
                      </columnResizePolicy>
                   </TableView>
                   <ComboBox fx:id="customer" layoutX="69.0" layoutY="350.0" prefHeight="26.0" prefWidth="379.0" promptText="Select customer" styleClass="container" stylesheets="@../css/css.css" />
-                  <Label alignment="CENTER" layoutX="154.0" layoutY="483.0" prefHeight="26.4" prefWidth="60.0" styleClass="container" stylesheets="@../css/css.css" text="Total:" />
+                  <Label alignment="CENTER" layoutX="154.0" layoutY="483.0" prefHeight="26.4" prefWidth="60.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Total:" />
                   <Label fx:id="total" alignment="CENTER_RIGHT" layoutX="237.0" layoutY="479.0" prefHeight="26.4" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="0">
                      <padding>
                         <Insets right="5.0" />
                      </padding></Label>
-                  <Label alignment="CENTER" layoutX="154.0" layoutY="518.0" prefHeight="26.4" prefWidth="60.0" styleClass="container" stylesheets="@../css/css.css" text="Amount:" />
+                  <Label alignment="CENTER" layoutX="154.0" layoutY="518.0" prefHeight="26.4" prefWidth="60.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Amount:" />
                   <TextField fx:id="amount" alignment="CENTER_RIGHT" layoutX="237.0" layoutY="514.0" prefHeight="26.0" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="0" />
-                  <Label alignment="CENTER" layoutX="155.0" layoutY="551.0" prefHeight="26.4" prefWidth="60.0" styleClass="container" stylesheets="@../css/css.css" text="Change:" />
+                  <Label alignment="CENTER" layoutX="155.0" layoutY="551.0" prefHeight="26.4" prefWidth="60.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Change:" />
                   <Label fx:id="change" alignment="CENTER_RIGHT" layoutX="237.0" layoutY="547.0" prefHeight="26.4" prefWidth="150.0" styleClass="container" stylesheets="@../css/css.css" text="0">
                      <padding>
                         <Insets right="5.0" />

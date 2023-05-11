@@ -83,7 +83,7 @@ public class ProductRepo {
         }
     }
 
-    public List<Product> getProductsByName(String name) {
+    public List<Product> getProductsByNameAndCategory(String name, int idCategory) {
         List<Product> productList = new ArrayList<Product>();
 //        String query = "SELECT product.*, category.name, category.id, supplier.name, supplier.id FROM product " +
 //                " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
@@ -92,10 +92,11 @@ public class ProductRepo {
         String query = "SELECT * FROM product " +
 //                " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
 //                " LEFT JOIN category ON category.id = product.id_category" +
-                " WHERE `status` = 1 AND `name` LIKE CONCAT('%', ?, '%') ORDER BY created_at DESC";
+                " WHERE `status` = 1 AND `name` LIKE CONCAT('%', ?, '%') AND id_category = ? ORDER BY created_at DESC";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setString(1, name);
+            ptmt.setInt(2, idCategory);
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 System.out.println("FUND");
@@ -128,7 +129,7 @@ public class ProductRepo {
         }
     }
 
-    public Product getProductById(int id) {
+    public Product getProductByIdAndIdCategory(int id, int idCategory) {
         Product product = null;
 //        String query = "SELECT product.*, category.name, category.id, supplier.name, supplier.id FROM product " +
 //                " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
@@ -137,10 +138,11 @@ public class ProductRepo {
         String query = "SELECT * FROM product " +
 //                " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
 //                " LEFT JOIN category ON category.id = product.id_category" +
-                " WHERE `status` = 1 AND id = ? ORDER BY created_at DESC";
+                " WHERE `status` = 1 AND id = ? AND id_category = ? ORDER BY created_at DESC";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1, id);
+            ptmt.setInt(1, idCategory);
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
 //                Category category = new Category();

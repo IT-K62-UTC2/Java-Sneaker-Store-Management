@@ -24,16 +24,16 @@ import java.util.List;
 public class ProductService {
     private static final ProductRepo productRepo = new ProductRepo();
 
-    public Product getProductById(int id) {
-        return productRepo.getProductById(id);
+    public Product getProductByIdAndIdCategory(int id, int idCategory) {
+        return productRepo.getProductByIdAndIdCategory(id,  idCategory);
     }
 
     public List<Product> getProductsByIdCategory(int idCategory) {
         return productRepo.getProductListByIdCategory(idCategory);
     }
 
-    public List<Product> getProductsByName(String name) {
-        return productRepo.getProductsByName(name);
+    public List<Product> getProductsByNameAndCategory(String name, int idCategory) {
+        return productRepo.getProductsByNameAndCategory(name, idCategory);
     }
 
     public boolean updateProduct(Product product) {

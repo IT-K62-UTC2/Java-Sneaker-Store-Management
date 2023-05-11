@@ -42,7 +42,7 @@
                      <children>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="ID">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="ID">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -52,27 +52,27 @@
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Supplier">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Supplier">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <ComboBox fx:id="supplier" prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" visibleRowCount="0" />
+                              <ComboBox fx:id="supplier" prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" />
                            </children>
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Category">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Category">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <ComboBox fx:id="category" prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" visibleRowCount="0" />
+                              <ComboBox fx:id="category" prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" />
                            </children>
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Name">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Name">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -82,7 +82,7 @@
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Import Price">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Import Price">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -92,7 +92,7 @@
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Price">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Price">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -102,7 +102,7 @@
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Quantity">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Quantity">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -112,7 +112,7 @@
                         </HBox>
                         <HBox spacing="30.0">
                            <children>
-                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css" text="Description">
+                              <Label prefHeight="26.0" prefWidth="200.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Description">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>

@@ -217,28 +217,7 @@
                               <Insets bottom="10.0" />
                            </padding>
                         </HBox>
-                        <HBox prefHeight="18.0" prefWidth="1149.0" spacing="10.0">
-                           <children>
-                              <Label prefHeight="26.0" prefWidth="110.0" styleClass="container" stylesheets="@../css/css.css" text="Search">
-                                 <graphic>
-                                    <ImageView fitHeight="25.6" fitWidth="25.6" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/icons8-search-50.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <TextField id="bevel" fx:id="valueSearchHistory" prefHeight="26.0" prefWidth="274.0" styleClass="container" stylesheets="@../css">
-                                 <font>
-                                    <Font name="Arial" size="12.0" />
-                                 </font>
-                              </TextField>
-                              <ComboBox id="bevel" fx:id="keySearchHistory" prefHeight="26.0" prefWidth="139.0" styleClass="container" stylesheets="@../css/css.css" />
-                           </children>
-                        </HBox>
+                        <HBox prefHeight="18.0" prefWidth="1149.0" spacing="10.0" />
                         <HBox prefHeight="12.0" prefWidth="1149.0" spacing="10.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="67.0" prefWidth="60.0" styleClass="container" stylesheets="@../css/css.css" text="From">
@@ -253,11 +232,11 @@
                                  </padding>
                               </Label>
                               <DatePicker fx:id="toDateHistory" prefHeight="112.0" prefWidth="175.0" styleClass="container" stylesheets="@../css/css.css" />
-                              <Button id="sale" fx:id="btnSearchDate" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="150.0" stylesheets="@../css/stylesheet.css" text="Add" textFill="#ffd6dc">
+                              <Button id="sale" fx:id="btnSearchDate" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="150.0" stylesheets="@../css/stylesheet.css" text="Search" textFill="#ffd6dc">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                        <image>
-                                          <Image url="@../images/add_icon.png" />
+                                          <Image url="@../images/search.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

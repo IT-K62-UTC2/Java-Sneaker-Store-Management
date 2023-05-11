@@ -45,7 +45,7 @@
                      <children>
                         <HBox prefHeight="25.6" prefWidth="631.0">
                            <children>
-                              <Label prefHeight="25.6" prefWidth="174.0" styleClass="container" stylesheets="@../css/css.css" text="ID" />
+                              <Label prefHeight="25.6" prefWidth="174.0" styleClass="background-empty" stylesheets="@../css/css.css" text="ID" />
                               <TextField fx:id="idStaff" disable="true" editable="false" prefWidth="600.0" styleClass="container" stylesheets="@../css/css.css">
                                  <HBox.margin>
                                     <Insets left="20.0" />
@@ -57,7 +57,7 @@
                         </HBox>
                         <HBox prefHeight="0.0" prefWidth="631.0">
                            <children>
-                              <Label prefHeight="25.6" prefWidth="85.0" styleClass="container" stylesheets="@../css/css.css" text="Position" />
+                              <Label prefHeight="25.6" prefWidth="85.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Position" />
                               <ComboBox fx:id="position" prefWidth="200.0" styleClass="container" stylesheets="@../css/css.css">
                                  <HBox.margin>
                                     <Insets left="20.0" />
@@ -69,7 +69,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="25.6" prefWidth="143.0" styleClass="container" stylesheets="@../css/css.css" text="Username" />
+                              <Label prefHeight="25.6" prefWidth="143.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Username" />
                               <TextField fx:id="username" prefWidth="567.0" styleClass="container" stylesheets="@../css/css.css">
                                  <HBox.margin>
                                     <Insets left="20.0" />
@@ -81,7 +81,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="26.0" prefWidth="180.0" styleClass="container" stylesheets="@../css/css.css" text="Full name" />
+                              <Label prefHeight="26.0" prefWidth="180.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Full name" />
                               <TextField fx:id="fullname" prefWidth="600.0" styleClass="container" stylesheets="@../css/css.css">
                                  <HBox.margin>
                                     <Insets left="20.0" />
@@ -93,7 +93,7 @@
                         </HBox>
                         <HBox prefWidth="800.0">
                            <children>
-                              <Label prefHeight="25.6" prefWidth="180.0" styleClass="container" stylesheets="@../css/css.css" text="Address" />
+                              <Label prefHeight="25.6" prefWidth="180.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Address" />
                               <TextField fx:id="address" prefWidth="600.0" styleClass="container" stylesheets="@../css/css.css">
                                  <HBox.margin>
                                     <Insets left="20.0" />
@@ -105,7 +105,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="26.0" prefWidth="180.0" styleClass="container" stylesheets="@../css/css.css" text="Phone number" />
+                              <Label prefHeight="26.0" prefWidth="180.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Phone number" />
                               <TextField fx:id="phoneNumber" prefWidth="600.0" styleClass="container" stylesheets="@../css/css.css">
                                  <HBox.margin>
                                     <Insets left="20.0" />
@@ -117,7 +117,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="25.6" prefWidth="180.0" styleClass="container" stylesheets="@../css/css.css" text="CCCD" />
+                              <Label prefHeight="25.6" prefWidth="180.0" styleClass="background-empty" stylesheets="@../css/css.css" text="CCCD" />
                               <TextField fx:id="cccd" prefWidth="600.0" styleClass="container" stylesheets="@../css/css.css">
                                  <HBox.margin>
                                     <Insets left="20.0" />
@@ -129,7 +129,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="25.6" prefWidth="180.0" styleClass="container" stylesheets="@../css/css.css" text="Email" />
+                              <Label prefHeight="25.6" prefWidth="180.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Email" />
                               <TextField fx:id="email" prefWidth="600.0" styleClass="container" stylesheets="@../css/css.css">
                                  <HBox.margin>
                                     <Insets left="20.0" />
@@ -141,7 +141,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="25.6" prefWidth="87.0" styleClass="container" stylesheets="@../css/css.css" text="Gender" />
+                              <Label prefHeight="25.6" prefWidth="87.0" styleClass="background-empty" stylesheets="@../css/css.css" text="Gender" />
                               <RadioButton fx:id="maleBtn" mnemonicParsing="false" prefHeight="25.6" prefWidth="70.0" styleClass="container" stylesheets="@../css/css.css" text="Male">
                                  <HBox.margin>
                                     <Insets left="20.0" right="50.0" />
