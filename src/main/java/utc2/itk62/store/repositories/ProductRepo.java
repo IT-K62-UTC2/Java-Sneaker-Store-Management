@@ -216,8 +216,8 @@ public class ProductRepo {
     }
 
     public int createProduct(Product product) {
-        String query = "INSERT INTO product(id_supplier, id_category, `name`, `desc`, price, avatar, import_price)" +
-                " VALUES(?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO product(id_supplier, id_category, `name`, `desc`, price, avatar, import_price, quantity)" +
+                " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         int result = 0;
         Connection conn = ConnectionUtil.getConnection();
 
@@ -231,6 +231,7 @@ public class ProductRepo {
             ptmt.setDouble(5, product.getPrice());
             ptmt.setString(6, product.getAvatar());
             ptmt.setDouble(7, product.getImportPrice());
+            ptmt.setInt(8, product.getQuantity());
             System.out.println(query);
             result = ptmt.executeUpdate();
             conn.commit();

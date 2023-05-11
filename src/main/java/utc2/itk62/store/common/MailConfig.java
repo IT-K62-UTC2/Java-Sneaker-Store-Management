@@ -17,13 +17,13 @@ import java.io.*;
 import java.util.Properties;
 
 public class MailConfig {
-    public static final String HOST_NAME = "smtp.gmail.com";
+    public static final String HOST_NAME = Config.properties.getProperty("HOST_NAME");
 
-    public static final int TSL_PORT = 587; // Port for TLS/STARTTLS
+    public static final int TSL_PORT = Integer.parseInt(Config.properties.getProperty("TSL_PORT")); // Port for TLS/STARTTLS
 
-    public static final String APP_EMAIL = "dangquyitt@gmail.com"; // your email
+    public static final String APP_EMAIL = Config.properties.getProperty("APP_EMAIL"); // your email
 
-    public static final String APP_PASSWORD = "fomqppmadavnuhrw"; // your password
+    public static final String APP_PASSWORD = Config.properties.getProperty("APP_PASSWORD"); // your password
 
     public static void sendInvoiceToCustomer(String recipientEmail, JasperPrint jasperPrint, Invoice invoice) {
         new Thread(() -> {

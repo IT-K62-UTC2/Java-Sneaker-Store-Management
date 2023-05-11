@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import utc2.itk62.store.common.MailConfig;
 import utc2.itk62.store.util.HashedPassword;
 
 import java.io.IOException;
