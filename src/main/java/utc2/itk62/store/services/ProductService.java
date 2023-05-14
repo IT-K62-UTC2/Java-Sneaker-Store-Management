@@ -8,10 +8,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import utc2.itk62.store.common.Paging;
 import utc2.itk62.store.constant.Status;
 import utc2.itk62.store.models.Product;
-import utc2.itk62.store.models.Staff;
 import utc2.itk62.store.repositories.ProductRepo;
 import utc2.itk62.store.util.FormatDateTime;
 import utc2.itk62.store.util.FormatDouble;
@@ -54,7 +52,7 @@ public class ProductService {
     }
 
     public List<Product> getAllProduct() {
-        return productRepo.getAllProducts(new Paging(0,0));
+        return productRepo.getAllProducts();
     }
 
     public boolean createProduct(Product product) {

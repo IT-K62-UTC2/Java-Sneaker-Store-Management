@@ -1,7 +1,6 @@
 package utc2.itk62.store.services;
 
 import utc2.itk62.store.common.FromAndToDate;
-import utc2.itk62.store.common.Paging;
 import utc2.itk62.store.models.ImportGoods;
 import utc2.itk62.store.repositories.ImportGoodsRepo;
 
@@ -20,6 +19,6 @@ public class ImportGoodsService {
 
 
     public List<ImportGoods> getAllImportGoods(FromAndToDate fromAndToDate) {
-        return importGoodsRepo.getAllImportGoods(new Paging(0, 0), fromAndToDate);
+        return importGoodsRepo.getAllImportGoods(fromAndToDate);
     }
 }

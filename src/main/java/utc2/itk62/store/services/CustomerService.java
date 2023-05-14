@@ -2,18 +2,14 @@ package utc2.itk62.store.services;
 
 import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import utc2.itk62.store.common.Paging;
 import utc2.itk62.store.constant.Status;
-import utc2.itk62.store.models.Category;
 import utc2.itk62.store.models.Customer;
-import utc2.itk62.store.models.Staff;
 import utc2.itk62.store.repositories.CustomerRepo;
 import utc2.itk62.store.util.FormatDateTime;
 
@@ -26,7 +22,7 @@ public class CustomerService {
     private static final CustomerRepo customerRepo = new CustomerRepo();
 
     public List<Customer> getAllCustomer() {
-        return customerRepo.getAllCustomer(new Paging(0, 0));
+        return customerRepo.getAllCustomer();
     }
 
     public boolean createCustomer(Customer customer) {

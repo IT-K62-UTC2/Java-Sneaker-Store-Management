@@ -1,7 +1,6 @@
 package utc2.itk62.store.repositories;
 
 import utc2.itk62.store.common.FromAndToDate;
-import utc2.itk62.store.common.Paging;
 import utc2.itk62.store.connection.ConnectionUtil;
 import utc2.itk62.store.models.Customer;
 import utc2.itk62.store.models.Invoice;
@@ -9,7 +8,6 @@ import utc2.itk62.store.models.Staff;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class InvoiceRepo {

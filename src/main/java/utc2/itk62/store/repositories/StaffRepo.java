@@ -1,6 +1,5 @@
 package utc2.itk62.store.repositories;
 
-import utc2.itk62.store.common.Paging;
 import utc2.itk62.store.connection.ConnectionUtil;
 import utc2.itk62.store.models.Position;
 import utc2.itk62.store.models.Staff;
@@ -16,15 +15,12 @@ public class StaffRepo {
     public StaffRepo() {
     }
 
-    public List<Staff> getAllStaff(Paging paging) {
-        paging.checkPageLimit();
+    public List<Staff> getAllStaff() {
         List<Staff> staffList = new ArrayList<Staff>();
         String query = "SELECT * FROM staff LEFT JOIN position ON staff.id_position = position.id " +
-                "WHERE staff.status = 1 ORDER BY staff.created_at DESC LIMIT ? OFFSET ?";
+                "WHERE staff.status = 1 ORDER BY staff.created_at DESC";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
-            ptmt.setInt(1,paging.getLimit());
-            ptmt.setInt(2,paging.getOffset());
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 Staff staff = new Staff();

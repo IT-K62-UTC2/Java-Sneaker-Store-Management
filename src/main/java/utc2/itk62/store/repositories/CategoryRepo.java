@@ -1,6 +1,5 @@
 package utc2.itk62.store.repositories;
 
-import utc2.itk62.store.common.Paging;
 import utc2.itk62.store.connection.ConnectionUtil;
 import utc2.itk62.store.models.Category;
 import java.sql.Connection;
@@ -15,13 +14,11 @@ public class CategoryRepo {
     public CategoryRepo() {
     }
 
-    public List<Category> getAllCategories(Paging paging) {
+    public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<Category>();
-        String query = "SELECT * FROM category WHERE status = 1 ORDER BY created_at DESC LIMIT ? OFFSET ?";
+        String query = "SELECT * FROM category WHERE status = 1 ORDER BY created_at DESC";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
-            ptmt.setInt(1,paging.getLimit());
-            ptmt.setInt(2,paging.getOffset());
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 Category category = new Category();

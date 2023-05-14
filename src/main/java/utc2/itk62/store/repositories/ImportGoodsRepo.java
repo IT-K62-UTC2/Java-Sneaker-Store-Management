@@ -1,7 +1,6 @@
 package utc2.itk62.store.repositories;
 
 import utc2.itk62.store.common.FromAndToDate;
-import utc2.itk62.store.common.Paging;
 import utc2.itk62.store.connection.ConnectionUtil;
 import utc2.itk62.store.models.*;
 
@@ -11,17 +10,15 @@ import java.util.List;
 
 public class ImportGoodsRepo {
 
-    public List<ImportGoods> getAllImportGoods(Paging paging, FromAndToDate fromAndToDate) {
+    public List<ImportGoods> getAllImportGoods(FromAndToDate fromAndToDate) {
         List<ImportGoods> importGoodsList = new ArrayList<ImportGoods>();
         String query = "SELECT import_goods.*,staff.fullname, staff.id FROM import_goods " +
                 " LEFT JOIN staff ON staff.id = import_goods.id_staff" +
-                " WHERE import_goods.status = 1 AND import_goods.created_at >= ? AND import_goods.created_at <= ? ORDER BY import_goods.created_at DESC LIMIT ? OFFSET ? ";
+                " WHERE import_goods.status = 1 AND import_goods.created_at >= ? AND import_goods.created_at <= ? ORDER BY import_goods.created_at DESC";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setObject(1, fromAndToDate.getFromDate());
             ptmt.setObject(2, fromAndToDate.getToDate());
-            ptmt.setInt(3,paging.getLimit());
-            ptmt.setInt(4,paging.getOffset());
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 ImportGoods importGoods = new ImportGoods();

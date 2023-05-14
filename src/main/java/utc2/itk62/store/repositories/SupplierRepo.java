@@ -1,6 +1,5 @@
 package utc2.itk62.store.repositories;
 
-import utc2.itk62.store.common.Paging;
 import utc2.itk62.store.connection.ConnectionUtil;
 import utc2.itk62.store.models.Supplier;
 
@@ -12,13 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierRepo {
-    public List<Supplier> getAllSupplier(Paging paging) {
+    public List<Supplier> getAllSupplier() {
         List<Supplier> supplierList = new ArrayList<Supplier>();
-        String query = "SELECT * FROM supplier WHERE status = 1 ORDER BY created_at DESC LIMIT ? OFFSET ?";
+        String query = "SELECT * FROM supplier WHERE status = 1 ORDER BY created_at DESC";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
-            ptmt.setInt(1, paging.getLimit());
-            ptmt.setInt(2, paging.getOffset());
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 Supplier supplier = new Supplier();

@@ -1,6 +1,5 @@
 package utc2.itk62.store.repositories;
 
-import utc2.itk62.store.common.Paging;
 import utc2.itk62.store.connection.ConnectionUtil;
 import utc2.itk62.store.models.Customer;
 
@@ -15,14 +14,11 @@ public class CustomerRepo {
     public CustomerRepo() {
     }
 
-    public List<Customer> getAllCustomer(Paging paging) {
-        paging.checkPageLimit();
+    public List<Customer> getAllCustomer() {
         List<Customer> customerList = new ArrayList<Customer>();
-        String query = "SELECT * FROM customer WHERE status = 1 AND id != 0 ORDER BY created_at DESC LIMIT ? OFFSET ? ";
+        String query = "SELECT * FROM customer WHERE status = 1 AND id != 0 ORDER BY created_at DESC";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
-            ptmt.setInt(1, paging.getLimit());
-            ptmt.setInt(2, paging.getOffset());
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 Customer customer = new Customer();
