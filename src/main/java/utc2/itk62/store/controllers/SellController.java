@@ -1,15 +1,16 @@
 package utc2.itk62.store.controllers;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
@@ -302,8 +303,9 @@ public class SellController {
             for (int i = 0; i < listOrders.size(); i++) {
                 InvoiceDetail invoiceDetail = listOrders.get(i);
                 invoiceDetail.setInvoice(invoiceInDb);
-                invoiceDetailsService.createInvoiceDetail(invoiceDetail);
-                productService.updateQuantityProduct(-invoiceDetail.getProductQuantity(), invoiceDetail.getProduct().getId());
+//                invoiceDetailsService.createInvoiceDetail(invoiceDetail);
+//                productService.updateQuantityProduct(-invoiceDetail.getProductQuantity(), invoiceDetail.getProduct().getId());
+                invoiceDetailsService.insertInvoiceDetail(invoiceDetail);
                 invoiceDetail.getProduct().setQuantity(invoiceDetail.getProduct().getQuantity() - invoiceDetail.getProductQuantity());
                 exportInvoiceDetails.add(invoiceDetail);
             }

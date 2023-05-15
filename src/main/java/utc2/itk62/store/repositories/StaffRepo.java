@@ -15,21 +15,57 @@ public class StaffRepo {
     public StaffRepo() {
     }
 
+//    public List<Staff> getAllStaff() {
+//        List<Staff> staffList = new ArrayList<Staff>();
+//        String query = "SELECT * FROM staff LEFT JOIN position ON staff.id_position = position.id " +
+//                "WHERE staff.status = 1 ORDER BY staff.created_at DESC";
+//        try {
+//            PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
+//            ResultSet rs = ptmt.executeQuery();
+//            while (rs.next()) {
+//                Staff staff = new Staff();
+//                Position position = new Position();
+//                position.setName(rs.getString("position.name"));
+//                position.setId(rs.getInt("position.id"));
+//                staff.setId(rs.getInt("id"));
+//                staff.setUsername(rs.getString("username"));
+//                staff.setPassword(rs.getString("password"));
+//                staff.setFullName(rs.getString("fullname"));
+//                staff.setPathAvatar(rs.getString("avatar"));
+////                staff.setIdPosition(rs.getInt("id_position"));
+//                staff.setPosition(position);
+//                staff.setAddress(rs.getString("address"));
+//                staff.setEmail(rs.getString("email"));
+//                staff.setPhoneNumber(rs.getString("phone_number"));
+//                staff.setCccd(rs.getString("cccd"));
+//                staff.setGender(rs.getString("gender"));
+//                staff.setStatus(rs.getInt("status"));
+//                staff.setCreatedAt(rs.getTimestamp("created_at"));
+//                staff.setUpdatedAt(rs.getTimestamp("updated_at"));
+//                staffList.add(staff);
+//            }
+//            return staffList;
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            ConnectionUtil.closeConnection();
+//        }
+//    }
+
     public List<Staff> getAllStaff() {
         List<Staff> staffList = new ArrayList<Staff>();
-        String query = "SELECT * FROM staff LEFT JOIN position ON staff.id_position = position.id " +
-                "WHERE staff.status = 1 ORDER BY staff.created_at DESC";
+            String query = "SELECT * FROM staff_view";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 Staff staff = new Staff();
                 Position position = new Position();
-                position.setName(rs.getString("name"));
+                position.setName(rs.getString("position.name"));
                 position.setId(rs.getInt("position.id"));
-                staff.setId(rs.getInt("staff.id"));
+                staff.setId(rs.getInt("id"));
                 staff.setUsername(rs.getString("username"));
-                staff.setPassword(rs.getString("password"));
+//                staff.setPassword(rs.getString("password"));
                 staff.setFullName(rs.getString("fullname"));
                 staff.setPathAvatar(rs.getString("avatar"));
 //                staff.setIdPosition(rs.getInt("id_position"));
@@ -41,7 +77,7 @@ public class StaffRepo {
                 staff.setGender(rs.getString("gender"));
                 staff.setStatus(rs.getInt("status"));
                 staff.setCreatedAt(rs.getTimestamp("created_at"));
-                staff.setUpdatedAt(rs.getTimestamp("updated_at"));
+//                staff.setUpdatedAt(rs.getTimestamp("updated_at"));
                 staffList.add(staff);
             }
             return staffList;

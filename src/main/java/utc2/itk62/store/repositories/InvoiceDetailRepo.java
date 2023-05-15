@@ -1,5 +1,6 @@
 package utc2.itk62.store.repositories;
 
+import com.mysql.cj.jdbc.CallableStatement;
 import utc2.itk62.store.connection.ConnectionUtil;
 import utc2.itk62.store.models.InvoiceDetail;
 import utc2.itk62.store.models.Product;
@@ -73,5 +74,30 @@ public class InvoiceDetailRepo {
             ConnectionUtil.closeConnection();
         }
         return result;
+    }
+
+    public boolean insertInvoiceDetail(InvoiceDetail invoiceDetail) {
+        Connection conn = null;
+        // Thiết lập giá trị cho các tham số của Stored Procedure
+        try {
+            conn = ConnectionUtil.getConnection();
+            conn.setAutoCommit(false); // Bật chế độ transaction
+            CallableStatement callableStatement = (CallableStatement) ConnectionUtil.getConnection().prepareCall("{CALL insert_invoice_detail(?, ?, ?, ?)}");
+            callableStatement.setInt(1, invoiceDetail.getInvoice().getId());
+            callableStatement.setInt(2, invoiceDetail.getProduct().getId());
+            callableStatement.setInt(3, invoiceDetail.getProductQuantity());
+            callableStatement.setDouble(4, invoiceDetail.getMoneyTotal());
+            // Thực thi Stored Procedure
+            boolean result = callableStatement.execute();
+            conn.commit();
+            return result;
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            throw new RuntimeException(e);
+        }
     }
 }

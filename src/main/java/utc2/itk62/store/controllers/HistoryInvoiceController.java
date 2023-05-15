@@ -67,7 +67,7 @@ public class HistoryInvoiceController {
         setupSearch();
         setupExportExcel();
         reloadTableView(new FromAndToDate());
-//        setUpTableListInvoice();
+        setUpTableListInvoice();
         setupBtnExportInvoice();
     }
 
@@ -220,18 +220,14 @@ public class HistoryInvoiceController {
         tableListInvoiceDetail.setItems(FXCollections.observableArrayList(currentInvoice.getListInvoiceDetails()));
     }
 
-//    private void setUpTableListInvoice() {
-//        tableListInvoice.setOnMouseClicked(mouseEvent -> {
-//            pause.setOnFinished(event -> loadInvoice());
-//            pause.playFromStart();
-//            updateInvoiceDetailsCurrentRowInvoice();
-//        });
-//        tableListInvoice.setOnKeyPressed(keyEvent -> {
-//            pause.setOnFinished(event -> loadInvoice());
-//            pause.playFromStart();
-//            updateInvoiceDetailsCurrentRowInvoice();
-//        });
-//    }
+    private void setUpTableListInvoice() {
+        tableListInvoice.setOnMouseClicked(mouseEvent -> {
+            updateInvoiceDetailsCurrentRowInvoice();
+        });
+        tableListInvoice.setOnKeyPressed(keyEvent -> {
+            updateInvoiceDetailsCurrentRowInvoice();
+        });
+    }
 
     public void exportInvoice() {
         Invoice invoice = tableListInvoice.getSelectionModel().getSelectedItem();

@@ -23,7 +23,7 @@ BEGIN
         END$$
         DELIMITER ;
 
-    -- Trigger for import invoice detail
+    -- Trigger for  invoice detail
         DROP TRIGGER IF EXISTS before_delete_invoice;
         DELIMITER $$
         CREATE TRIGGER before_delete_invoice

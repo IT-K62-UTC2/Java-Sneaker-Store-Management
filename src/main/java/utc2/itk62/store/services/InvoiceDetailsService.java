@@ -35,4 +35,8 @@ public class InvoiceDetailsService {
         return invoiceDetailRepo.getAllInvoicesDetailByInvoiceId(id);
     }
 
+
+    public boolean insertInvoiceDetail(InvoiceDetail invoiceDetail) {
+        return invoiceDetailRepo.insertInvoiceDetail(invoiceDetail);
+    }
 }
