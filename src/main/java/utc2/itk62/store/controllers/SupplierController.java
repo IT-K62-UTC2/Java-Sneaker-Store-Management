@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import utc2.itk62.store.Validator.SupplierValidator;
+import utc2.itk62.store.validator.SupplierValidator;
 import utc2.itk62.store.models.Category;
 import utc2.itk62.store.models.Product;
 import utc2.itk62.store.models.Supplier;

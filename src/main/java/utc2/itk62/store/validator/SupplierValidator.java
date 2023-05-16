@@ -1,4 +1,4 @@
-package utc2.itk62.store.Validator;
+package utc2.itk62.store.validator;
 
 public class SupplierValidator {
     public static boolean validateName(String name) {

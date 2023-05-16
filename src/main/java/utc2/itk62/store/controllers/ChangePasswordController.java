@@ -3,7 +3,6 @@ package utc2.itk62.store.controllers;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import utc2.itk62.store.Validator.StaffValidator;
 import utc2.itk62.store.common.User;
 import utc2.itk62.store.models.Staff;
 import utc2.itk62.store.services.StaffService;

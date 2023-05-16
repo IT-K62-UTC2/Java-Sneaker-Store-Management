@@ -6,8 +6,8 @@ UPDATE product
 SET quantity = quantity - product_quantity
 WHERE id = id_product;
 
-
 INSERT INTO invoice_detail (id_invoice, id_product, product_quantity, money_total)
 VALUES (id_invoice, id_product, product_quantity, money_total);
 END $$
+
 DELIMITER ;

@@ -45,7 +45,7 @@ public class ProductRepo {
         String query = "SELECT product.*, category.name, category.id, supplier.name, supplier.id FROM product " +
                 " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
                 " LEFT JOIN category ON category.id = product.id_category" +
-                " WHERE product.status = 1 ORDER BY product.created_at DESC";
+                " WHERE product.status = 1 ORDER BY product.created_at DESC FOR UPDATE";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ResultSet rs = ptmt.executeQuery();
@@ -88,7 +88,7 @@ public class ProductRepo {
         String query = "SELECT * FROM product " +
 //                " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
 //                " LEFT JOIN category ON category.id = product.id_category" +
-                " WHERE `status` = 1 AND `name` LIKE CONCAT('%', ?, '%') AND id_category = ? ORDER BY created_at DESC";
+                " WHERE `status` = 1 AND `name` LIKE CONCAT('%', ?, '%') AND id_category = ? ORDER BY created_at DESC FOR UPDATE";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setString(1, name);
@@ -173,7 +173,7 @@ public class ProductRepo {
         List<Product> productList = new ArrayList<Product>();
         String query = "SELECT product.*, supplier.name FROM product" +
                 " LEFT JOIN supplier ON supplier.id = product.id_supplier" +
-                " WHERE product.status = 1 AND product.id_category = ?";
+                " WHERE product.status = 1 AND product.id_category = ? FOR UPDATE";
         try {
             PreparedStatement ptmt = ConnectionUtil.getConnection().prepareStatement(query);
             ptmt.setInt(1, idCategory);

@@ -9,7 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import utc2.itk62.store.Validator.ProductValidator;
+import utc2.itk62.store.validator.ProductValidator;
 import utc2.itk62.store.models.Category;
 import utc2.itk62.store.models.Product;
 import utc2.itk62.store.models.Supplier;

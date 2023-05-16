@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class ConnectionUtil {
     private static Connection connection = null;
     private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/sneaker_manager";
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/utc2_store";
     private static final String DATABASE_USERNAME = "root";
-    private static final String DATABASE_PASSWORD = "";
+    private static final String DATABASE_PASSWORD = "1234";
 
     public static Connection getConnection(){
         if (connection == null) {

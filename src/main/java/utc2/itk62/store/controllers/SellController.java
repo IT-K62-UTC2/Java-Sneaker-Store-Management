@@ -15,7 +15,7 @@ import javafx.util.Callback;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import utc2.itk62.store.Main;
-import utc2.itk62.store.Validator.StaffValidator;
+import utc2.itk62.store.validator.StaffValidator;
 import utc2.itk62.store.common.JasperReportConfig;
 import utc2.itk62.store.common.MailConfig;
 import utc2.itk62.store.common.User;

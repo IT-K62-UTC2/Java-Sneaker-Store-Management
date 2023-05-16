@@ -19,7 +19,7 @@ ALTER TABLE invoice_detail
             REFERENCES invoice(id);
 
 ALTER TABLE invoice_detail
-    ADD CONSTRAINT invoice_detail_pfoduct_fk
+    ADD CONSTRAINT invoice_detail_product_fk
         FOREIGN KEY (id_product)
             REFERENCES product(id);
 

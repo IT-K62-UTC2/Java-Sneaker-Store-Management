@@ -1,4 +1,4 @@
-package utc2.itk62.store.Validator;
+package utc2.itk62.store.validator;
 
 import utc2.itk62.store.models.Customer;
 import utc2.itk62.store.services.CustomerService;

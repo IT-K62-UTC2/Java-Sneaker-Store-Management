@@ -277,9 +277,7 @@ CREATE TABLE IF NOT EXISTS `product` (
     `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
     PRIMARY KEY (`id`),
     KEY `product_supplier_fk` (`id_supplier`),
-    KEY `product_category_fk` (`id_category`),
-    CONSTRAINT `product_category_fk` FOREIGN KEY (`id_category`) REFERENCES `category` (`id`),
-    CONSTRAINT `product_supplier_fk` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id`)
+    KEY `product_category_fk` (`id_category`)
     ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table sneaker_manager.product: ~9 rows (approximately)
@@ -316,8 +314,7 @@ CREATE TABLE IF NOT EXISTS `staff` (
     UNIQUE KEY `email` (`email`),
     UNIQUE KEY `phone_number` (`phone_number`),
     UNIQUE KEY `cccd` (`cccd`),
-    KEY `staff_posision_fk` (`id_position`),
-    CONSTRAINT `staff_posision_fk` FOREIGN KEY (`id_position`) REFERENCES `position` (`id`)
+    KEY `staff_posision_fk` (`id_position`)
     ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table sneaker_manager.staff: ~5 rows (approximately)

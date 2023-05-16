@@ -6,9 +6,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import utc2.itk62.store.Validator.CustomerValidator;
+import utc2.itk62.store.validator.CustomerValidator;
 import utc2.itk62.store.models.Customer;
-import utc2.itk62.store.models.Staff;
 import utc2.itk62.store.services.CustomerService;
 import utc2.itk62.store.util.CustomAlert;
 
